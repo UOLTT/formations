@@ -9,7 +9,7 @@ class Organization extends Model
 
     public $timestamps = true;
     protected $table = 'organizations';
-    protected $fillable = ['name','domain','admin_user_id'];
+    protected $fillable = ['name','domain','admin_user_id','status_id'];
 
     public function fleets() {
         return $this->hasMany(Fleet::class,'organization_id','id');

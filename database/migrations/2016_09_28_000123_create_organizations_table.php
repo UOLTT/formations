@@ -18,7 +18,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('name');
             $table->string('domain');
             $table->integer('admin_user_id');
-            $table->string('status')->default('Open');
+            $table->integer('status_id');
             $table->timestamps();
         });
     }
