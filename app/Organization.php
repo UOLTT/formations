@@ -20,7 +20,7 @@ class Organization extends Model
     }
 
     public function status() {
-        return $this->morphOne(Status::class,'statustable');
+        return $this->belongsTo(Status::class);
     }
 
     public function users() {
