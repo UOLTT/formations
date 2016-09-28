@@ -16,6 +16,7 @@ class CreateSquadsTable extends Migration
         Schema::create('squads', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('fleet_id');
+            $table->integer('status_id');
             $table->string('name');
             $table->timestamps();
         });
