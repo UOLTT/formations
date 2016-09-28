@@ -66,7 +66,8 @@ class OrganizationsController extends Controller
      */
     public function show($id)
     {
-
+        $Organization = Organization::withCount('users','fleets')->findOrFail($id);
+        return view('organizations.show')->with('Organization',$Organization);
     }
 
     /**
