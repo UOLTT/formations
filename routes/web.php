@@ -21,3 +21,9 @@ Route::get('/bootstrap',function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::group(['domain'=>'{org}.'.env('APP_DOMAIN')],function () {
+    Route::get('/',function($org=null) {
+        dd($org);
+    });
+});
