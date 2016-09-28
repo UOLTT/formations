@@ -19,15 +19,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach(\App\Organization::withCount('users')->get() as $Org)
+                @foreach(\App\Organization::withCount('users')->with('status')->get() as $Org)
                     <tr>
                         <td>{{ $Org->name }}</td>
                         <td>{{ $Org->created_at->format('m/d/Y') }}</td>
-                        <td>// TODO</td>
+                        <td>{{ $Org->status->name }}</td>
                         <td>{{ $Org->users_count }}</td>
                         <td>
                             <button class="btn btn-info">Info</button>
-                            <button class="btn btn-success">Join</button>
+                            @if($Org->status->name == 'Open')
+                                <button class="btn btn-success">Join Now</button>
+                            @elseif($Org->status->name == 'Accepting Applicants')
+                                <button class="btn btn-warning">Apply to Join</button>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -35,9 +39,5 @@
             </table>
         </div>
     </div>
-
-    <pre>
-        {{ print_r(\App\Organization::all()->toArray()) }}
-    </pre>
 
 @endsection
