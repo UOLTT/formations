@@ -19,4 +19,8 @@ class Fleet extends Model
         return $this->hasMany(Squad::class,'fleet_id','id');
     }
 
+    public function status() {
+        return $this->morphOne(Status::class,'statustable');
+    }
+
 }

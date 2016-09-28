@@ -19,4 +19,12 @@ class Organization extends Model
         return $this->hasManyThrough(Squad::class,Fleet::class);
     }
 
+    public function status() {
+        return $this->morphOne(Status::class,'statustable');
+    }
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
+
 }
