@@ -16,10 +16,10 @@ class LogApiHits
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()) {
+        if (\Auth::user()) {
             ApiHit::create([
-                'user_id' => Auth::user()->id,
-                'organization_id' => Auth::user()->organization_id,
+                'user_id' => \Auth::user()->id,
+                'organization_id' => \Auth::user()->organization_id,
                 'path' => $request->route()->getUri(),
                 'query_data' => serialize($request->all())
             ]);
