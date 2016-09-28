@@ -22,6 +22,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::resource('/organizations',OrganizationsController::class);
+
 Route::group(['prefix'=>'{org}'],function() {
     Route::get('/',function($org=null) {
         dd($org);
