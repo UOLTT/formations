@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/bootstrap',function() {
     return view('bootstrap');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
