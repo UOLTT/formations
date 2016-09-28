@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['domain'=>'{org}.'.env('APP_DOMAIN')],function () {
+Route::group(['prefix'=>'{org}'],function() {
     Route::get('/',function($org=null) {
         dd($org);
     });
