@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\Debugbar\Facade as Debugbar;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -13,8 +14,11 @@ class OrganizationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!empty($request->all())) {
+            Debugbar::addMessage($request->all(),'request');
+        }
         return view('organizations.index');
     }
 
