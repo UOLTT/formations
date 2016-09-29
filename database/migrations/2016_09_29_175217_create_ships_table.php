@@ -30,7 +30,7 @@ class CreateShipsTable extends Migration
             $table->integer('mancount');
             $table->integer('shield');
             $table->integer('shieldcount')->default(0);
-            $table->binary('raceenabled')->default(1);
+            $table->integer('raceenabled')->default(1);
             $table->integer('price')->nullable();
             $table->string('class')->default("Single");
             $table->integer('combatspeed')->nullable();
