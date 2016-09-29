@@ -68,7 +68,7 @@
                         <td>{{ $Org->status->name }}</td>
                         <td>{{ $Org->users_count }}</td>
                         <td>
-                            <button class="btn btn-info">Info</button>
+                            <a href="{{ url('/organizations/'.$Org->id) }}"><button class="btn btn-info">Info</button></a>
                             @if($Org->status->name == 'Open')
                                 <button class="btn btn-success">Join Now</button>
                             @elseif($Org->status->name == 'Accepting Applicants')
