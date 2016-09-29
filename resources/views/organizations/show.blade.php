@@ -35,8 +35,43 @@
         </div>
         <div class="col-md-6">
             <h4>Manifesto:</h4>
-            <p>{{ str_replace("\r\n","<br><br>",$Organization->manifesto) }}</p>
+            <p>{{ str_replace('\r\n','<br><br>',$Organization->manifesto) }}</p>
         </div>
     </div>
+
+    <div class="page-header">
+        <h1>Fleets:</h1>
+    </div>
+
+    @foreach($Organization->fleets as $Fleet)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ $Fleet->name }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ str_replace('\r\n',"<br><br>",$Fleet->manifesto) }}
+                        <br><br>
+                        @foreach($Fleet->squads as $Squad)
+                            <div class="col-md-3">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">{{ $Squad->name }}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>
+                                            <b>Users:</b> {{ $Squad->users->count() }}<br>
+                                            <b>Ships:</b> // TODO
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
 @endsection
