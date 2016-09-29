@@ -1,6 +1,7 @@
 <?php
 
 use \App\Ship;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class ShipsTableSeeder extends Seeder
@@ -22,6 +23,14 @@ class ShipsTableSeeder extends Seeder
                 $NewShip->$item = $value;
             }
             $NewShip->save();
+        }
+        $Ships = Ship::all();
+        foreach (User::all() as $User) {
+            foreach ($Ships as $Ship) {
+                if (rand(0,$Ships->count()) == 0) {
+                    $User->ships()->attach($Ship);
+                }
+            }
         }
     }
 }
