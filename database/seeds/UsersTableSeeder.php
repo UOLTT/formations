@@ -14,11 +14,11 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $Faker = Faker::create();
-        foreach (range(1,100) as $id) {
+        foreach (range(1,300) as $id) {
             User::create([
                 'name' => $Faker->name,
                 'email' => $Faker->safeEmail,
-                'password' => \Hash::make($Faker->password()),
+                'password' => '$2y$10$PnlSPK8L2vqb4WT5wUb3leuardRTiCt3U6ZpJLDYGDJROp1Z8dZWG',
             ]);
         }
     }

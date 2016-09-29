@@ -17,7 +17,7 @@ class FleetsTableSeeder extends Seeder
     {
         $Faker = Faker::create();
         foreach (Organization::all() as $Organization) {
-            foreach (range(1,random_int(0,10)) as $id) {
+            foreach (range(1,random_int(0,4)) as $id) {
                 Fleet::create([
                     'name' => implode(' ',$Faker->words(rand(1,3))),
                     'organization_id' => $Organization->id,
