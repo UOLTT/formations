@@ -21,7 +21,8 @@ class FleetsTableSeeder extends Seeder
                 Fleet::create([
                     'name' => implode(' ',$Faker->words(rand(1,3))),
                     'organization_id' => $Organization->id,
-                    'status_id' => random_int(4,6)
+                    'status_id' => random_int(4,6),
+                    'manifesto' => implode('\r\n',$Faker->paragraphs(rand(1,3)))
                 ]);
             }
         }

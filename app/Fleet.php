@@ -9,7 +9,7 @@ class Fleet extends Model
 
     public $timestamps = true;
     protected $table = 'fleets';
-    protected $fillable = ['name','organization_id','status_id'];
+    protected $fillable = ['name','organization_id','status_id','manifesto'];
 
     public function organization() {
         return $this->belongsTo(Organization::class);

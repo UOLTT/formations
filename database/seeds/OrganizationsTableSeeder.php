@@ -24,7 +24,8 @@ class OrganizationsTableSeeder extends Seeder
                     'name' => implode(' ',$Faker->words(random_int(1,3))),
                     'domain' => strtolower($Faker->word),
                     'admin_user_id' => random_int(1,$Users->count()),
-                    'status_id' => $status->id
+                    'status_id' => $status->id,
+                    'manifesto' => implode('\r\n',$Faker->paragraphs(rand(1,3)))
                 ]);
             }
         }
