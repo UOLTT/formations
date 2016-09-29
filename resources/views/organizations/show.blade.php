@@ -25,6 +25,10 @@
                 <td><b>Fleets:</b></td>
                 <td>{{ $Organization->fleets_count }}</td>
             </tr>
+            <tr>
+                <td><b>Squadrons:</b></td>
+                <td>{{ $Organization->squads_count }}</td>
+            </tr>
             </tbody>
         </table>
     </div>
