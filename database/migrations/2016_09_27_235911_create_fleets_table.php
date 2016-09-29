@@ -18,7 +18,7 @@ class CreateFleetsTable extends Migration
             $table->string('name');
             $table->string('organization_id');
             $table->integer('status_id');
-            $table->text('manifesto')->default('');
+            $table->text('manifesto')->nullable();
             $table->timestamps();
         });
     }

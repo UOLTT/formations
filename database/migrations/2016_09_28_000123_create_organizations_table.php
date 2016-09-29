@@ -19,7 +19,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('domain');
             $table->integer('admin_user_id');
             $table->integer('status_id');
-            $table->text('manifesto')->default('');
+            $table->text('manifesto')->nullable();
             $table->timestamps();
         });
     }
