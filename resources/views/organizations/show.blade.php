@@ -62,7 +62,6 @@
                                     <div class="panel-body">
                                         <p>
                                             <b>Users:</b> {{ $Squad->users->count() }}<br>
-                                            <b>Ships:</b> // TODO
                                         </p>
                                     </div>
                                 </div>
