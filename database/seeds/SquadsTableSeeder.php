@@ -30,7 +30,6 @@ class SquadsTableSeeder extends Seeder
                 $Squads[] = $Squad->id;
                 unset($Squad);
             }
-            $this->command->info($Organization->id.' has '.implode(', ',$Squads).' squads');
             foreach ($Organization->users as $User) {
                 $User->squad_id = $Squads[rand(0,sizeof($Squads) - 1)];
                 $User->save();
