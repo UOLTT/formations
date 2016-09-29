@@ -30,4 +30,9 @@ class User extends Authenticatable
     public function organization() {
         return $this->belongsTo(Organization::class);
     }
+
+    public function ships() {
+        return $this->belongsToMany(Ship::class,'ship_user');
+    }
+
 }
