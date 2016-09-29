@@ -9,7 +9,7 @@ class Squad extends Model
 
     public $timestamps = true;
     protected $table = 'squads';
-    protected $fillable = ['fleet_id','name'];
+    protected $fillable = ['fleet_id','name','status_id'];
 
     public function fleet() {
         return $this->belongsTo(Fleet::class);
