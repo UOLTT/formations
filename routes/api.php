@@ -16,3 +16,13 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+Route::group(['namespace'=>'API'], function() {
+
+    Route::group(['namespace'=>'v4','prefix'=>'v4'], function() {
+
+        Route::resource('/fleets',FleetsController::class,['except'=>['create','edit']]);
+
+    });
+
+});
