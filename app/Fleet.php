@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fleet extends Model
 {
-
+    // TODO casts
     public $timestamps = true;
     protected $table = 'fleets';
     protected $fillable = ['name','organization_id','status_id','manifesto'];
