@@ -4,7 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -44,6 +46,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->route()->getAction()['prefix'] == 'api/v4/') {
+            if ($exception instanceof ModelNotFoundException) {
+                return response([
+                    'error' => $exception->getMessage(),
+                    'status_code' => 404
+                ],404);
+            }
+        }
         return parent::render($request, $exception);
     }
 
