@@ -17,6 +17,8 @@ class Organization extends Model
         'admin_user_id' => 'integer',
         'status_id' => 'integer',
         'manifesto' => 'string',
+        'fleets_count' => 'integer',
+        'squads_count' => 'integer',
         'users_count' => 'integer'
     ];
 
