@@ -6,10 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fleet extends Model
 {
-    // TODO casts
     public $timestamps = true;
     protected $table = 'fleets';
     protected $fillable = ['name','organization_id','status_id','manifesto'];
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'organization_id' => 'integer',
+        'status_id' => 'integer',
+        'manifesto' => 'string'
+    ];
 
     public function organization() {
         return $this->belongsTo(Organization::class);
