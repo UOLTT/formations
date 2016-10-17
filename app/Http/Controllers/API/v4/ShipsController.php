@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\v4;
 
 use App\Ship;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
