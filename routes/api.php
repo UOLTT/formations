@@ -23,6 +23,7 @@ Route::group(['namespace'=>'API'], function() {
 
         Route::resource('/fleets',FleetsController::class,['except'=>['create','edit']]);
         Route::resource('/organizations',OrganizationsController::class,['except'=>['create','edit']]);
+        Route::resource('/squads',SquadsController::class,['except'=>['create','edit']]);
 
     });
 
