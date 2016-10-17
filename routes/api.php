@@ -22,6 +22,7 @@ Route::group(['namespace'=>'API'], function() {
     Route::group(['namespace'=>'v4','prefix'=>'v4'], function() {
 
         Route::resource('/fleets',FleetsController::class,['except'=>['create','edit']]);
+        Route::resource('/organizations',OrganizationsController::class,['except'=>['create','edit']]);
 
     });
 
