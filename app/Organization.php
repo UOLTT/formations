@@ -16,7 +16,8 @@ class Organization extends Model
         'domain' => 'string',
         'admin_user_id' => 'integer',
         'status_id' => 'integer',
-        'manifesto' => 'string'
+        'manifesto' => 'string',
+        'users_count' => 'integer'
     ];
 
     public function administrator() {
