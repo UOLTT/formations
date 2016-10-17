@@ -17,7 +17,20 @@ class FleetsController extends Controller
      */
     public function index(Request $request)
     {
-        return Fleet::all();
+        $parameters = [
+            'name' => 'string',
+            'organization_id' => 'integer',
+            'status_id' => 'integer',
+        ];
+        // TODO maybe search by user count?
+        $this->validate($request,$parameters);
+        $Fleets = new Fleet();
+        foreach ($parameters as $search => $type) {
+            if ($request->has($search)) {
+                $Fleets = $Fleets->where($search,$request->get($search));
+            }
+        }
+        return $Fleets->get();
     }
 
     /**
