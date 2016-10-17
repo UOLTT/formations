@@ -24,7 +24,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'email', 'created_at', 'updated_at'
+    ];
+
+    protected $casts = [
+        'id' => 'integer',
+        'name' => 'string',
+        'email' => 'string',
+        'organization_id' => 'integer',
+        'squad_id' => 'integer'
     ];
 
     public function organization() {
