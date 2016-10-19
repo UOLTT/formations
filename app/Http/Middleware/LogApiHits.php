@@ -10,20 +10,18 @@ class LogApiHits
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::user()) {
-            ApiHit::create([
-                'user_id' => \Auth::user()->id,
-                'organization_id' => \Auth::user()->organization_id,
-                'path' => $request->route()->getUri(),
-                'query_data' => serialize($request->all())
-            ]);
-        }
+        ApiHit::create([
+            'user_id' => (!is_null(\Auth::user()) ? \Audh::user()->id : 0),
+            'organization_id' => (!is_null(\Auth::user()) ? \Auth::user()->organization_id : 0),
+            'path' => $request->route()->getUri(),
+            'query_data' => serialize($request->all())
+        ]);
         return $next($request);
     }
 }
