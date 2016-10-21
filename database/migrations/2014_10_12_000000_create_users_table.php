@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('organization_id')->nullable();
             $table->integer('squad_id')->nullable();
+            // TODO add active ships. See https://trello.com/c/s2yUmbHr
             $table->rememberToken();
             $table->timestamps();
         });
