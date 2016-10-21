@@ -35,16 +35,26 @@ class User extends Authenticatable
         'squad_id' => 'integer'
     ];
 
-    public function active_ship() {
-        //
+    public function active_ship()
+    {
+        return Ship::with([
+            'users' => function ($query) use ($this) {
+                $query->where('id',$this->active_user_ship);
+            },
+            'positions' => function ($query) use ($this) {
+                $query->where('id',$this->active_ship_position);
+            }
+        ])->find($this->active_ship_id);
     }
 
-    public function organization() {
+    public function organization()
+    {
         return $this->belongsTo(Organization::class);
     }
 
-    public function ships() {
-        return $this->belongsToMany(Ship::class,'ship_user');
+    public function ships()
+    {
+        return $this->belongsToMany(Ship::class, 'ship_user');
     }
 
 }
