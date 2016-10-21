@@ -32,7 +32,10 @@ class User extends Authenticatable
         'name' => 'string',
         'email' => 'string',
         'organization_id' => 'integer',
-        'squad_id' => 'integer'
+        'squad_id' => 'integer',
+        'active_user_ship' => 'integer',
+        'active_ship_id' => 'integer',
+        'active_ship_position' => 'integer'
     ];
 
     public function active_ship()
