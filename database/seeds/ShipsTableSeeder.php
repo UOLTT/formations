@@ -23,6 +23,7 @@ class ShipsTableSeeder extends Seeder
             $NewShip->save();
         }
         $Ships = Ship::all();
+        // each user averages 1 ship
         foreach (User::all() as $User) {
             foreach ($Ships as $Ship) {
                 if (rand(0,$Ships->count()) == 0) {
