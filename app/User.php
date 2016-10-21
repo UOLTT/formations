@@ -35,6 +35,10 @@ class User extends Authenticatable
         'squad_id' => 'integer'
     ];
 
+    public function active_ship() {
+        //
+    }
+
     public function organization() {
         return $this->belongsTo(Organization::class);
     }
