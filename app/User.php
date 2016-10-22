@@ -46,10 +46,10 @@ class User extends Authenticatable
         $PositionID = $this->position_id;
         return Ship::with([
             'users' => function ($query) use ($MetaData) {
-                $query->where('id',$MetaData->user_id);
+                $query->find($MetaData->user_id);
             },
             'positions' => function ($query) use ($PositionID) {
-                $query->where('id',$PositionID);
+                $query->find($PositionID);
             }
         ])->find($MetaData->ship_id);
     }
