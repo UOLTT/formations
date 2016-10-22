@@ -40,12 +40,14 @@ class User extends Authenticatable
 
     public function active_ship()
     {
+        $active_user_ship = $this->active_user_ship;
+        $active_ship_position = $this->active_ship_position;
         return Ship::with([
-            'users' => function ($query) use ($this) {
-                $query->where('id',$this->active_user_ship);
+            'users' => function ($query,$active_user_ship) use ($active_user_ship) {
+                $query->where('id',$active_user_ship);
             },
-            'positions' => function ($query) use ($this) {
-                $query->where('id',$this->active_ship_position);
+            'positions' => function ($query) use ($active_ship_position) {
+                $query->where('id',$active_ship_position);
             }
         ])->find($this->active_ship_id);
     }
