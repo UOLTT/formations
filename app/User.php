@@ -40,16 +40,18 @@ class User extends Authenticatable
 
     public function active_ship()
     {
-        $active_user_ship = $this->active_user_ship;
-        $active_ship_position = $this->active_ship_position;
+        $MetaData = \DB::table('ship_user')
+            ->where('id',$this->ship_user_id)
+            ->first(['user_id','ship_id']);
+        $PositionID = $this->position_id;
         return Ship::with([
-            'users' => function ($query,$active_user_ship) use ($active_user_ship) {
-                $query->where('id',$active_user_ship);
+            'users' => function ($query) use ($MetaData) {
+                $query->where('id',$MetaData->user_id);
             },
-            'positions' => function ($query) use ($active_ship_position) {
-                $query->where('id',$active_ship_position);
+            'positions' => function ($query) use ($PositionID) {
+                $query->where('id',$PositionID);
             }
-        ])->find($this->active_ship_id);
+        ])->find($MetaData->ship_id);
     }
 
     public function organization()
