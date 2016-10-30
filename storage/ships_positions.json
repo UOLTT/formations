@@ -1,103 +1,550 @@
-{
-  "2": [
-    1
-  ],
-  "7": [
-    1
-  ],
-  "48": [
-    1
-  ],
-  "50": [
-    1
-  ],
-  "49": [
-    1
-  ],
-  "19": [
-    1
-  ],
-  "20": [
-    1,
-    4,
-    4
-  ],
-  "8": [
-    1
-  ],
-  "5": [
-    1
-  ],
-  "9": [
-    1
-  ],
-  "10": [
-    1
-  ],
-  "11": [
-    1
-  ],
-  "12": [
-    1
-  ],
-  "3": [
-    1
-  ],
-  "13": [
-    1
-  ],
-  "14": [
-    1
-  ],
-  "1": [
-    1
-  ],
-  "4": [
-    1
-  ],
-  "15": [
-    1
-  ],
-  "16": [
-    1
-  ],
-  "17": [
-    1,2
-  ],
-  "18": [
-    1
-  ],
-  "32": [
-    1,2,4,6,8
-  ],
-  "31": [
-    1,2,4,4,6,8,11
-  ],
-  "34": [
-    1,2,4,6,8
-  ],
-  "33": [
-    1,2,4,4,6,8,11
-  ],
-  "26": [
-    1,2,4
-  ],
-  "27": [
-    1,2,4
-  ],
-  "28": [
-    1,2,4
-  ],
-  "29": [
-    1,2,4,7
-  ],
-  "22": [
-    1,2,4
-  ],
-  "23": [
-    1,2,10
-  ],
-  "24": [
-    1,2,4
-  ]
-}
+[
+  {
+    "shipUID": "1",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "7",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "48",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "50",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "49",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "19",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "20",
+    "positions": [
+      1,
+      4,
+      4
+    ]
+  },
+  {
+    "shipUID": "8",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "5",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "9",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "10",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "11",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "12",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "3",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "13",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "14",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "1",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "4",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "15",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "16",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "17",
+    "positions": [
+      1,
+      2
+    ]
+  },
+  {
+    "shipUID": "18",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "32",
+    "positions": [
+      1,
+      2,
+      8,
+      4,
+      6
+    ]
+  },
+  {
+    "shipUID": "31",
+    "positions": [
+      1,
+      2,
+      8,
+      4,
+      4,
+      6,
+      11
+    ]
+  },
+  {
+    "shipUID": "34",
+    "positions": [
+      1,
+      2,
+      8,
+      4,
+      6
+    ]
+  },
+  {
+    "shipUID": "33",
+    "positions": [
+      1,
+      2,
+      8,
+      4,
+      4,
+      6,
+      11
+    ]
+  },
+  {
+    "shipUID": "26",
+    "positions": [
+      1,
+      2,
+      4
+    ]
+  },
+  {
+    "shipUID": "27",
+    "positions": [
+      1,
+      2,
+      4
+    ]
+  },
+  {
+    "shipUID": "28",
+    "positions": [
+      1,
+      2,
+      4
+    ]
+  },
+  {
+    "shipUID": "29",
+    "positions": [
+      1,
+      2,
+      4,
+      7
+    ]
+  },
+  {
+    "shipUID": "22",
+    "positions": [
+      1,
+      2,
+      4
+    ]
+  },
+  {
+    "shipUID": "23",
+    "positions": [
+      1,
+      2,
+      10
+    ]
+  },
+  {
+    "shipUID": "24",
+    "positions": [
+      1,
+      2,
+      4
+    ]
+  },
+  {
+    "shipUID": "6",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "79",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "80",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "41",
+    "positions": [
+      1,
+      4
+    ]
+  },
+  {
+    "shipUID": "38",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "56",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "37",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "42",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "43",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "45",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "44",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "59",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "60",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "39",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "40",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "25",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "36",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "21",
+    "positions": [
+      1,
+      6
+    ]
+  },
+  {
+    "shipUID": "52",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "53",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "46",
+    "positions": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "shipUID": "54",
+    "positions": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "shipUID": "55",
+    "positions": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "shipUID": "47",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "30",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "35",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "51",
+    "positions": [
+      1,
+      4
+    ]
+  },
+  {
+    "shipUID": "62",
+    "positions": [
+      1,
+      4
+    ]
+  },
+  {
+    "shipUID": "63",
+    "positions": [
+      1,
+      4
+    ]
+  },
+  {
+    "shipUID": "57",
+    "positions": [
+      1,
+      2
+    ]
+  },
+  {
+    "shipUID": "66",
+    "positions": [
+      1,
+      5
+    ]
+  },
+  {
+    "shipUID": "67",
+    "positions": [
+      1,
+      9
+    ]
+  },
+  {
+    "shipUID": "68",
+    "positions": [
+      1,
+      2
+    ]
+  },
+  {
+    "shipUID": "58",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "61",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "64",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "65",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "70",
+    "positions": [
+      0
+    ]
+  },
+  {
+    "shipUID": "69",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "71",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "72",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "74",
+    "positions": [
+      1,
+      3
+    ]
+  },
+  {
+    "shipUID": "73",
+    "positions": [
+      1,
+      3
+    ]
+  },
+  {
+    "shipUID": "77",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "76",
+    "positions": [
+      1
+    ]
+  },
+  {
+    "shipUID": "75",
+    "positions": [
+      1,
+      9
+    ]
+  },
+  {
+    "shipUID": "78",
+    "positions": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      7,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      11
+    ]
+  }
+]
