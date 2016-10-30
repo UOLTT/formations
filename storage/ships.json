@@ -1,6 +1,7 @@
 [
   {
     "shipname": "350R",
+    "shipUID": 1,
     "length": 24,
     "beam": 16,
     "height": 7,
@@ -24,6 +25,7 @@
   },
   {
     "shipname": "M50",
+    "shipUID": 2,
     "length": 11,
     "beam": 10,
     "height": 3,
@@ -47,6 +49,7 @@
   },
   {
     "shipname": "300I",
+    "shipUID": 3,
     "length": 24,
     "beam": 16,
     "height": 7,
@@ -70,6 +73,7 @@
   },
   {
     "shipname": "F7C Hornet",
+    "shipUID": 4,
     "length": 22.5,
     "beam": 21.75,
     "height": 5.3,
@@ -93,6 +97,7 @@
   },
   {
     "shipname": "Aurora ES",
+    "shipUID": 5,
     "length": 18.5,
     "beam": 8.25,
     "height": 4.1,
@@ -115,11 +120,12 @@
     "waverank": 0
   },
   {
-    "shipname": "Avenger",
+    "shipname": "Avenger Stalker",
+    "shipUID": 6,
     "length": 19,
     "beam": 14.25,
     "height": 5.4,
-    "nullmass": 13400,
+    "nullmass": 18500,
     "cargocapacity": 12,
     "crew": 1,
     "powerplant": 3,
@@ -139,6 +145,7 @@
   },
   {
     "shipname": "Mustang Alpha",
+    "shipUID": 7,
     "length": 18,
     "beam": 13,
     "height": 5.5,
@@ -162,6 +169,7 @@
   },
   {
     "shipname": "Gladius",
+    "shipUID": 8,
     "length": 20,
     "beam": 16,
     "height": 4,
@@ -185,6 +193,7 @@
   },
   {
     "shipname": "Aurora LX",
+    "shipUID": 9,
     "length": 18.5,
     "beam": 8.25,
     "height": 4.1,
@@ -208,6 +217,7 @@
   },
   {
     "shipname": "Aurora MR",
+    "shipUID": 10,
     "length": 18.5,
     "beam": 8.25,
     "height": 4.1,
@@ -231,6 +241,7 @@
   },
   {
     "shipname": "Aurora CL",
+    "shipUID": 11,
     "length": 18.5,
     "beam": 8.25,
     "height": 4.1,
@@ -254,6 +265,7 @@
   },
   {
     "shipname": "Aurora LN",
+    "shipUID": 12,
     "length": 18.5,
     "beam": 8.25,
     "height": 5,
@@ -277,6 +289,7 @@
   },
   {
     "shipname": "315P",
+    "shipUID": 13,
     "length": 24,
     "beam": 16,
     "height": 7,
@@ -300,6 +313,7 @@
   },
   {
     "shipname": "325A",
+    "shipUID": 14,
     "length": 24,
     "beam": 16,
     "height": 7,
@@ -323,6 +337,7 @@
   },
   {
     "shipname": "F7C-S Hornet Ghost",
+    "shipUID": 15,
     "length": 22.5,
     "beam": 21.75,
     "height": 5.6,
@@ -346,6 +361,7 @@
   },
   {
     "shipname": "F7C-R Hornet Tracker",
+    "shipUID": 16,
     "length": 22.5,
     "beam": 21.75,
     "height": 5.6,
@@ -369,6 +385,7 @@
   },
   {
     "shipname": "F7C-M Super Hornet",
+    "shipUID": 17,
     "length": 24,
     "beam": 21.75,
     "height": 5.3,
@@ -392,6 +409,7 @@
   },
   {
     "shipname": "F7A Hornet",
+    "shipUID": 18,
     "length": 22.5,
     "beam": 21.75,
     "height": 6,
@@ -415,6 +433,7 @@
   },
   {
     "shipname": "Mustang Omega",
+    "shipUID": 19,
     "length": 0,
     "beam": 13,
     "height": 5.5,
@@ -438,6 +457,7 @@
   },
   {
     "shipname": "Redeemer",
+    "shipUID": 20,
     "length": 37.5,
     "beam": 19.5,
     "height": 11,
@@ -461,6 +481,7 @@
   },
   {
     "shipname": "Herald",
+    "shipUID": 21,
     "length": 23,
     "beam": 15.5,
     "height": 9.5,
@@ -484,6 +505,7 @@
   },
   {
     "shipname": "Cutlass Black",
+    "shipUID": 22,
     "length": 29,
     "beam": 25,
     "height": 7,
@@ -507,6 +529,7 @@
   },
   {
     "shipname": "Cutlass Blue",
+    "shipUID": 23,
     "length": 29,
     "beam": 25,
     "height": 7,
@@ -530,6 +553,7 @@
   },
   {
     "shipname": "Cutlass Red",
+    "shipUID": 24,
     "length": 29,
     "beam": 25,
     "height": 7,
@@ -553,6 +577,7 @@
   },
   {
     "shipname": "890 Jump",
+    "shipUID": 25,
     "length": 123,
     "beam": 48,
     "height": 24,
@@ -576,6 +601,7 @@
   },
   {
     "shipname": "Freelancer",
+    "shipUID": 26,
     "length": 32,
     "beam": 15,
     "height": 8,
@@ -599,6 +625,7 @@
   },
   {
     "shipname": "Freelancer DUR",
+    "shipUID": 27,
     "length": 34,
     "beam": 15,
     "height": 8,
@@ -622,6 +649,7 @@
   },
   {
     "shipname": "Freelancer MAX",
+    "shipUID": 28,
     "length": 32,
     "beam": 19,
     "height": 8,
@@ -645,6 +673,7 @@
   },
   {
     "shipname": "Freelancer MIS",
+    "shipUID": 29,
     "length": 34,
     "beam": 15,
     "height": 8,
@@ -668,6 +697,7 @@
   },
   {
     "shipname": "Reclaimer",
+    "shipUID": 30,
     "length": 158,
     "beam": 95,
     "height": 50,
@@ -691,6 +721,7 @@
   },
   {
     "shipname": "Constellation Andromeda",
+    "shipUID": 31,
     "length": 61.1,
     "beam": 26.6,
     "height": 13.4,
@@ -714,6 +745,7 @@
   },
   {
     "shipname": "Constellation Aquila",
+    "shipUID": 32,
     "length": 60.1,
     "beam": 26.6,
     "height": 13.4,
@@ -737,6 +769,7 @@
   },
   {
     "shipname": "Constellation Phoenix",
+    "shipUID": 33,
     "length": 61.1,
     "beam": 26.6,
     "height": 13.4,
@@ -760,6 +793,7 @@
   },
   {
     "shipname": "Constellation Taurus",
+    "shipUID": 34,
     "length": 58.8,
     "beam": 26.6,
     "height": 13.4,
@@ -783,6 +817,7 @@
   },
   {
     "shipname": "Javelin",
+    "shipUID": 35,
     "length": 345,
     "beam": 148,
     "height": 65,
@@ -806,6 +841,7 @@
   },
   {
     "shipname": "Carrack",
+    "shipUID": 36,
     "length": 123,
     "beam": 64,
     "height": 25.5,
@@ -829,6 +865,7 @@
   },
   {
     "shipname": "Caterpillar",
+    "shipUID": 37,
     "length": 66.5,
     "beam": 22,
     "height": 14,
@@ -852,6 +889,7 @@
   },
   {
     "shipname": "Starfarer",
+    "shipUID": 38,
     "length": 90,
     "beam": 50,
     "height": 20,
@@ -875,6 +913,7 @@
   },
   {
     "shipname": "Khartu al",
+    "shipUID": 39,
     "length": 10,
     "beam": 8,
     "height": 24,
@@ -898,6 +937,7 @@
   },
   {
     "shipname": "Merchantman",
+    "shipUID": 40,
     "length": 100,
     "beam": 135,
     "height": 70,
@@ -921,6 +961,7 @@
   },
   {
     "shipname": "Gladiator",
+    "shipUID": 41,
     "length": 14.4,
     "beam": 14,
     "height": 6,
@@ -944,6 +985,7 @@
   },
   {
     "shipname": "Retaliator",
+    "shipUID": 42,
     "length": 70,
     "beam": 25,
     "height": 12,
@@ -967,6 +1009,7 @@
   },
   {
     "shipname": "Scythe",
+    "shipUID": 43,
     "length": 30.75,
     "beam": 26.46,
     "height": 7,
@@ -990,6 +1033,7 @@
   },
   {
     "shipname": "Idris M",
+    "shipUID": 44,
     "length": 238.5,
     "beam": 131.2,
     "height": 50.5,
@@ -1013,6 +1057,7 @@
   },
   {
     "shipname": "Idris P",
+    "shipUID": 45,
     "length": 238.5,
     "beam": 131.2,
     "height": 50.5,
@@ -1036,6 +1081,7 @@
   },
   {
     "shipname": "Hull C",
+    "shipUID": 46,
     "length": 104.5,
     "beam": 40.1,
     "height": 40.1,
@@ -1059,6 +1105,7 @@
   },
   {
     "shipname": "Orion",
+    "shipUID": 47,
     "length": 170,
     "beam": 50,
     "height": 50,
@@ -1082,6 +1129,7 @@
   },
   {
     "shipname": "Mustang Beta",
+    "shipUID": 48,
     "length": 18,
     "beam": 13,
     "height": 5.5,
@@ -1105,6 +1153,7 @@
   },
   {
     "shipname": "Mustang Delta",
+    "shipUID": 49,
     "length": 18,
     "beam": 13,
     "height": 5.5,
@@ -1128,6 +1177,7 @@
   },
   {
     "shipname": "Mustang Gamma",
+    "shipUID": 50,
     "length": 18,
     "beam": 13,
     "height": 5.5,
@@ -1151,6 +1201,7 @@
   },
   {
     "shipname": "Vanguard Warden",
+    "shipUID": 51,
     "length": 37,
     "beam": 39,
     "height": 8.8,
@@ -1174,6 +1225,7 @@
   },
   {
     "shipname": "Hull A",
+    "shipUID": 52,
     "length": 21.7,
     "beam": 8.2,
     "height": 4,
@@ -1197,6 +1249,7 @@
   },
   {
     "shipname": "Hull B",
+    "shipUID": 53,
     "length": 49.2,
     "beam": 15.7,
     "height": 17.3,
@@ -1220,6 +1273,7 @@
   },
   {
     "shipname": "Hull D",
+    "shipUID": 54,
     "length": 209.1,
     "beam": 70.3,
     "height": 70.3,
@@ -1243,6 +1297,7 @@
   },
   {
     "shipname": "Hull E",
+    "shipUID": 55,
     "length": 370.1,
     "beam": 104,
     "height": 104,
@@ -1266,6 +1321,7 @@
   },
   {
     "shipname": "Starfarer Gemini",
+    "shipUID": 56,
     "length": 90,
     "beam": 50,
     "height": 20,
@@ -1289,6 +1345,7 @@
   },
   {
     "shipname": "Reliant Kore",
+    "shipUID": 57,
     "length": 13,
     "beam": 29,
     "height": 6,
@@ -1312,6 +1369,7 @@
   },
   {
     "shipname": "Genesis Starliner",
+    "shipUID": 58,
     "length": 85,
     "beam": 90,
     "height": 16,
@@ -1335,6 +1393,7 @@
   },
   {
     "shipname": "P-52 Merlin",
+    "shipUID": 59,
     "length": 12.3,
     "beam": 7.7,
     "height": 2.5,
@@ -1358,6 +1417,7 @@
   },
   {
     "shipname": "P-72 Archimedes",
+    "shipUID": 60,
     "length": 12.3,
     "beam": 7.7,
     "height": 2.5,
@@ -1381,6 +1441,7 @@
   },
   {
     "shipname": "Esperia Glaive",
+    "shipUID": 61,
     "length": 31,
     "beam": 20,
     "height": 8.51,
@@ -1404,6 +1465,7 @@
   },
   {
     "shipname": "Vanguard Harbinger",
+    "shipUID": 62,
     "length": 37,
     "beam": 39,
     "height": 8.8,
@@ -1427,6 +1489,7 @@
   },
   {
     "shipname": "Vanguard Sentinel",
+    "shipUID": 63,
     "length": 37,
     "beam": 39,
     "height": 8.8,
@@ -1450,6 +1513,7 @@
   },
   {
     "shipname": "Endeavor",
+    "shipUID": 64,
     "length": 200,
     "beam": 48,
     "height": 20,
@@ -1473,6 +1537,7 @@
   },
   {
     "shipname": "Sabre",
+    "shipUID": 65,
     "length": 26,
     "beam": 15,
     "height": 6,
@@ -1496,6 +1561,7 @@
   },
   {
     "shipname": "Reliant Mako",
+    "shipUID": 66,
     "length": 13,
     "beam": 29,
     "height": 6,
@@ -1519,6 +1585,7 @@
   },
   {
     "shipname": "Reliant Sen",
+    "shipUID": 67,
     "length": 13,
     "beam": 29,
     "height": 6,
@@ -1542,6 +1609,7 @@
   },
   {
     "shipname": "Reliant Tana",
+    "shipUID": 68,
     "length": 13,
     "beam": 29,
     "height": 6,
@@ -1565,6 +1633,7 @@
   },
   {
     "shipname": "Esperia Blade",
+    "shipUID": 69,
     "length": 15.5,
     "beam": 20,
     "height": 4.5,
@@ -1588,6 +1657,7 @@
   },
   {
     "shipname": "Crucible",
+    "shipUID": 70,
     "length": 80,
     "beam": 73,
     "height": 16,
@@ -1611,6 +1681,7 @@
   },
   {
     "shipname": "Prospector",
+    "shipUID": 71,
     "length": 24,
     "beam": 15,
     "height": 7,
@@ -1634,6 +1705,7 @@
   },
   {
     "shipname": "Buccaneer",
+    "shipUID": 72,
     "length": 20,
     "beam": 16,
     "height": 6,
@@ -1657,6 +1729,7 @@
   },
   {
     "shipname": "Dragonfly Yellowjacket",
+    "shipUID": 73,
     "length": 6.5,
     "beam": 2.25,
     "height": 1.25,
@@ -1680,6 +1753,7 @@
   },
   {
     "shipname": "Dragonfly Black",
+    "shipUID": 74,
     "length": 6,
     "beam": 2.25,
     "height": 1.25,
@@ -1697,6 +1771,150 @@
     "raceenabled": 0,
     "price": 35,
     "class": "Snub",
+    "combatspeed": 0,
+    "combatrating": 0,
+    "waverank": 0
+  },
+  {
+    "shipname": "Terrapin",
+    "shipUID": 75,
+    "length": 19.5,
+    "beam": 14.5,
+    "height": 6,
+    "nullmass": 30000,
+    "cargocapacity": 0,
+    "crew": 2,
+    "powerplant": 2,
+    "powercount": 1,
+    "primary": 3,
+    "pcount": 2,
+    "maneuvering": 8,
+    "mancount": 1,
+    "shield": 2,
+    "shieldcount": 1,
+    "raceenabled": 0,
+    "price": 195,
+    "class": "Multi",
+    "combatspeed": 0,
+    "combatrating": 0,
+    "waverank": 0
+  },
+  {
+    "shipname": "Argo Personnel",
+    "shipUID": 76,
+    "length": 9.25,
+    "beam": 8.5,
+    "height": 4.25,
+    "nullmass": 6000,
+    "cargocapacity": 0,
+    "crew": 1,
+    "powerplant": 1,
+    "powercount": 1,
+    "primary": 1,
+    "pcount": 4,
+    "maneuvering": 1,
+    "mancount": 18,
+    "shield": 1,
+    "shieldcount": 1,
+    "raceenabled": 0,
+    "price": 40,
+    "class": "Single",
+    "combatspeed": 0,
+    "combatrating": 0,
+    "waverank": 0
+  },
+  {
+    "shipname": "Argo Cargo",
+    "shipUID": 77,
+    "length": 9.25,
+    "beam": 8.5,
+    "height": 4.25,
+    "nullmass": 6000,
+    "cargocapacity": 2,
+    "crew": 1,
+    "powerplant": 1,
+    "powercount": 1,
+    "primary": 1,
+    "pcount": 4,
+    "maneuvering": 1,
+    "mancount": 18,
+    "shield": 1,
+    "shieldcount": 1,
+    "raceenabled": 1,
+    "price": 40,
+    "class": "Single",
+    "combatspeed": 0,
+    "combatrating": 0,
+    "waverank": 0
+  },
+  {
+    "shipname": "Polaris",
+    "shipUID": 78,
+    "length": 155,
+    "beam": 55,
+    "height": 25,
+    "nullmass": 220000,
+    "cargocapacity": 216,
+    "crew": 24,
+    "powerplant": 3,
+    "powercount": 1,
+    "primary": 4,
+    "pcount": 2,
+    "maneuvering": 2,
+    "mancount": 12,
+    "shield": 4,
+    "shieldcount": 1,
+    "raceenabled": 0,
+    "price": 750,
+    "class": "Capital",
+    "combatspeed": 0,
+    "combatrating": 0,
+    "waverank": 0
+  },
+  {
+    "shipname": "Avenger Warlock",
+    "shipUID": 79,
+    "length": 19,
+    "beam": 14.25,
+    "height": 5.4,
+    "nullmass": 18500,
+    "cargocapacity": 4,
+    "crew": 1,
+    "powerplant": 3,
+    "powercount": 1,
+    "primary": 4,
+    "pcount": 1,
+    "maneuvering": 1,
+    "mancount": 8,
+    "shield": 3,
+    "shieldcount": 1,
+    "raceenabled": 1,
+    "price": 60,
+    "class": "Single",
+    "combatspeed": 0,
+    "combatrating": 0,
+    "waverank": 0
+  },
+  {
+    "shipname": "Avenger Titan",
+    "shipUID": 80,
+    "length": 19,
+    "beam": 14.25,
+    "height": 5.4,
+    "nullmass": 18500,
+    "cargocapacity": 4,
+    "crew": 1,
+    "powerplant": 3,
+    "powercount": 1,
+    "primary": 4,
+    "pcount": 1,
+    "maneuvering": 1,
+    "mancount": 8,
+    "shield": 3,
+    "shieldcount": 1,
+    "raceenabled": 1,
+    "price": 50,
+    "class": "Single",
     "combatspeed": 0,
     "combatrating": 0,
     "waverank": 0
