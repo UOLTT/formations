@@ -1,6 +1,6 @@
 <?php
 
-use \App\Ship;
+use App\Ship;
 use App\User;
 use Illuminate\Database\Seeder;
 
@@ -18,9 +18,20 @@ class ShipsTableSeeder extends Seeder
         foreach ($Ships as $ship) {
             $NewShip = new Ship();
             foreach ($ship as $item => $value) {
+                if ($item == 'shipUID') {
+                    continue;
+                }
                 $NewShip->$item = $value;
             }
             $NewShip->save();
+        }
+
+        $Ships_Positions = json_decode(file_get_contents(storage_path('ships_positions.json')));
+        foreach ($Ships_Positions as $Ship_Position) {
+            Ship::with('positions')
+                ->findOrFail($Ship_Position->shipUID)
+                ->positions()
+                ->attach($Ship_Position->positions);
         }
 
         $Ships = Ship::all();
