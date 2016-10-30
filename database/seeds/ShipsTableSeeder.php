@@ -46,8 +46,6 @@ class ShipsTableSeeder extends Seeder
                 }
             }
 
-            // 1/4 users are active
-
         }
     }
 }
