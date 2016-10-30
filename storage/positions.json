@@ -1,6 +1,13 @@
 {
   "Pilot": "Sit down and shut up!",
   "Co-Pilot": "Why do I have to wear the red shirt!?",
+  "Gunner": "Pew Pew Pew",
+  "Turret Gunner": "PEW PEW PEW",
+  "Comms": "Stay calm, and remain on the guard frequency!",
   "Engineer": "Im giving her all shes got captain!",
-  "Gunner": "Pew Pew Pew"
+  "Loader": "I move things",
+  "Captain": "Tea. Earl Grey. Hot.",
+  "Scanner": "Boop...... Boop.....",
+  "Medical": "I told you so",
+  "Fighter Pilot": "Live in a blaze of glory. Die in a blaze of glory"
 }
