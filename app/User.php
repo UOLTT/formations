@@ -32,15 +32,36 @@ class User extends Authenticatable
         'name' => 'string',
         'email' => 'string',
         'organization_id' => 'integer',
-        'squad_id' => 'integer'
+        'squad_id' => 'integer',
+        'active_user_ship' => 'integer',
+        'active_ship_id' => 'integer',
+        'active_ship_position' => 'integer'
     ];
 
-    public function organization() {
+    public function active_ship()
+    {
+        $MetaData = \DB::table('ship_user')
+            ->where('id',$this->ship_user_id)
+            ->first(['user_id','ship_id']);
+        $PositionID = $this->position_id;
+        return Ship::with([
+            'users' => function ($query) use ($MetaData) {
+                $query->find($MetaData->user_id);
+            },
+            'positions' => function ($query) use ($PositionID) {
+                $query->find($PositionID);
+            }
+        ])->find($MetaData->ship_id);
+    }
+
+    public function organization()
+    {
         return $this->belongsTo(Organization::class);
     }
 
-    public function ships() {
-        return $this->belongsToMany(Ship::class,'ship_user');
+    public function ships()
+    {
+        return $this->belongsToMany(Ship::class, 'ship_user');
     }
 
 }

@@ -17,7 +17,6 @@ class CreateShipsPositionsTable extends Migration
             $table->increments('id');
             $table->integer('ship_id');
             $table->integer('position_id');
-            $table->timestamps();
         });
     }
 

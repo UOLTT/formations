@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCrewPositionsTable extends Migration
+class CreatePositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,6 +18,7 @@ class CreateCrewPositionsTable extends Migration
             $table->string('name');
             $table->string('description');
         });
+        Artisan::call('db:seed', array('--class' => 'PositionsTableSeeder'));
     }
 
     /**
@@ -27,6 +28,6 @@ class CreateCrewPositionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crew_positions');
+        Schema::dropIfExists('positions');
     }
 }
