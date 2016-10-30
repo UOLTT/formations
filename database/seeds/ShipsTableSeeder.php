@@ -26,13 +26,17 @@ class ShipsTableSeeder extends Seeder
         $Ships = Ship::all();
         $Users = User::all();
 
-        // each user averages 1 ship
         foreach ($Users as $User) {
+
+            // each user averages 1 ship
             foreach ($Ships as $Ship) {
                 if (rand(0,$Ships->count()) == 0) {
                     $User->ships()->attach($Ship);
                 }
             }
+
+            // 1/4 users are active
+
         }
     }
 }

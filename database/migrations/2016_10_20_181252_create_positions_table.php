@@ -18,6 +18,7 @@ class CreatePositionsTable extends Migration
             $table->string('name');
             $table->string('description');
         });
+        Artisan::call('db:seed', array('--class' => 'PositionsTableSeeder'));
     }
 
     /**
