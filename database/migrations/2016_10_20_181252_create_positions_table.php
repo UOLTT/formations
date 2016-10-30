@@ -18,6 +18,7 @@ class CreatePositionsTable extends Migration
             $table->string('name');
             $table->string('description');
         });
+        Artisan::call('db:seed', array('--class' => 'PositionsTableSeeder'));
     }
 
     /**
@@ -27,6 +28,6 @@ class CreatePositionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crew_positions');
+        Schema::dropIfExists('positions');
     }
 }

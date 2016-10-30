@@ -30,6 +30,10 @@
                     <td><b>Squadrons:</b></td>
                     <td>{{ $Organization->squads_count }}</td>
                 </tr>
+                <tr>
+                    <td><b>Status:</b></td>
+                    <td>{{ $Organization->status->name }}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -62,6 +66,7 @@
                                     <div class="panel-body">
                                         <p>
                                             <b>Users:</b> {{ $Squad->users->count() }}<br>
+                                            <b>Status:</b> {{ $Squad->status->name }}
                                         </p>
                                     </div>
                                 </div>
