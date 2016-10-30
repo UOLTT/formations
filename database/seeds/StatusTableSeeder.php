@@ -7,6 +7,7 @@ class StatusTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * Fills out the available statuses
      *
      * @return void
      */
