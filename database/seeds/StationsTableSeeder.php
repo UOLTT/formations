@@ -1,9 +1,9 @@
 <?php
 
-use \App\Position;
+use \App\Station;
 use Illuminate\Database\Seeder;
 
-class PositionsTableSeeder extends Seeder
+class StationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class PositionsTableSeeder extends Seeder
         $Positions = json_decode(file_get_contents(storage_path('/positions.json')));
 
         foreach ($Positions as $Name => $Description) {
-            Position::create([
+            Station::create([
                 'name' => $Name,
                 'description' => $Description
             ]);
