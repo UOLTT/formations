@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Station extends Model
 {
-    protected $table = 'positions';
+    protected $table = 'stations';
     public $timestamps = false;
     protected $casts = [
         'id' => 'integer',
