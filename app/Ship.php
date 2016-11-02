@@ -34,8 +34,8 @@ class Ship extends Model
         'waverank' => 'integer'
     ];
 
-    public function positions() {
-        return $this->belongsToMany(Position::class,'ships_positions');
+    public function stations() {
+        return $this->belongsToMany(Station::class,'ships_positions');
     }
 
     public function users() {
