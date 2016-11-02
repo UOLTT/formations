@@ -13,7 +13,7 @@ class CreateShipsPositionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ships_positions', function (Blueprint $table) {
+        Schema::create('ships_stations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('ship_id');
             $table->integer('position_id');
@@ -27,6 +27,6 @@ class CreateShipsPositionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ships_positions');
+        Schema::dropIfExists('ships_stations');
     }
 }

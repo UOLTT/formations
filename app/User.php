@@ -43,13 +43,13 @@ class User extends Authenticatable
         $MetaData = \DB::table('ship_user')
             ->where('id',$this->ship_user_id)
             ->first(['user_id','ship_id']);
-        $PositionID = $this->position_id;
+        $StationID = $this->station_id;
         return Ship::with([
             'users' => function ($query) use ($MetaData) {
                 $query->find($MetaData->user_id);
             },
-            'positions' => function ($query) use ($PositionID) {
-                $query->find($PositionID);
+            'positions' => function ($query) use ($StationID) {
+                $query->find($StationID);
             }
         ])->find($MetaData->ship_id);
     }
