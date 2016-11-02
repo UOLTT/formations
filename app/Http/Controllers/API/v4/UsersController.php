@@ -1,5 +1,7 @@
 <?php
 
+// TODO I should really add an unauthorized exception
+
 namespace App\Http\Controllers\API\v4;
 
 use App\User;
