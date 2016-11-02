@@ -17,4 +17,8 @@ class Position extends Model
         'y-offset' => 'float',
         'z-offset' => 'float'
     ];
+
+    public function formation() {
+        return $this->belongsTo(Formation::class);
+    }
 }

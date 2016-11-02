@@ -16,4 +16,8 @@ class Formation extends Model
         'description' => 'string',
         'minimum_users' => 'integer'
     ];
+
+    public function positions() {
+        return $this->hasMany(Position::class);
+    }
 }
