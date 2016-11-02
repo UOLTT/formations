@@ -79,22 +79,24 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // TODO make sure the user has the correct permissions to edit self
-        $parameters = [
-            'name' => 'string',
-            'email' => 'email|unique',
-            'password' => 'string',
-            'organization_id' => 'integer',
-            'squad_id' => 'integer'
-        ];
-        $this->validate($request,$parameters);
-        $User = User::findOrFail($id);
-        foreach ($parameters as $name => $rule) {
-            if ($request->has($name)) {
-                $User->$name = $request->get($name);
+        // TODO test this
+        if (\Auth::user()->id == $id) {
+            $parameters = [
+                'name' => 'string',
+                'email' => 'email|unique',
+                'password' => 'string',
+                'organization_id' => 'integer',
+                'squad_id' => 'integer'
+            ];
+            $this->validate($request,$parameters);
+            $User = User::findOrFail($id);
+            foreach ($parameters as $name => $rule) {
+                if ($request->has($name)) {
+                    $User->$name = $request->get($name);
+                }
             }
+            $User->save();
         }
-        $User->save();
         return $this->show($id);
     }
 
