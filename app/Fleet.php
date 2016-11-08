@@ -17,6 +17,10 @@ class Fleet extends Model
         'manifesto' => 'string'
     ];
 
+    public function admiral() {
+        // TODO
+    }
+
     public function organization() {
         return $this->belongsTo(Organization::class);
     }
