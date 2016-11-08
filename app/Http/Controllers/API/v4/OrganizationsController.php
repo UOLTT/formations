@@ -92,7 +92,10 @@ class OrganizationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // TODO if changing admin user, make sure user owns the org
+        $Organization = Organization::findOrFail($id);
+        if (!\Auth::user() || \Auth::user()->id != $Organization->admin_user_id) {
+            throw new UnauthorizedException("You do not have permission to edit this Organization");
+        }
         $parameters = [
             'name' => 'string',
             'domain' => 'string',
@@ -100,14 +103,13 @@ class OrganizationsController extends Controller
             'status_id' => 'integer',
             'manifesto' => 'string'
         ];
-        $Organization = Organization::findOrFail($id);
         $this->validate($request,$parameters);
         foreach ($parameters as $name => $type) {
             if ($request->has($name)) {
                 $Organization->$name = $request->get('name');
             }
         }
-        return $Organization;
+        return $this->show($id);
     }
 
     /**
