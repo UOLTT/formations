@@ -1,7 +1,5 @@
 <?php
 
-// TODO write middleware to require login
-
 namespace App\Http\Controllers\API\v4;
 
 use App\User;
