@@ -1,6 +1,6 @@
 <?php
 
-// TODO I should really add an unauthorized exception
+// TODO write middleware to require login
 
 namespace App\Http\Controllers\API\v4;
 
@@ -83,23 +83,24 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         // TODO test this
-        if (\Auth::user()->id == $id) {
-            $parameters = [
-                'name' => 'string',
-                'email' => 'email|unique',
-                'password' => 'string',
-                'organization_id' => 'integer',
-                'squad_id' => 'integer'
-            ];
-            $this->validate($request,$parameters);
-            $User = User::findOrFail($id);
-            foreach ($parameters as $name => $rule) {
-                if ($request->has($name)) {
-                    $User->$name = $request->get($name);
-                }
-            }
-            $User->save();
+        if (!\Auth::user() || \Auth::user()->id != $id) {
+            throw new UnauthorizedException("You do not have permission to modify this user");
         }
+        $parameters = [
+            'name' => 'string',
+            'email' => 'email|unique',
+            'password' => 'string',
+            'organization_id' => 'integer',
+            'squad_id' => 'integer'
+        ];
+        $this->validate($request,$parameters);
+        $User = User::findOrFail($id);
+        foreach ($parameters as $name => $rule) {
+            if ($request->has($name)) {
+                $User->$name = $request->get($name);
+            }
+        }
+        $User->save();
         return $this->show($id);
     }
 
