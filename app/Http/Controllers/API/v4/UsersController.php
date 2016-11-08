@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Illuminate\Validation\UnauthorizedException;
 
 class UsersController extends Controller
 {
@@ -111,6 +112,9 @@ class UsersController extends Controller
     public function destroy($id)
     {
         // TODO ensure correct permissions
+        if (!\Auth::user() || \Auth::user()->id != $id) {
+            throw new UnauthorizedException("You do not have permission to delete that user");
+        }
         $User = User::findOrFail($id);
         $User->delete();
         return $User;
