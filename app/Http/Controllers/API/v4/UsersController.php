@@ -82,7 +82,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // TODO test this
         if (!\Auth::user() || \Auth::user()->id != $id) {
             throw new UnauthorizedException("You do not have permission to modify this user");
         }
