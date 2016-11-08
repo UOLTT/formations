@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Validation\UnauthorizedException;
 
 class OrganizationsController extends Controller
 {
@@ -117,7 +118,11 @@ class OrganizationsController extends Controller
      */
     public function destroy($id)
     {
-        // TODO make sure user can delete org
-        Organization::findOrFail($id)->delete();
+        $Organization = Organization::findOrFail($id);
+        if (!\Auth::user() || \Auth::user()->id != $Organization->admin_user_id) {
+            throw new UnauthorizedException("You do not have permission to delete this Organization");
+        }
+        $Organization->delete();
+        return $Organization;
     }
 }
