@@ -19,6 +19,6 @@ class Station extends Model
     ];
 
     public function ships() {
-        return $this->belongsToMany(Ship::class,'ships_positions');
+        return $this->belongsToMany(Ship::class,'ships_stations');
     }
 }

@@ -28,9 +28,9 @@ class ShipsTableSeeder extends Seeder
 
         $Ships_Positions = json_decode(file_get_contents(storage_path('ships_positions.json')));
         foreach ($Ships_Positions as $Ship_Position) {
-            Ship::with('positions')
+            Ship::with('stations')
                 ->findOrFail($Ship_Position->shipUID)
-                ->positions()
+                ->stations()
                 ->attach($Ship_Position->positions);
         }
 
@@ -41,7 +41,7 @@ class ShipsTableSeeder extends Seeder
 
             // each user averages 1 ship
             foreach ($Ships as $Ship) {
-                if (rand(0,$Ships->count()) == 0) {
+                if (rand(0, $Ships->count()) == 0) {
                     $User->ships()->attach($Ship);
                 }
             }

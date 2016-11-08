@@ -16,7 +16,7 @@ class CreateShipsStationsTable extends Migration
         Schema::create('ships_stations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('ship_id');
-            $table->integer('position_id');
+            $table->integer('station_id');
         });
     }
 
