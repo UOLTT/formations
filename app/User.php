@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function organization()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->hasOne(Organization::class,'admin_user_id','id');
     }
 
     public function ships()
