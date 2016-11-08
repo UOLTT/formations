@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Illuminate\Validation\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -52,6 +53,11 @@ class Handler extends ExceptionHandler
                     'error' => $exception->getMessage(),
                     'status_code' => 404
                 ],404);
+            }elseif ($exception instanceof UnauthorizedException) {
+                return response([
+                    'error' => $exception->getMessage(),
+                    'status_code' => 403
+                ]);
             }
         }
         return parent::render($request, $exception);
