@@ -72,7 +72,6 @@ class OrganizationsController extends Controller
      */
     public function show($id)
     {
-        // TODO admin user?
         $status = function($query) {
             $query->with('status');
         };
