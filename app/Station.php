@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Station extends Model
 {
-    protected $table = 'positions';
+    protected $table = 'stations';
     public $timestamps = false;
     protected $casts = [
         'id' => 'integer',
@@ -19,6 +19,6 @@ class Station extends Model
     ];
 
     public function ships() {
-        return $this->belongsToMany(Ship::class,'ships_positions');
+        return $this->belongsToMany(Ship::class,'ships_stations');
     }
 }

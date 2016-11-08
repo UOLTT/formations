@@ -35,7 +35,7 @@ class Ship extends Model
     ];
 
     public function stations() {
-        return $this->belongsToMany(Station::class,'ships_positions');
+        return $this->belongsToMany(Station::class,'ships_stations');
     }
 
     public function users() {

@@ -17,6 +17,7 @@ class CreateSquadsTable extends Migration
             $table->increments('id');
             $table->integer('fleet_id');
             $table->integer('status_id');
+            $table->integer('formation_id')->nullable();
             $table->string('name');
             $table->timestamps();
         });

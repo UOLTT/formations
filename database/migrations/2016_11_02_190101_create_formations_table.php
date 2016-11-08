@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShipsStationsTable extends Migration
+class CreateFormationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateShipsStationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ships_stations', function (Blueprint $table) {
+        Schema::create('formations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ship_id');
-            $table->integer('station_id');
+            $table->string('name');
+            $table->string('description');
+            $table->integer('minimum_users');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateShipsStationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ships_stations');
+        Schema::dropIfExists('formations');
     }
 }
