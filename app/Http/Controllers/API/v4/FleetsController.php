@@ -4,9 +4,12 @@ namespace App\Http\Controllers\API\v4;
 
 use App\Fleet;
 use App\Http\Controllers\Controller;
+use App\Organization;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Validation\UnauthorizedException;
 
 class FleetsController extends Controller
 {
@@ -41,21 +44,30 @@ class FleetsController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO ensure correct permissions
-        // TODO set org based on users org
+        // makes sure user logged in and owns an org
+        if (!\Auth::user() || (Organization::where('admin_user_id',\Auth::user()->id)->count() == 0)) {
+            throw new UnauthorizedException("You must own an Organization in order to create a Fleet");
+        }
+
         $variables = [
             'name' => 'required|string',
-            'organization_id' => 'required|integer',
-            'status_id' => 'integer',
-            'manifesto' => 'string'
+            'status_id' => 'required|integer',
+            'manifesto' => 'string',
+            'admiral_id' => 'integer'
         ];
         $this->validate($request, $variables);
+
         $Fleet = new Fleet();
-        foreach ($variables as $name => $validation) {
-            if ($request->has($name)) {
-                $Fleet->$name = $request->get($name);
-            }
+        if ($request->has('admiral_id')) {
+            $Fleet->admiral_id = $request->get('admiral_id');
+        }else {
+            $Fleet->admiral_id = \Auth::user()->id;
         }
+        $Fleet->name = $request->get('name');
+        $Fleet->organization()->associate(\Auth::user()->organization->id);
+        $Fleet->status()->associate($request->get('status_id'));
+        if ($request->has('manifesto')) { $Fleet->manifesto = $request->get('manifesto'); }
+
         $Fleet->save();
         return $Fleet;
     }
