@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API\v4;
 
+use App\Fleet;
 use App\Squad;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Illuminate\Validation\UnauthorizedException;
 
 class SquadsController extends Controller
 {
@@ -41,11 +43,18 @@ class SquadsController extends Controller
     public function store(Request $request)
     {
         $parameters = [
-            'fleet_id' => 'integer',
-            'status_id' => 'integer|required',
+            'fleet_id' => 'integer|required',
+            'formation_id' => 'integer',
             'name' => 'string|required',
+            'status_id' => 'integer|required',
         ];
         $this->validate($request,$parameters);
+        $Fleet = Fleet::with('organization','admiral')->findOrFail($request->get('fleet_id'));
+
+        if (\Auth::user() || ($Fleet->admiral->id != \Auth::users()->id)) {
+            throw new UnauthorizedException("You do not have permission to create squadrons");
+        }
+
         $Squad = new Squad();
         foreach ($parameters as $name => $type) {
             if ($request->has($name)) {
@@ -82,21 +91,19 @@ class SquadsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // TODO if changing admin user, make sure user owns the org
         $parameters = [
+            'formation_id' => 'integer',
             'name' => 'string',
-            'domain' => 'string',
-            'admin_user_id' => 'integer',
-            'status_id' => 'integer',
-            'manifesto' => 'string'
+            'status_id' => 'integer'
         ];
-        $Squad = Organization::findOrFail($id);
         $this->validate($request,$parameters);
-        foreach ($parameters as $name => $type) {
-            if ($request->has($name)) {
-                $Squad->$name = $request->get('name');
+        $Squad = Squad::findOrFail($id);
+        foreach ($parameters as $item => $rule) {
+            if ($request->has($item)) {
+                $Squad->$item = $request->get($item);
             }
         }
+        $Squad->save();
         return $this->show($id);
     }
 
