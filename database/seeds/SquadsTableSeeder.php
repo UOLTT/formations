@@ -15,13 +15,19 @@ class SquadsTableSeeder extends Seeder
     public function run()
     {
         $Faker = Faker::create();
-        foreach (Fleet::all() as $Fleet) {
-            foreach (range(1,rand(1,3)) as $id) {
-                $Fleet->squads()->create([
-                    'fleet_id' => $Fleet->id,
-                    'name' => implode(' ',$Faker->words(rand(1,2))),
-                    'status_id' => rand(7,8)
-                ]);
+        $Fleets = Fleet::with(['organization'=>function($query) {
+            $query->with('users');
+        }])->get();
+        foreach ($Fleets as $Fleet) {
+            foreach ($Fleet->organization->users as $user) {
+                if (random_int(0,3) === 0) {
+                    $Fleet->squads()->create([
+                        'fleet_id' => $Fleet->id,
+                        'name' => implode(' ',$Faker->words(rand(1,2))),
+                        'squad_leader' => $user->id,
+                        'status_id' => rand(7,8)
+                    ]);
+                }
             }
         }
         foreach (Organization::with('squads','users')->get() as $Organization) {
