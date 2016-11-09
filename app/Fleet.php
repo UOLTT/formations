@@ -10,6 +10,7 @@ class Fleet extends Model
     protected $table = 'fleets';
     protected $fillable = ['name','organization_id','status_id','manifesto'];
     protected $casts = [
+        'admiral_id' => 'integer',
         'id' => 'integer',
         'name' => 'string',
         'organization_id' => 'integer',
@@ -18,7 +19,7 @@ class Fleet extends Model
     ];
 
     public function admiral() {
-        // TODO
+        return $this->hasOne(User::class,'id','admiral_id');
     }
 
     public function organization() {

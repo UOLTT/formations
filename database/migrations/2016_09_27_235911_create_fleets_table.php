@@ -16,6 +16,7 @@ class CreateFleetsTable extends Migration
         Schema::create('fleets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('admiral_id');
             $table->string('organization_id');
             $table->integer('status_id');
             $table->text('manifesto')->nullable();
