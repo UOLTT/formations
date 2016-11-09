@@ -8,7 +8,7 @@ class Fleet extends Model
 {
     public $timestamps = true;
     protected $table = 'fleets';
-    protected $fillable = ['name','organization_id','status_id','manifesto'];
+    protected $fillable = ['name','organization_id','status_id','manifesto','admiral_id'];
     protected $casts = [
         'admiral_id' => 'integer',
         'id' => 'integer',
