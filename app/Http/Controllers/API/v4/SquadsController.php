@@ -16,11 +16,11 @@ class SquadsController extends Controller
      */
     public function index(Request $request)
     {
-        // TODO ensure model is up to date
         $parameters = [
             'fleet_id' => 'integer',
-            'status_id' => 'integer',
-            'name' => 'string'
+            'formation_id' => 'integer',
+            'name' => 'string',
+            'status_id' => 'integer'
         ];
         $this->validate($request,$parameters);
         $Squad = new Squad();
