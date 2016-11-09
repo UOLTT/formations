@@ -100,7 +100,10 @@ class FleetsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $Fleet = Fleet::findOrFail($id);
+        $Fleet = Fleet::with('organization','admiral')->findOrfail($id);
+        if (!\Auth::user() || ((\Auth::user()->id != $Fleet->admiral->id) && (\Auth::user()->id != $Fleet->organization->admin_user_id))) {
+            throw new UnauthorizedException("You do not have permission to edit this fleet");
+        }
         $this->validate($request,[
             'name' => 'string',
             'status_id' => 'integer',
@@ -123,8 +126,10 @@ class FleetsController extends Controller
      */
     public function destroy($id)
     {
-        // TODO ensure the user can actually delete the object
-        $Fleet = Fleet::findOrFail($id);
+        $Fleet = Fleet::with('organization','admiral')->findOrfail($id);
+        if (!\Auth::user() || ((\Auth::user()->id != $Fleet->admiral->id) && (\Auth::user()->id != $Fleet->organization->admin_user_id))) {
+            throw new UnauthorizedException("You do not have permission to disband this fleet");
+        }
         $Fleet->delete();
         return $Fleet;
     }
