@@ -51,7 +51,11 @@ class SquadsController extends Controller
         $this->validate($request,$parameters);
         $Fleet = Fleet::with('organization','admiral')->findOrFail($request->get('fleet_id'));
 
-        if (\Auth::user() || ($Fleet->admiral->id != \Auth::users()->id)) {
+        if (
+            \Auth::user() ||
+            ($Fleet->admiral->id != \Auth::user()->id) ||
+            ($Fleet->organization->admin_user_id != \Auth::user()->id)
+        ) {
             throw new UnauthorizedException("You do not have permission to create squadrons");
         }
 
@@ -62,7 +66,7 @@ class SquadsController extends Controller
             }
         }
         $Squad->save();
-        return $Squad;
+        return $this->show($Squad->id);
     }
 
     /**
