@@ -109,7 +109,7 @@ class SquadsController extends Controller
             ($Squad->fleet->admiral->id != \Auth::user()->id) ||
             ($Squad->fleet->organization->admin_user_id != \Auth::user()->id)
         ) {
-            throw new UnauthorizedException("You do not have permission to create squadrons");
+            throw new UnauthorizedException("You do not have permission to edit squadrons");
         }
 
         foreach ($parameters as $item => $rule) {
@@ -138,7 +138,7 @@ class SquadsController extends Controller
             ($Squad->fleet->admiral->id != \Auth::user()->id) ||
             ($Squad->fleet->organization->admin_user_id != \Auth::user()->id)
         ) {
-            throw new UnauthorizedException("You do not have permission to create squadrons");
+            throw new UnauthorizedException("You do not have permission to delete squadrons");
         }
         $Squad->delete();
     }
