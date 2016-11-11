@@ -24,7 +24,7 @@ class SquadsTableSeeder extends Seeder
                     $Fleet->squads()->create([
                         'fleet_id' => $Fleet->id,
                         'name' => implode(' ',$Faker->words(rand(1,2))),
-                        'squad_leader' => $user->id,
+                        'squad_leader_id' => $user->id,
                         'status_id' => rand(7,8)
                     ]);
                 }

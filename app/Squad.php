@@ -9,12 +9,12 @@ class Squad extends Model
     // TODO maybe add fleet admin?
     public $timestamps = true;
     protected $table = 'squads';
-    protected $fillable = ['fleet_id','name','status_id','formation_id','squad_leader'];
+    protected $fillable = ['fleet_id','name','status_id','formation_id','squad_leader_id'];
     protected $casts = [
         'id' => 'integer',
         'fleet_id' => 'integer',
         'formation_id' => 'integer',
-        'squad_leader' => 'integer',
+        'squad_leader_id' => 'integer',
         'status_id' => 'integer',
         'name' => 'string'
     ];
@@ -28,7 +28,7 @@ class Squad extends Model
     }
 
     public function squad_leader() {
-        return $this->belongsTo(User::class,'id','squad_leader');
+        return $this->belongsTo(User::class,'id','squad_leader_id');
     }
 
     public function status() {
