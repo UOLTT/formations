@@ -101,7 +101,17 @@ class SquadsController extends Controller
             'status_id' => 'integer'
         ];
         $this->validate($request,$parameters);
-        $Squad = Squad::findOrFail($id);
+        $Squad = Squad::with('fleet')->findOrFail($id);
+
+        if (
+            \Auth::user() ||
+            ($Squad->squad_leader_id != \Auth::user()->id) ||
+            ($Squad->fleet->admiral->id != \Auth::user()->id) ||
+            ($Squad->fleet->organization->admin_user_id != \Auth::user()->id)
+        ) {
+            throw new UnauthorizedException("You do not have permission to create squadrons");
+        }
+
         foreach ($parameters as $item => $rule) {
             if ($request->has($item)) {
                 $Squad->$item = $request->get($item);
@@ -119,7 +129,17 @@ class SquadsController extends Controller
      */
     public function destroy($id)
     {
-        // TODO make sure user can delete org
-        Organization::findOrFail($id)->delete();
+        $Squad = Squad::with(['fleet'=>function($query) {
+            $query->with('organization');
+        }])->findOrFail($id);
+        if (
+            \Auth::user() ||
+            ($Squad->squad_leader_id != \Auth::user()->id) ||
+            ($Squad->fleet->admiral->id != \Auth::user()->id) ||
+            ($Squad->fleet->organization->admin_user_id != \Auth::user()->id)
+        ) {
+            throw new UnauthorizedException("You do not have permission to create squadrons");
+        }
+        $Squad->delete();
     }
 }
