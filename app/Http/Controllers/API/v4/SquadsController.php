@@ -52,7 +52,7 @@ class SquadsController extends Controller
         $Fleet = Fleet::with('organization','admiral')->findOrFail($request->get('fleet_id'));
 
         if (
-            \Auth::user() ||
+            !\Auth::user() ||
             ($Fleet->admiral->id != \Auth::user()->id) ||
             ($Fleet->organization->admin_user_id != \Auth::user()->id)
         ) {
