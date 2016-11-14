@@ -109,7 +109,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        // TODO ensure correct permissions
         if (!\Auth::user() || \Auth::user()->id != $id) {
             throw new UnauthorizedException("You do not have permission to delete that user");
         }
