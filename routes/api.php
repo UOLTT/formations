@@ -21,6 +21,7 @@ Route::group(['namespace'=>'API'], function() {
 
     Route::group(['namespace'=>'v4','prefix'=>'v4'], function() {
 
+        Route::get('/register/{token}','DeviceController@register');
         Route::resource('/fleets',FleetsController::class,['except'=>['create','edit']]);
         Route::resource('/organizations',OrganizationsController::class,['except'=>['create','edit']]);
         Route::resource('/squads',SquadsController::class,['except'=>['create','edit']]);
