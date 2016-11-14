@@ -31,6 +31,9 @@ class SquadsTableSeeder extends Seeder
             }
         }
         foreach (Organization::with('squads','users')->get() as $Organization) {
+            if (count($Organization->squads) == 0) {
+                continue;
+            }
             $Squads = [];
             foreach ($Organization->squads as $Squad) {
                 $Squads[] = $Squad->id;
