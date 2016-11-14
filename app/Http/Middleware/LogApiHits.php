@@ -17,7 +17,7 @@ class LogApiHits
     public function handle($request, Closure $next)
     {
         ApiHit::create([
-            'user_id' => (!is_null(\Auth::user()) ? \Audh::user()->id : 0),
+            'user_id' => (!is_null(\Auth::user()) ? \Auth::user()->id : 0),
             'organization_id' => (!is_null(\Auth::user()) ? \Auth::user()->organization_id : 0),
             'path' => $request->route()->getUri(),
             'query_data' => serialize($request->all())
