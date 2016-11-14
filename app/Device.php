@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Device extends Model
 {
     protected $table = "devices";
-    public $timestamps = false;
-    protected $hidden = ['used'];
+    public $timestamps = true;
+    protected $hidden = ['user_id','updated_at'];
     protected $fillable = [
         'user_id',
         'used',

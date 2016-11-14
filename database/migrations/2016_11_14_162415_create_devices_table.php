@@ -17,7 +17,8 @@ class CreateDevicesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->boolean('used')->default(0);
-            $table->string('token');
+            $table->string('token')->unique();
+            $table->timestamps();
         });
     }
 
