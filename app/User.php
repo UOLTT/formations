@@ -54,6 +54,10 @@ class User extends Authenticatable
         ])->find($MetaData->ship_id);
     }
 
+    public function devices() {
+        return $this->hasMany(Device::class);
+    }
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);
