@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -23,7 +24,11 @@ class UsersController extends Controller
             'organization_id' => 'integer',
             'squad_id' => 'integer'
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $User = new User();
         foreach ($parameters as $name => $rule) {
             if ($request->has($name)) {
@@ -48,7 +53,11 @@ class UsersController extends Controller
             'organization_id' => 'integer',
             'squad_id' => 'integer'
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $User = new User();
         foreach ($parameters as $name => $rule) {
             if ($request->has($name) && $name != 'password') {
@@ -90,7 +99,11 @@ class UsersController extends Controller
             'organization_id' => 'integer',
             'squad_id' => 'integer'
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $User = User::findOrFail($id);
         foreach ($parameters as $name => $rule) {
             if ($request->has($name)) {

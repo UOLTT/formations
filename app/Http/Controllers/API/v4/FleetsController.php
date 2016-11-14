@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Support\Facades\Validator;
 
 class FleetsController extends Controller
 {
@@ -26,7 +27,12 @@ class FleetsController extends Controller
             'status_id' => 'integer',
         ];
         // TODO maybe search by user count?
-        $this->validate($request,$parameters);
+
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $Fleets = new Fleet();
         foreach ($parameters as $search => $type) {
             if ($request->has($search)) {
@@ -55,7 +61,12 @@ class FleetsController extends Controller
             'manifesto' => 'string',
             'admiral_id' => 'integer'
         ];
-        $this->validate($request, $variables);
+
+        $validator = Validator::make($request->all(),$variables);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
 
         $Fleet = new Fleet();
         if ($request->has('admiral_id')) {
@@ -104,11 +115,16 @@ class FleetsController extends Controller
         if (!\Auth::user() || ((\Auth::user()->id != $Fleet->admiral->id) && (\Auth::user()->id != $Fleet->organization->admin_user_id))) {
             throw new UnauthorizedException("You do not have permission to edit this fleet");
         }
-        $this->validate($request,[
+
+        $validator = Validator::make($request->all(),[
             'name' => 'string',
             'status_id' => 'integer',
             'manifesto' => 'string'
         ]);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         foreach (['name','status_id','manifesto'] as $item) {
             if ($request->has($item)) {
                 $Fleet->$item = $request->get($item);

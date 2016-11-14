@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Support\Facades\Validator;
 
 class SquadsController extends Controller
 {
@@ -24,7 +25,11 @@ class SquadsController extends Controller
             'name' => 'string',
             'status_id' => 'integer'
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $Squad = new Squad();
         foreach ($parameters as $name => $type) {
             if ($request->has($name)) {
@@ -48,7 +53,11 @@ class SquadsController extends Controller
             'name' => 'string|required',
             'status_id' => 'integer|required',
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $Fleet = Fleet::with('organization','admiral')->findOrFail($request->get('fleet_id'));
 
         if (
@@ -100,7 +109,11 @@ class SquadsController extends Controller
             'name' => 'string',
             'status_id' => 'integer'
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $Squad = Squad::with('fleet')->findOrFail($id);
 
         if (

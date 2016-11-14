@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use InvalidArgumentException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Validation\UnauthorizedException;
@@ -54,6 +55,11 @@ class Handler extends ExceptionHandler
                     'status_code' => 404
                 ],404);
             }elseif ($exception instanceof UnauthorizedException) {
+                return response([
+                    'error' => $exception->getMessage(),
+                    'status_code' => 403
+                ]);
+            }elseif ($exception instanceof InvalidArgumentException) {
                 return response([
                     'error' => $exception->getMessage(),
                     'status_code' => 403

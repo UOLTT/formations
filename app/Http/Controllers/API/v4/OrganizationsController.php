@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Support\Facades\Validator;
 
 class OrganizationsController extends Controller
 {
@@ -25,7 +26,11 @@ class OrganizationsController extends Controller
             'admin_user_id' => 'integer',
             'status_id' => 'integer',
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $Organizations = Organization::withCount('fleets','users','squads');
         foreach ($parameters as $name => $type) {
             if ($request->has($name)) {
@@ -49,7 +54,11 @@ class OrganizationsController extends Controller
             'status_id' => 'integer|required',
             'manifesto' => 'string'
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         $Organization = new Organization();
         foreach ($parameters as $name => $type) {
             if ($request->has($name) && $name != 'domain') {
@@ -103,7 +112,11 @@ class OrganizationsController extends Controller
             'status_id' => 'integer',
             'manifesto' => 'string'
         ];
-        $this->validate($request,$parameters);
+        $validator = Validator::make($request->all(),$parameters);
+        if ($validator->fails()) {
+            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+        }
+
         foreach ($parameters as $name => $type) {
             if ($request->has($name)) {
                 $Organization->$name = $request->get('name');
