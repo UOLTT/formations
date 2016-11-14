@@ -49,21 +49,20 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($request->route()->getAction()['prefix'] == 'api/v4/') {
+            $status = 200;
             if ($exception instanceof ModelNotFoundException) {
+                $status = 404;
+            }elseif (
+                $exception instanceof UnauthorizedException ||
+                $exception instanceof InvalidArgumentException
+            ) {
+                $status = 403;
+            }
+            if ($status !== 200) {
                 return response([
                     'error' => $exception->getMessage(),
-                    'status_code' => 404
-                ],404);
-            }elseif ($exception instanceof UnauthorizedException) {
-                return response([
-                    'error' => $exception->getMessage(),
-                    'status_code' => 403
-                ]);
-            }elseif ($exception instanceof InvalidArgumentException) {
-                return response([
-                    'error' => $exception->getMessage(),
-                    'status_code' => 403
-                ]);
+                    'status_code' => $status
+                ],$status);
             }
         }
         return parent::render($request, $exception);
