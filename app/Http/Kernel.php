@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ApiAuthentication;
 use App\Http\Middleware\LogApiHits;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -34,6 +35,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            ApiAuthentication::class,
             LogApiHits::class,
             'throttle:60,1',
             'bindings',
