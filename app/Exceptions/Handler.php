@@ -9,6 +9,7 @@ use InvalidArgumentException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,9 +49,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($request->route()->getAction()['prefix'] == 'api/v4/') {
+        if (substr($request->getRequestUri(),0,8) == '/api/v4/') {
             $status = 200;
-            if ($exception instanceof ModelNotFoundException) {
+            if (
+                $exception instanceof ModelNotFoundException ||
+                $exception instanceof NotFoundHttpException
+            ) {
                 $status = 404;
             }elseif (
                 $exception instanceof UnauthorizedException ||
