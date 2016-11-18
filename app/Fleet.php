@@ -34,4 +34,8 @@ class Fleet extends Model
         return $this->belongsTo(Status::class);
     }
 
+    public function users() {
+        return $this->hasMany(User::class);
+    }
+
 }

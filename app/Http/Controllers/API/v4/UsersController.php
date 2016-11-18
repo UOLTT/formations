@@ -77,7 +77,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        return User::with('organization','ships')->findOrFail($id);
+        return User::with('organization','fleet','squad','ships')->findOrFail($id);
     }
 
     /**

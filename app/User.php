@@ -58,9 +58,17 @@ class User extends Authenticatable
         return $this->hasMany(Device::class);
     }
 
+    public function fleet() {
+        return $this->belongsTo(Fleet::class);
+    }
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    public function squad() {
+        return $this->belongsTo(Squad::class);
     }
 
     public function ships()
