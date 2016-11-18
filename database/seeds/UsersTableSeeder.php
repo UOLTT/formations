@@ -14,12 +14,16 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $Faker = Faker::create();
+        $this->command->info("Seeding Users Table");
+        $this->command->getOutput()->progressStart(300);
         foreach (range(1,300) as $id) {
             User::create([
                 'name' => $Faker->name,
                 'email' => $Faker->safeEmail,
                 'password' => '$2y$10$PnlSPK8L2vqb4WT5wUb3leuardRTiCt3U6ZpJLDYGDJROp1Z8dZWG',
             ]);
+            $this->command->getOutput()->progressAdvance();
         }
+        $this->command->getOutput()->progressFinish();
     }
 }

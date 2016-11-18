@@ -16,7 +16,12 @@ class FleetsTableSeeder extends Seeder
     public function run()
     {
         $Faker = Faker::create();
-        foreach (Organization::with('users')->get() as $Organization) {
+        $Organizations = Organization::with('users')->get();
+
+        $this->command->getOutput()->writeln('Seeding Fleets Table');
+        $this->command->getOutput()->progressStart($Organizations->count());
+
+        foreach ($Organizations as $Organization) {
             foreach ($Organization->users as $user) {
                 if (random_int(0,4) === 0) {
                     Fleet::create([
@@ -28,6 +33,8 @@ class FleetsTableSeeder extends Seeder
                     ]);
                 }
             }
+            $this->command->getOutput()->progressAdvance();
         }
+        $this->command->getOutput()->progressFinish();
     }
 }

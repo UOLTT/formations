@@ -18,6 +18,10 @@ class SquadsTableSeeder extends Seeder
         $Fleets = Fleet::with(['organization'=>function($query) {
             $query->with('users');
         }])->get();
+
+        $this->command->getOutput()->writeln("Seeding Squads Table");
+        $this->command->getOutput()->progressStart($Fleets->count());
+
         foreach ($Fleets as $Fleet) {
             foreach ($Fleet->organization->users as $user) {
                 if (random_int(0,3) === 0) {
@@ -29,7 +33,10 @@ class SquadsTableSeeder extends Seeder
                     ]);
                 }
             }
+            $this->command->getOutput()->progressAdvance();
         }
+        $this->command->getOutput()->progressFinish();
+
         foreach (Organization::with('squads','users')->get() as $Organization) {
             if (count($Organization->squads) == 0) {
                 continue;

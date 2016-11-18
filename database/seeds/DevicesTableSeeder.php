@@ -16,6 +16,10 @@ class DevicesTableSeeder extends Seeder
     {
         $Faker = Faker::create();
         $Users = User::with('devices')->get();
+
+        $this->command->info("Seeding Devices Table");
+        $this->command->getOutput()->progressStart($Users->count());
+
         foreach ($Users as $User) {
             foreach (range(0,random_int(0,3)) as $item) {
                 $token = "";
@@ -28,6 +32,8 @@ class DevicesTableSeeder extends Seeder
                     'token' => $token
                 ]);
             }
+            $this->command->getOutput()->progressAdvance();
         }
+        $this->command->getOutput()->progressFinish();
     }
 }
