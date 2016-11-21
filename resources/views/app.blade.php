@@ -90,11 +90,60 @@
                     <div class="col-md-6">
                         @foreach(App\Organization::with('status')->where('status_id',1)->get(['id','name','status_id']) as $Organization)
                             <div class="radio">
-                                <label><input type="radio" name="joinOrg" value="{{ $Organization->id }}">{{ $Organization->name }}</label>
+                                <label><input type="radio" name="joinOrg"
+                                              value="{{ $Organization->id }}">{{ $Organization->name }}</label>
                             </div>
                         @endforeach
                         <button class="btn btn-success" onclick="joinOrg()">Join</button>
                     </div>
+                @else
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <input type="text" class="form-control" value="{{ \Auth::user()->organization->name }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Administrator</td>
+                            <td>
+                                <select class="form-control">
+                                    @foreach(\App\User::where('organization_id',\Auth::user()->organization->id)->orderBy('name')->get(['id','name']) as $User)
+                                        <option value="{{ $User->id }}">{{ $User->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select class="form-control">
+                                    @foreach(\App\Status::where('type','Organization')->get(['id','name']) as $Status)
+                                        <option {{ (\Auth::user()->organization->status->id == $Status->id ? 'selected' : '') }} value="{{ $Status->id }}">{{ $Status->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Manifesto</td>
+                            <td>
+                                <textarea rows='6' class="form-control">{{ \Auth::user()->organization->manifesto }}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Founded On</td>
+                            <td>
+                                <input class="form-control" type="date" disabled value="{{ \Auth::user()->organization->created_at->format('Y-m-d') }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button class="btn btn-success">Update Org</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 @endif
             </div>
             <!-- end org -->
@@ -118,15 +167,10 @@
 
         function joinOrg() {
             $.post(("/api/v4/users/" + UserData.id), {
-                '_method' : 'patch',
-                'token' : Token,
-                'organization_id' : $('input[name="joinOrg"]:checked').val()
+                '_method': 'patch',
+                'token': Token,
+                'organization_id': $('input[name="joinOrg"]:checked').val()
             })
-                    .done(function(response) {
-                        if (!'error' in response) {
-
-                        }
-                    });
         }
 
         function saveUser() {
