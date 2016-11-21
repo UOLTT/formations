@@ -158,12 +158,17 @@
             </div>
             <!-- end org -->
 
+            <!-- fleet -->
             <div class="tab-pane" id="fleet" role="tabpanel">
                 fleet
             </div>
+            <!-- end fleet -->
+
+            <!-- squad -->
             <div class="tab-pane" id="squad" role="tabpanel">
                 squad
             </div>
+            <!-- end squad -->
         </div>
     </div>
 
