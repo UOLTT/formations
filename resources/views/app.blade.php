@@ -83,66 +83,66 @@
             <!-- org -->
             <div class="tab-pane" id="org" role="tabpanel">
                 @if(!is_null(\Auth::user()->organization_id))
-                <table class="table table-condensed" id="orgStats">
-                    <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td>
-                            <input id="orgName" type="text" class="form-control"
-                                   value="{{ \Auth::user()->organization->name }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Administrator</td>
-                        <td>
-                            <select id='orgAdmin' class="form-control">
-                                @foreach(\App\User::where('organization_id',\Auth::user()->organization->id)->orderBy('name')->get(['id','name']) as $User)
-                                    <option value="{{ $User->id }}">{{ $User->name }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Status</td>
-                        <td>
-                            <select id="orgStatus" class="form-control">
-                                @foreach(\App\Status::where('type','Organization')->get(['id','name']) as $Status)
-                                    <option {{ (\Auth::user()->organization->status->id == $Status->id ? 'selected' : '') }} value="{{ $Status->id }}">{{ $Status->name }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Manifesto</td>
-                        <td>
+                    <table class="table table-condensed" id="orgStats">
+                        <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <input id="orgName" type="text" class="form-control"
+                                       value="{{ \Auth::user()->organization->name }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Administrator</td>
+                            <td>
+                                <select id='orgAdmin' class="form-control">
+                                    @foreach(\App\User::where('organization_id',\Auth::user()->organization->id)->orderBy('name')->get(['id','name']) as $User)
+                                        <option value="{{ $User->id }}">{{ $User->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select id="orgStatus" class="form-control">
+                                    @foreach(\App\Status::where('type','Organization')->get(['id','name']) as $Status)
+                                        <option {{ (\Auth::user()->organization->status->id == $Status->id ? 'selected' : '') }} value="{{ $Status->id }}">{{ $Status->name }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Manifesto</td>
+                            <td>
                             <textarea id='orgManifesto' rows='6'
                                       class="form-control">{{ \Auth::user()->organization->manifesto }}</textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Founded On</td>
-                        <td>
-                            <input class="form-control" type="date" disabled
-                                   value="{{ \Auth::user()->organization->created_at->format('Y-m-d') }}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class="btn btn-success" onclick="updateOrg()">Update Org</button>
-                        </td>
-                        <td>
-                            <div id='orgSuccess' class="alert alert-success" role="alert" style="display: none">
-                                <strong>Success</strong>
-                                <p id="orgSuccessText"></p>
-                            </div>
-                            <div id='orgError' class="alert alert-danger" role="alert" style="display: none">
-                                <strong>ERROR!</strong>
-                                <p id="orgErrorText"></p>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Founded On</td>
+                            <td>
+                                <input class="form-control" type="date" disabled
+                                       value="{{ \Auth::user()->organization->created_at->format('Y-m-d') }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-success" onclick="updateOrg()">Update Org</button>
+                            </td>
+                            <td>
+                                <div id='orgSuccess' class="alert alert-success" role="alert" style="display: none">
+                                    <strong>Success</strong>
+                                    <p id="orgSuccessText"></p>
+                                </div>
+                                <div id='orgError' class="alert alert-danger" role="alert" style="display: none">
+                                    <strong>ERROR!</strong>
+                                    <p id="orgErrorText"></p>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 @endif
                 <div class="col-md-6" id="orgChangeText"></div>
                 <div class="col-md-6">
@@ -175,7 +175,7 @@
             UserData = Response;
             if (UserData.organization_id == null) {
                 $('#orgChangeText').html('<p>You are not a member of an organization.</p><p>Select an Organization to join:</p>');
-            }else {
+            } else {
                 $('#orgChangeText').html('<p>Select an Organization and click "update" to join a new Organization</p>');
             }
         });
