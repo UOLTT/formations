@@ -82,7 +82,8 @@
 
             <!-- org -->
             <div class="tab-pane" id="org" role="tabpanel">
-                <table class="table table-condensed" id="orgStats" style="display: none">
+                @if(!is_null(\Auth::user()->organization_id))
+                <table class="table table-condensed" id="orgStats">
                     <tbody>
                     <tr>
                         <td>Name</td>
@@ -142,7 +143,7 @@
                     </tr>
                     </tbody>
                 </table>
-
+                @endif
                 <div class="col-md-6" id="orgChangeText"></div>
                 <div class="col-md-6">
                     @foreach(App\Organization::with('status')->where('status_id',1)->get(['id','name','status_id']) as $Organization)
@@ -176,7 +177,6 @@
                 $('#orgChangeText').html('<p>You are not a member of an organization.</p><p>Select an Organization to join:</p>');
             }else {
                 $('#orgChangeText').html('<p>Select an Organization and click "update" to join a new Organization</p>');
-                $('#orgStats').show();
             }
         });
 
@@ -186,8 +186,8 @@
                 'token': Token,
                 'organization_id': $('input[name="joinOrg"]:checked').val()
             })
-                    .done(function (Response) {
-                        UserData = Response;
+                    .done(function () {
+                        location.reload();
                     });
         }
 
