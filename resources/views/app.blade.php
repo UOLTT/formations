@@ -78,8 +78,9 @@
 
 
     <script>
-        $.getJSON("/api/v4/users/{{ \Auth::user()->id }}", function (UserData) {
-            console.log(UserData);
+        var UserData;
+        $.getJSON("/api/v4/users/{{ \Auth::user()->id }}", function (Response) {
+            UserData = Response;
         });
 
         function saveUser() {
@@ -87,7 +88,7 @@
             $('#userships :selected').each(function(i, selected){
                 ships[i] = $(selected).val();
             });
-            $.post("/api/v4/users/{{ \Auth::user()->id }}", {
+            $.post(("/api/v4/users/" + UserData.id), {
                 'name' : $("#username").text(),
                 'ships[]' : ships,
                 '_method' : 'patch',
