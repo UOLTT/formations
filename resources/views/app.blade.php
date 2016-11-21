@@ -16,12 +16,14 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#org" role="tab">Organization</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#fleet" role="tab">Fleet</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#squad" role="tab">Squadron</a>
-                </li>
+                @if(!is_null(\Auth::user()->organization_id))
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#fleet" role="tab">Fleet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#squad" role="tab">Squadron</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -158,17 +160,63 @@
             </div>
             <!-- end org -->
 
-            <!-- fleet -->
-            <div class="tab-pane" id="fleet" role="tabpanel">
-                fleet
-            </div>
-            <!-- end fleet -->
+            @if(!is_null(\Auth::user()->organization_id))
 
-            <!-- squad -->
-            <div class="tab-pane" id="squad" role="tabpanel">
-                squad
-            </div>
-            <!-- end squad -->
+                <!-- fleet -->
+                <div class="tab-pane" id="fleet" role="tabpanel">
+                    @if(!is_null(\Auth::user()->fleet_id))
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{{ \Auth::user()->fleet->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Admiral</td>
+                                    <td>{{ \Auth::user()->fleet->admiral->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Organization</td>
+                                    <td>{{ \Auth::user()->fleet->organization->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>{{ \Auth::user()->fleet->status->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Manifesto</td>
+                                    <td>{{ \Auth::user()->fleet->manifesto }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                    <div class="col-md-6">
+                        @if(is_null(\Auth::user()->fleet_id))
+                            <p>You are not currently a member of a fleet</p>
+                        @endif
+                        <p>To update the fleet you are in, make a selection and click 'update.'</p>
+                    </div>
+                    <div class="col-md-6">
+                        @foreach(\App\Fleet::where('organization_id',\Auth::user()->organization_id)->get(['name','id']) as $Fleet)
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="joinFleet" value="{{ $Fleet->id }}">{{ $Fleet->name }}
+                                </label>
+                            </div>
+                        @endforeach
+                        <button class="btn btn-success" onclick="joinFleet()">Update</button>
+                    </div>
+                </div>
+                <!-- end fleet -->
+
+                <!-- squad -->
+                <div class="tab-pane" id="squad" role="tabpanel">
+                    squad
+                </div>
+                <!-- end squad -->
+            @endif
         </div>
     </div>
 
@@ -194,6 +242,18 @@
                     .done(function () {
                         location.reload();
                     });
+        }
+
+        function joinFleet() {
+            $.post(("/api/v4/users/" + UserData.id), {
+                '_method' : 'patch',
+                'token' : Token,
+                'fleet_id' : $('input[name="joinFleet"]:checked').val()
+            })
+                    .done(function () {
+                        location.reload();
+                    });
+            ;
         }
 
         function updateOrg() {

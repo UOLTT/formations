@@ -97,6 +97,7 @@ class UsersController extends Controller
             'email' => 'email|unique',
             'password' => 'string',
             'organization_id' => 'integer',
+            'fleet_id' => 'integer',
             'squad_id' => 'integer',
             'ships' => 'array'
         ];
