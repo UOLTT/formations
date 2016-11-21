@@ -35,10 +35,10 @@
                 <table class="table table-condensed">
                     <tbody>
                     <tr>
-                        <td>
+                        <td width="40%">
                             Name
                         </td>
-                        <td>
+                        <td width="60%">
                             <input type="text" name="name" id="username" class="form-control" value="{{ \Auth::user()->name }}">
                         </td>
                     </tr>
@@ -52,6 +52,27 @@
                                     <option value="{{ $Ship->id }}" {{ (count($Ship->users) ? "selected" : "") }}>{{ $Ship->shipname }}</option>
                                 @endforeach
                             </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Devices<br>
+                            <small>(Athentication codes used for external apps)</small>
+                        </td>
+                        <td>
+                            @if(\App\Device::where('user_id',\Auth::user()->id)->count() == 0)
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Oh snap!</strong> You will need to make a token before using this application
+                                </div>
+                            @else
+                                <ul class="list-group">
+                                    @foreach(\Auth::user()->devices as $Device)
+                                        <li class="list-group-item">
+                                            {{ $Device->token }} ({{ ($Device->used ? "used" : "unused") }})
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -92,7 +113,7 @@
                 'name' : $("#username").text(),
                 'ships[]' : ships,
                 '_method' : 'patch',
-                'token' : 'abcdef'
+                'token' : '{{ $token }}'
             });
         }
     </script>
