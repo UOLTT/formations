@@ -83,7 +83,18 @@
             <!-- org -->
             <div class="tab-pane" id="org" role="tabpanel">
                 @if(is_null(\Auth::user()->organization))
-                    <p>You are not a member of an organization.</p>
+                    <div class="col-md-6">
+                        <p>You are not a member of an organization.</p>
+                        <p>Select an Organization to join:</p>
+                    </div>
+                    <div class="col-md-6">
+                        @foreach(App\Organization::with('status')->where('status_id',1)->get(['id','name','status_id']) as $Organization)
+                            <div class="radio">
+                                <label><input type="radio" name="joinOrg" value="{{ $Organization->id }}">{{ $Organization->name }}</label>
+                            </div>
+                        @endforeach
+                        <button class="btn btn-success" onclick="joinOrg()">Join</button>
+                    </div>
                 @endif
             </div>
             <!-- end org -->
@@ -99,10 +110,24 @@
 
 
     <script>
+        var Token = '{{ $token }}';
         var UserData;
         $.getJSON("/api/v4/users/{{ \Auth::user()->id }}", function (Response) {
             UserData = Response;
         });
+
+        function joinOrg() {
+            $.post(("/api/v4/users/" + UserData.id), {
+                '_method' : 'patch',
+                'token' : Token,
+                'organization_id' : $('input[name="joinOrg"]:checked').val()
+            })
+                    .done(function(response) {
+                        if (!'error' in response) {
+
+                        }
+                    });
+        }
 
         function saveUser() {
             var ships = [];
@@ -113,7 +138,7 @@
                 'name': $("#username").text(),
                 'ships[]': ships,
                 '_method': 'patch',
-                'token': '{{ $token }}'
+                'token': Token
             });
         }
     </script>
