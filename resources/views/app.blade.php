@@ -82,77 +82,78 @@
 
             <!-- org -->
             <div class="tab-pane" id="org" role="tabpanel">
-                @if(is_null(\Auth::user()->organization))
-                    <div class="col-md-6">
-                        <p>You are not a member of an organization.</p>
-                        <p>Select an Organization to join:</p>
-                    </div>
-                    <div class="col-md-6">
-                        @foreach(App\Organization::with('status')->where('status_id',1)->get(['id','name','status_id']) as $Organization)
-                            <div class="radio">
-                                <label><input type="radio" name="joinOrg"
-                                              value="{{ $Organization->id }}">{{ $Organization->name }}</label>
+                <table class="table table-condensed" id="orgStats" style="display: none">
+                    <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>
+                            <input id="orgName" type="text" class="form-control"
+                                   value="{{ \Auth::user()->organization->name }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Administrator</td>
+                        <td>
+                            <select id='orgAdmin' class="form-control">
+                                @foreach(\App\User::where('organization_id',\Auth::user()->organization->id)->orderBy('name')->get(['id','name']) as $User)
+                                    <option value="{{ $User->id }}">{{ $User->name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>
+                            <select id="orgStatus" class="form-control">
+                                @foreach(\App\Status::where('type','Organization')->get(['id','name']) as $Status)
+                                    <option {{ (\Auth::user()->organization->status->id == $Status->id ? 'selected' : '') }} value="{{ $Status->id }}">{{ $Status->name }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Manifesto</td>
+                        <td>
+                            <textarea id='orgManifesto' rows='6'
+                                      class="form-control">{{ \Auth::user()->organization->manifesto }}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Founded On</td>
+                        <td>
+                            <input class="form-control" type="date" disabled
+                                   value="{{ \Auth::user()->organization->created_at->format('Y-m-d') }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-success" onclick="updateOrg()">Update Org</button>
+                        </td>
+                        <td>
+                            <div id='orgSuccess' class="alert alert-success" role="alert" style="display: none">
+                                <strong>Success</strong>
+                                <p id="orgSuccessText"></p>
                             </div>
-                        @endforeach
-                        <button class="btn btn-success" onclick="joinOrg()">Join</button>
-                    </div>
-                @else
-                    <table class="table table-condensed">
-                        <tbody>
-                        <tr>
-                            <td>Name</td>
-                            <td>
-                                <input id="orgName" type="text" class="form-control" value="{{ \Auth::user()->organization->name }}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Administrator</td>
-                            <td>
-                                <select id='orgAdmin' class="form-control">
-                                    @foreach(\App\User::where('organization_id',\Auth::user()->organization->id)->orderBy('name')->get(['id','name']) as $User)
-                                        <option value="{{ $User->id }}">{{ $User->name }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Status</td>
-                            <td>
-                                <select id="orgStatus" class="form-control">
-                                    @foreach(\App\Status::where('type','Organization')->get(['id','name']) as $Status)
-                                        <option {{ (\Auth::user()->organization->status->id == $Status->id ? 'selected' : '') }} value="{{ $Status->id }}">{{ $Status->name }}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Manifesto</td>
-                            <td>
-                                <textarea id='orgManifesto' rows='6' class="form-control">{{ \Auth::user()->organization->manifesto }}</textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Founded On</td>
-                            <td>
-                                <input class="form-control" type="date" disabled value="{{ \Auth::user()->organization->created_at->format('Y-m-d') }}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="btn btn-success" onclick="updateOrg()">Update Org</button>
-                            </td>
-                            <td>
-                                <div id='orgSuccess' class="alert alert-success" role="alert" style="display: none">
-                                    <strong>Success</strong> <p id="orgSuccessText"></p>
-                                </div>
-                                <div id='orgError' class="alert alert-danger" role="alert" style="display: none">
-                                    <strong>ERROR!</strong> <p id="orgErrorText"></p>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                @endif
+                            <div id='orgError' class="alert alert-danger" role="alert" style="display: none">
+                                <strong>ERROR!</strong>
+                                <p id="orgErrorText"></p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-md-6" id="orgChangeText"></div>
+                <div class="col-md-6">
+                    @foreach(App\Organization::with('status')->where('status_id',1)->get(['id','name','status_id']) as $Organization)
+                        <div class="radio">
+                            <label><input type="radio" name="joinOrg"
+                                          value="{{ $Organization->id }}">{{ $Organization->name }}</label>
+                        </div>
+                    @endforeach
+                    <button class="btn btn-success" onclick="joinOrg()">Update</button>
+                </div>
+
             </div>
             <!-- end org -->
 
@@ -171,6 +172,12 @@
         var UserData;
         $.getJSON("/api/v4/users/{{ \Auth::user()->id }}", function (Response) {
             UserData = Response;
+            if (UserData.organization_id == null) {
+                $('#orgChangeText').html('<p>You are not a member of an organization.</p><p>Select an Organization to join:</p>');
+            }else {
+                $('#orgChangeText').html('<p>Select an Organization and click "update" to join a new Organization</p>');
+                $('#orgStats').show();
+            }
         });
 
         function joinOrg() {
@@ -179,26 +186,26 @@
                 'token': Token,
                 'organization_id': $('input[name="joinOrg"]:checked').val()
             })
-                    .done(function(Response) {
+                    .done(function (Response) {
                         UserData = Response;
                     });
         }
 
         function updateOrg() {
             $.post(("/api/v4/organizations/" + UserData.organization_id), {
-                '_method' : 'patch',
-                'token' : Token,
-                'name' : $('#orgName').val(),
-                'admin_user_id' : $('#orgAdmin').val(),
-                'status_id' : $('#orgStatus').val(),
-                'manifesto' : $('#orgManifesto').val()
+                '_method': 'patch',
+                'token': Token,
+                'name': $('#orgName').val(),
+                'admin_user_id': $('#orgAdmin').val(),
+                'status_id': $('#orgStatus').val(),
+                'manifesto': $('#orgManifesto').val()
             })
-                    .done(function() {
+                    .done(function () {
                         $('#orgSuccessText').text('Organization Data Saved');
                         $('#orgError').hide();
                         $('#orgSuccess').show();
                     })
-                    .fail(function(Response) {
+                    .fail(function (Response) {
                         $('#orgErrorText').text(JSON.parse(Response.responseText).error);
                         $('#orgSuccess').hide();
                         $('#orgError').show();
