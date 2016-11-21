@@ -97,7 +97,8 @@ class UsersController extends Controller
             'email' => 'email|unique',
             'password' => 'string',
             'organization_id' => 'integer',
-            'squad_id' => 'integer'
+            'squad_id' => 'integer',
+            'ships' => 'array'
         ];
         $validator = Validator::make($request->all(),$parameters);
         if ($validator->fails()) {
@@ -107,7 +108,11 @@ class UsersController extends Controller
         $User = User::findOrFail($id);
         foreach ($parameters as $name => $rule) {
             if ($request->has($name)) {
-                $User->$name = $request->get($name);
+                if ($name == "ships") {
+                    $User->ships()->sync($request->get($name));
+                }else {
+                    $User->$name = $request->get($name);
+                }
             }
         }
         $User->save();
