@@ -102,13 +102,13 @@
                         <tr>
                             <td>Name</td>
                             <td>
-                                <input type="text" class="form-control" value="{{ \Auth::user()->organization->name }}">
+                                <input id="orgName" type="text" class="form-control" value="{{ \Auth::user()->organization->name }}">
                             </td>
                         </tr>
                         <tr>
                             <td>Administrator</td>
                             <td>
-                                <select class="form-control">
+                                <select id='orgAdmin' class="form-control">
                                     @foreach(\App\User::where('organization_id',\Auth::user()->organization->id)->orderBy('name')->get(['id','name']) as $User)
                                         <option value="{{ $User->id }}">{{ $User->name }}</option>
                                     @endforeach
@@ -118,7 +118,7 @@
                         <tr>
                             <td>Status</td>
                             <td>
-                                <select class="form-control">
+                                <select id="orgStatus" class="form-control">
                                     @foreach(\App\Status::where('type','Organization')->get(['id','name']) as $Status)
                                         <option {{ (\Auth::user()->organization->status->id == $Status->id ? 'selected' : '') }} value="{{ $Status->id }}">{{ $Status->name }}</option>
                                     @endforeach
@@ -128,7 +128,7 @@
                         <tr>
                             <td>Manifesto</td>
                             <td>
-                                <textarea rows='6' class="form-control">{{ \Auth::user()->organization->manifesto }}</textarea>
+                                <textarea id='orgManifesto' rows='6' class="form-control">{{ \Auth::user()->organization->manifesto }}</textarea>
                             </td>
                         </tr>
                         <tr>
@@ -138,8 +138,16 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                <button class="btn btn-success">Update Org</button>
+                            <td>
+                                <button class="btn btn-success" onclick="updateOrg()">Update Org</button>
+                            </td>
+                            <td>
+                                <div id='orgSuccess' class="alert alert-success" role="alert" style="display: none">
+                                    <strong>Success</strong> <p id="orgSuccessText"></p>
+                                </div>
+                                <div id='orgError' class="alert alert-danger" role="alert" style="display: none">
+                                    <strong>ERROR!</strong> <p id="orgErrorText"></p>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -171,6 +179,27 @@
                 'token': Token,
                 'organization_id': $('input[name="joinOrg"]:checked').val()
             })
+        }
+
+        function updateOrg() {
+            $.post("/api/v4/organizations/{{ \Auth::user()->organization->id }}", {
+                '_method' : 'patch',
+                'token' : Token,
+                'name' : $('#orgName').val(),
+                'admin_user_id' : $('#orgAdmin').val(),
+                'status_id' : $('#orgStatus').val(),
+                'manifesto' : $('#orgManifesto').val()
+            })
+                    .done(function() {
+                        $('#orgSuccessText').text('Organization Data Saved');
+                        $('#orgError').hide();
+                        $('#orgSuccess').show();
+                    })
+                    .fail(function(Response) {
+                        $('#orgErrorText').text(JSON.parse(Response.responseText).error);
+                        $('#orgSuccess').hide();
+                        $('#orgError').show();
+                    });
         }
 
         function saveUser() {
