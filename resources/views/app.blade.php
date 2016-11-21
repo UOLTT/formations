@@ -179,10 +179,13 @@
                 'token': Token,
                 'organization_id': $('input[name="joinOrg"]:checked').val()
             })
+                    .done(function(Response) {
+                        UserData = Response;
+                    });
         }
 
         function updateOrg() {
-            $.post("/api/v4/organizations/{{ \Auth::user()->organization->id }}", {
+            $.post(("/api/v4/organizations/" + UserData.organization_id), {
                 '_method' : 'patch',
                 'token' : Token,
                 'name' : $('#orgName').val(),
