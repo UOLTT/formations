@@ -39,7 +39,8 @@
                             Name
                         </td>
                         <td width="60%">
-                            <input type="text" name="name" id="username" class="form-control" value="{{ \Auth::user()->name }}">
+                            <input type="text" name="name" id="username" class="form-control"
+                                   value="{{ \Auth::user()->name }}">
                         </td>
                     </tr>
                     <tr>
@@ -60,19 +61,13 @@
                             <small>(Athentication codes used for external apps)</small>
                         </td>
                         <td>
-                            @if(\App\Device::where('user_id',\Auth::user()->id)->count() == 0)
-                                <div class="alert alert-danger" role="alert">
-                                    <strong>Oh snap!</strong> You will need to make a token before using this application
-                                </div>
-                            @else
-                                <ul class="list-group">
-                                    @foreach(\Auth::user()->devices as $Device)
-                                        <li class="list-group-item">
-                                            {{ $Device->token }} ({{ ($Device->used ? "used" : "unused") }})
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
+                            <ul class="list-group">
+                                @foreach(\Auth::user()->devices as $Device)
+                                    <li class="list-group-item">
+                                        {{ $Device->token }} ({{ ($Device->used ? "used" : "unused") }})
+                                    </li>
+                                @endforeach
+                            </ul>
                         </td>
                     </tr>
                     <tr>
@@ -85,9 +80,14 @@
             </div>
             <!-- end profile -->
 
+            <!-- org -->
             <div class="tab-pane" id="org" role="tabpanel">
-                org
+                @if(is_null(\Auth::user()->organization))
+                    <p>You are not a member of an organization.</p>
+                @endif
             </div>
+            <!-- end org -->
+
             <div class="tab-pane" id="fleet" role="tabpanel">
                 fleet
             </div>
@@ -106,14 +106,14 @@
 
         function saveUser() {
             var ships = [];
-            $('#userships :selected').each(function(i, selected){
+            $('#userships :selected').each(function (i, selected) {
                 ships[i] = $(selected).val();
             });
             $.post(("/api/v4/users/" + UserData.id), {
-                'name' : $("#username").text(),
-                'ships[]' : ships,
-                '_method' : 'patch',
-                'token' : '{{ $token }}'
+                'name': $("#username").text(),
+                'ships[]': ships,
+                '_method': 'patch',
+                'token': '{{ $token }}'
             });
         }
     </script>
