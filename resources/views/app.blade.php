@@ -39,7 +39,7 @@
                             Name
                         </td>
                         <td>
-                            <input type="text" name="name" id="user.name" class="form-control" value="{{ \Auth::user()->name }}">
+                            <input type="text" name="name" id="username" class="form-control" value="{{ \Auth::user()->name }}">
                         </td>
                     </tr>
                     <tr>
@@ -47,11 +47,16 @@
                             Ships
                         </td>
                         <td>
-                            <select class="form-control" multiple size="{{ App\Ship::count() }}" name="ships" id="user.ships">
+                            <select class="form-control" multiple="multiple" size="15" name="ships" id="userships">
                                 @foreach (\App\Ship::with(['users'=>function($query) {$query->where('users.id',\Auth::user()->id);}])->orderBy('shipname')->get(['id','shipname']) as $Ship)
                                     <option value="{{ $Ship->id }}" {{ (count($Ship->users) ? "selected" : "") }}>{{ $Ship->shipname }}</option>
                                 @endforeach
                             </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input class="btn btn-success" value="Save" id="user.save" onclick="saveUser()">
                         </td>
                     </tr>
                     </tbody>
@@ -76,6 +81,19 @@
         $.getJSON("/api/v4/users/{{ \Auth::user()->id }}", function (UserData) {
             console.log(UserData);
         });
+
+        function saveUser() {
+            var ships = [];
+            $('#userships :selected').each(function(i, selected){
+                ships[i] = $(selected).val();
+            });
+            $.post("/api/v4/users/{{ \Auth::user()->id }}", {
+                'name' : $("#username").text(),
+                'ships[]' : ships,
+                '_method' : 'patch',
+                'token' : 'abcdef'
+            });
+        }
     </script>
 
 @endsection
