@@ -203,7 +203,7 @@
                                     <td>Status</td>
                                     <td>
                                         <select id="fleetStatus" class="form-control">
-                                            @foreach(\App\Status::where('type','fleet')->get(['id','name']) as $status)
+                                            @foreach(\App\Status::where('type','Fleet')->get(['id','name']) as $status)
                                                 <option value="{{ $status->id }}">{{ $status->name }}</option>
                                             @endforeach
                                         </select>
