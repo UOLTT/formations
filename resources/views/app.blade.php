@@ -215,8 +215,18 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
+                                    <td>
                                         <button onclick="updateFleet()" class="btn btn-success">Update Fleet</button>
+                                    </td>
+                                    <td>
+                                        <div id='fleetSuccess' class="alert alert-success" role="alert" style="display: none">
+                                            <strong>Success</strong>
+                                            <p id="fleetSuccessText"></p>
+                                        </div>
+                                        <div id='fleetError' class="alert alert-danger" role="alert" style="display: none">
+                                            <strong>ERROR!</strong>
+                                            <p id="fleetErrorText"></p>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -296,7 +306,18 @@
                 'organization_id' : $('#fleetOrg').val(),
                 'status_id' : $('#fleetStatus'),
                 'manifesto' : $('#fleetManifesto')
-            });
+            })
+                    .done(function () {
+                $('#fleetSuccessText').text('Fleet Data Saved');
+                $('#fleetError').hide();
+                $('#fleetSuccess').show();
+            })
+                    .fail(function (Response) {
+                        $('#fleetErrorText').text(JSON.parse(Response.responseText).error);
+                        $('#fleetSuccess').hide();
+                        $('#fleetError').show();
+                    });
+
         }
 
         function updateOrg() {
