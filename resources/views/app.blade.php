@@ -171,13 +171,13 @@
                                 <tr>
                                     <td>Name</td>
                                     <td>
-                                        <input type="text" class="form-control" value="{{ \Auth::user()->fleet->name }}">
+                                        <input id="fleetName" type="text" class="form-control" value="{{ \Auth::user()->fleet->name }}">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Admiral</td>
                                     <td>
-                                        <select class="form-control">
+                                        <select id="fleetAdmiral" class="form-control">
                                             @foreach(\Auth::user()->fleet->users as $user)
                                                 <option {{ ($user->id == \Auth::user()->fleet->admiral->id ? "selected" : "") }} value="{{ $user->id }}">
                                                     {{ $user->name }}
@@ -189,7 +189,7 @@
                                 <tr>
                                     <td>Organization</td>
                                     <td>
-                                        <select class="form-control">
+                                        <select id="fleetOrg" class="form-control">
                                             @foreach(\App\Organization::all(['id','name']) as $organization)
                                                 <option {{ (\Auth::user()->organization->id == $organization->id ? "selected" : "") }} value="{{ $organization->id }}">
                                                     {{ $organization->name }}
@@ -201,7 +201,7 @@
                                 <tr>
                                     <td>Status</td>
                                     <td>
-                                        <select class="form-control">
+                                        <select id="fleetStatus" class="form-control">
                                             @foreach(\App\Status::where('type','fleet')->get(['id','name']) as $status)
                                                 <option value="{{ $status->id }}">{{ $status->name }}</option>
                                             @endforeach
@@ -211,12 +211,12 @@
                                 <tr>
                                     <td>Manifesto</td>
                                     <td>
-                                        <textarea rows="6" class="form-control">{{ \Auth::user()->fleet->manifesto }}</textarea>
+                                        <textarea id="fleetManifesto" rows="6" class="form-control">{{ \Auth::user()->fleet->manifesto }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <button class="btn btn-success">Update Fleet</button>
+                                        <button onclick="updateFleet()" class="btn btn-success">Update Fleet</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -285,6 +285,18 @@
                     .done(function () {
                         location.reload();
                     });
+        }
+
+        function updateFleet() {
+            $.post(("/api/v4/fleets/" + UserData.fleet_id), {
+                '_method' : 'patch',
+                'token' : Token,
+                'name' : $('#fleetName').val(),
+                'admiral_id' : $('#fleetAdmiral').val(),
+                'organization_id' : $('#fleetOrg').val(),
+                'status_id' : $('#fleetStatus'),
+                'manifesto' : $('#fleetManifesto')
+            });
         }
 
         function updateOrg() {
