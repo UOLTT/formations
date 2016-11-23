@@ -160,9 +160,9 @@
             </div>
             <!-- end org -->
 
-            @if(!is_null(\Auth::user()->organization_id))
+        @if(!is_null(\Auth::user()->organization_id))
 
-                <!-- fleet -->
+            <!-- fleet -->
                 <div class="tab-pane" id="fleet" role="tabpanel">
                     @if(!is_null(\Auth::user()->fleet_id))
                         <div class="col-md-12">
@@ -171,7 +171,8 @@
                                 <tr>
                                     <td>Name</td>
                                     <td>
-                                        <input id="fleetName" type="text" class="form-control" value="{{ \Auth::user()->fleet->name }}">
+                                        <input id="fleetName" type="text" class="form-control"
+                                               value="{{ \Auth::user()->fleet->name }}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -211,7 +212,8 @@
                                 <tr>
                                     <td>Manifesto</td>
                                     <td>
-                                        <textarea id="fleetManifesto" rows="6" class="form-control">{{ \Auth::user()->fleet->manifesto }}</textarea>
+                                        <textarea id="fleetManifesto" rows="6"
+                                                  class="form-control">{{ \Auth::user()->fleet->manifesto }}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -219,11 +221,13 @@
                                         <button onclick="updateFleet()" class="btn btn-success">Update Fleet</button>
                                     </td>
                                     <td>
-                                        <div id='fleetSuccess' class="alert alert-success" role="alert" style="display: none">
+                                        <div id='fleetSuccess' class="alert alert-success" role="alert"
+                                             style="display: none">
                                             <strong>Success</strong>
                                             <p id="fleetSuccessText"></p>
                                         </div>
-                                        <div id='fleetError' class="alert alert-danger" role="alert" style="display: none">
+                                        <div id='fleetError' class="alert alert-danger" role="alert"
+                                             style="display: none">
                                             <strong>ERROR!</strong>
                                             <p id="fleetErrorText"></p>
                                         </div>
@@ -243,11 +247,14 @@
                         @foreach(\App\Fleet::where('organization_id',\Auth::user()->organization_id)->get(['name','id']) as $Fleet)
                             <div class="radio">
                                 <label>
-                                    <input {{ ($Fleet->id == \Auth::user()->fleet_id ? "checked" : "") }} type="radio" name="joinFleet" value="{{ $Fleet->id }}">{{ $Fleet->name }}
+                                    <input {{ ($Fleet->id == \Auth::user()->fleet_id ? "checked" : "") }} type="radio"
+                                           name="joinFleet" value="{{ $Fleet->id }}">{{ $Fleet->name }}
                                 </label>
                             </div>
                         @endforeach
-                        <button class="btn btn-{{ (is_null(\Auth::user()->fleet_id) ? 'success' : 'warning') }}" onclick="joinFleet()">Join Fleet</button>
+                        <button class="btn btn-{{ (is_null(\Auth::user()->fleet_id) ? 'success' : 'warning') }}"
+                                onclick="joinFleet()">Join Fleet
+                        </button>
                     </div>
                 </div>
                 <!-- end fleet -->
@@ -276,9 +283,9 @@
 
         function joinFleet() {
             $.post(("/api/v4/users/" + UserData.id), {
-                '_method' : 'patch',
-                'token' : Token,
-                'fleet_id' : $('input[name="joinFleet"]:checked').val()
+                '_method': 'patch',
+                'token': Token,
+                'fleet_id': $('input[name="joinFleet"]:checked').val()
             })
                     .done(function () {
                         location.reload();
@@ -299,19 +306,19 @@
 
         function updateFleet() {
             $.post(("/api/v4/fleets/" + UserData.fleet_id), {
-                '_method' : 'patch',
-                'token' : Token,
-                'name' : $('#fleetName').val(),
-                'admiral_id' : $('#fleetAdmiral').val(),
-                'organization_id' : $('#fleetOrg').val(),
-                'status_id' : $('#fleetStatus'),
-                'manifesto' : $('#fleetManifesto')
+                '_method': 'patch',
+                'token': Token,
+                'name': $('#fleetName').val(),
+                'admiral_id': $('#fleetAdmiral').val(),
+                'organization_id': $('#fleetOrg').val(),
+                'status_id': $('#fleetStatus'),
+                'manifesto': $('#fleetManifesto')
             })
                     .done(function () {
-                $('#fleetSuccessText').text('Fleet Data Saved');
-                $('#fleetError').hide();
-                $('#fleetSuccess').show();
-            })
+                        $('#fleetSuccessText').text('Fleet Data Saved');
+                        $('#fleetError').hide();
+                        $('#fleetSuccess').show();
+                    })
                     .fail(function (Response) {
                         $('#fleetErrorText').text(JSON.parse(Response.responseText).error);
                         $('#fleetSuccess').hide();
