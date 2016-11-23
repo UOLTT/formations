@@ -214,6 +214,11 @@
                                         <textarea rows="6" class="form-control">{{ \Auth::user()->fleet->manifesto }}</textarea>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        // TODO add button and JS to save
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
