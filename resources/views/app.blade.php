@@ -170,23 +170,49 @@
                                 <tbody>
                                 <tr>
                                     <td>Name</td>
-                                    <td>{{ \Auth::user()->fleet->name }}</td>
+                                    <td>
+                                        <input type="text" class="form-control" value="{{ \Auth::user()->fleet->name }}">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Admiral</td>
-                                    <td>{{ \Auth::user()->fleet->admiral->name }}</td>
+                                    <td>
+                                        <select class="form-control">
+                                            @foreach(\Auth::user()->fleet->users as $user)
+                                                <option {{ ($user->id == \Auth::user()->fleet->admiral->id ? "selected" : "") }} value="{{ $user->id }}">
+                                                    {{ $user->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Organization</td>
-                                    <td>{{ \Auth::user()->fleet->organization->name }}</td>
+                                    <td>
+                                        <select class="form-control">
+                                            @foreach(\App\Organization::all(['id','name']) as $organization)
+                                                <option {{ (\Auth::user()->organization->id == $organization->id ? "selected" : "") }} value="{{ $organization->id }}">
+                                                    {{ $organization->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Status</td>
-                                    <td>{{ \Auth::user()->fleet->status->name }}</td>
+                                    <td>
+                                        <select class="form-control">
+                                            @foreach(\App\Status::where('type','fleet')->get(['id','name']) as $status)
+                                                <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Manifesto</td>
-                                    <td>{{ \Auth::user()->fleet->manifesto }}</td>
+                                    <td>
+                                        <textarea rows="6" class="form-control">{{ \Auth::user()->fleet->manifesto }}</textarea>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
