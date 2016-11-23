@@ -264,17 +264,6 @@
             }
         });
 
-        function joinOrg() {
-            $.post(("/api/v4/users/" + UserData.id), {
-                '_method': 'patch',
-                'token': Token,
-                'organization_id': $('input[name="joinOrg"]:checked').val()
-            })
-                    .done(function () {
-                        location.reload();
-                    });
-        }
-
         function joinFleet() {
             $.post(("/api/v4/users/" + UserData.id), {
                 '_method' : 'patch',
@@ -285,6 +274,17 @@
                         location.reload();
                     });
             ;
+        }
+
+        function joinOrg() {
+            $.post(("/api/v4/users/" + UserData.id), {
+                '_method': 'patch',
+                'token': Token,
+                'organization_id': $('input[name="joinOrg"]:checked').val()
+            })
+                    .done(function () {
+                        location.reload();
+                    });
         }
 
         function updateOrg() {
