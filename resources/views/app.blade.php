@@ -179,7 +179,7 @@
                                     <td>Admiral</td>
                                     <td>
                                         <select id="fleetAdmiral" class="form-control">
-                                            @foreach(\Auth::user()->fleet->users as $user)
+                                            @foreach(\App\User::where('fleet_id',\Auth::user()->fleet_id)->get(['id','name']) as $user)
                                                 <option {{ ($user->id == \Auth::user()->fleet->admiral->id ? "selected" : "") }} value="{{ $user->id }}">
                                                     {{ $user->name }}
                                                 </option>
@@ -190,7 +190,7 @@
                                 <tr>
                                     <td>Organization</td>
                                     <td>
-                                        <select id="fleetOrg" class="form-control">
+                                        <select disabled id="fleetOrg" class="form-control">
                                             @foreach(\App\Organization::all(['id','name']) as $organization)
                                                 <option {{ (\Auth::user()->organization->id == $organization->id ? "selected" : "") }} value="{{ $organization->id }}">
                                                     {{ $organization->name }}
@@ -310,7 +310,6 @@
                 'token': Token,
                 'name': $('#fleetName').val(),
                 'admiral_id': $('#fleetAdmiral').val(),
-                'organization_id': $('#fleetOrg').val(),
                 'status_id': $('#fleetStatus').val(),
                 'manifesto': $('#fleetManifesto').val()
             })
