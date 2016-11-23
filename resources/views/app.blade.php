@@ -311,8 +311,8 @@
                 'name': $('#fleetName').val(),
                 'admiral_id': $('#fleetAdmiral').val(),
                 'organization_id': $('#fleetOrg').val(),
-                'status_id': $('#fleetStatus'),
-                'manifesto': $('#fleetManifesto')
+                'status_id': $('#fleetStatus').val(),
+                'manifesto': $('#fleetManifesto').val()
             })
                     .done(function () {
                         $('#fleetSuccessText').text('Fleet Data Saved');
