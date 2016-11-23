@@ -216,7 +216,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        // TODO add button and JS to save
+                                        <button class="btn btn-success">Update Fleet</button>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -237,7 +237,7 @@
                                 </label>
                             </div>
                         @endforeach
-                        <button class="btn btn-success" onclick="joinFleet()">Update</button>
+                        <button class="btn btn-{{ (is_null(\Auth::user()->fleet_id) ? 'success' : 'warning') }}" onclick="joinFleet()">Join Fleet</button>
                     </div>
                 </div>
                 <!-- end fleet -->
