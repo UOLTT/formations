@@ -305,6 +305,11 @@
         }
 
         function updateFleet() {
+            if ($('#fleetAdmiral').val() != UserData.fleet.admiral_id && UserData.id != UserData.organization.admin_user_id) {
+                if (confirm("Please confirm that you forfeit control over this fleet") != true) {
+                    return;
+                }
+            }
             $.post(("/api/v4/fleets/" + UserData.fleet_id), {
                 '_method': 'patch',
                 'token': Token,
