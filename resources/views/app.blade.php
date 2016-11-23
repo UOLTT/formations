@@ -233,7 +233,7 @@
                         @foreach(\App\Fleet::where('organization_id',\Auth::user()->organization_id)->get(['name','id']) as $Fleet)
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="joinFleet" value="{{ $Fleet->id }}">{{ $Fleet->name }}
+                                    <input {{ ($Fleet->id == \Auth::user()->fleet_id ? "checked" : "") }} type="radio" name="joinFleet" value="{{ $Fleet->id }}">{{ $Fleet->name }}
                                 </label>
                             </div>
                         @endforeach
