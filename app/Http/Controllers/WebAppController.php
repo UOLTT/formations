@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 class WebAppController extends Controller
 {
     public function index() {
+        if (!\Auth::user()) {
+            return redirect('/login');
+        }
         if (\App\Device::where('user_id',\Auth::user()->id)->count() == 0) {
             $token = "";
             foreach (range(1,6) as $int) {
