@@ -20,9 +20,11 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#fleet" role="tab">Fleet</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#squad" role="tab">Squadron</a>
-                    </li>
+                    @if(!is_null(\Auth::user()->fleet_id))
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#squad" role="tab">Squadron</a>
+                        </li>
+                    @endif
                 @endif
             </ul>
         </div>
@@ -259,12 +261,13 @@
                 </div>
                 <!-- end fleet -->
 
-
-                <!-- squad -->
-                <div class="tab-pane" id="squad" role="tabpanel">
-                    squad
-                </div>
-                <!-- end squad -->
+                @if(!is_null(\Auth::user()->fleet_id))
+                    <!-- squad -->
+                        <div class="tab-pane" id="squad" role="tabpanel">
+                            {{ \Auth::user()->fleet_id }}
+                        </div>
+                    <!-- end squad -->
+                @endif
 
             @endif
         </div>
