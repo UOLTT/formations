@@ -160,9 +160,9 @@
             </div>
             <!-- end org -->
 
-        @if(!is_null(\Auth::user()->organization_id))
+            @if(!is_null(\Auth::user()->organization_id))
 
-            <!-- fleet -->
+                <!-- fleet -->
                 <div class="tab-pane" id="fleet" role="tabpanel">
                     @if(!is_null(\Auth::user()->fleet_id))
                         <div class="col-md-12">
@@ -259,11 +259,13 @@
                 </div>
                 <!-- end fleet -->
 
+
                 <!-- squad -->
                 <div class="tab-pane" id="squad" role="tabpanel">
                     squad
                 </div>
                 <!-- end squad -->
+
             @endif
         </div>
     </div>
