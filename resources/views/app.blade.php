@@ -314,7 +314,7 @@
                                             </label>
                                         </div>
                                     @endforeach
-                                    <button class="btn btn-{{ (is_null(\Auth::user()->squad_id) ? "success" : "warning") }}">Update</button>
+                                    <button onclick="joinSquad()" class="btn btn-{{ (is_null(\Auth::user()->squad_id) ? "success" : "warning") }}">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -343,6 +343,17 @@
                 '_method': 'patch',
                 'token': Token,
                 'fleet_id': $('input[name="joinFleet"]:checked').val()
+            })
+                    .done(function () {
+                        location.reload();
+                    });
+        }
+
+        function joinSquad() {
+            $.post(("/api/v4/users/" + UserData.id), {
+                '_method' : 'patch',
+                'token': Token,
+                'squad_id': $('input[name="joinSquad"]:checked').val()
             })
                     .done(function () {
                         location.reload();
