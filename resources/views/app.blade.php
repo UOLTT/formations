@@ -264,7 +264,59 @@
                 @if(!is_null(\Auth::user()->fleet_id))
                     <!-- squad -->
                         <div class="tab-pane" id="squad" role="tabpanel">
-                            {{ \Auth::user()->fleet_id }}
+                            @if (!is_null(\Auth::user()->squad_id))
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-condensed">
+                                            <tbody>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>
+                                                    <input id="squadName" type="text" class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fleet</td>
+                                                <td>
+                                                    <select id="squadFleet" class="form-control">
+                                                        @foreach(\App\Fleet::where('organization_id',\Auth::user()->organization_id)->get(['id','name']) as $Fleet)
+                                                            <option value="{{ $Fleet->id }}">{{ $Fleet->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Squad Leader</td>
+                                                <td>
+                                                    <select id="squadLeader" class="form-control">
+                                                        @foreach(\App\User::where('squad_id',\Auth::user()->squad_id)->get(['id','name']) as $User)
+                                                            <option value="{{ $User->id }}">{{ $User->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            @endif
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>To update the squadron you are in, select the desired squadron and click 'update.'</p>
+                                </div>
+                                <div class="col-md-6">
+                                    @foreach(\App\Squad::where('fleet_id',\Auth::user()->fleet_id)->get(['id','name']) as $Squad)
+                                        <div class="radio">
+                                            <label>
+                                                <input {{ ($Squad->id == \Auth::user()->squad_id ? "checked" : "") }} type="radio"
+                                                       name="joinSquad" value="{{ $Squad->id }}">{{ $Squad->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                    <button class="btn btn-{{ (is_null(\Auth::user()->squad_id) ? "success" : "warning") }}">Update</button>
+                                </div>
+                            </div>
                         </div>
                     <!-- end squad -->
                 @endif
@@ -295,7 +347,6 @@
                     .done(function () {
                         location.reload();
                     });
-            ;
         }
 
         function joinOrg() {
