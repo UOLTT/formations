@@ -272,7 +272,7 @@
                                             <tr>
                                                 <td>Name</td>
                                                 <td>
-                                                    <input id="squadName" type="text" class="form-control">
+                                                    <input id="squadName" type="text" class="form-control" value="{{ \Auth::user()->squad->name }}">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -280,7 +280,7 @@
                                                 <td>
                                                     <select id="squadFleet" class="form-control">
                                                         @foreach(\App\Fleet::where('organization_id',\Auth::user()->organization_id)->get(['id','name']) as $Fleet)
-                                                            <option value="{{ $Fleet->id }}">{{ $Fleet->name }}</option>
+                                                            <option {{ ($Fleet->id == \Auth::user()->squad->fleet_id ? "selected" : "") }} value="{{ $Fleet->id }}">{{ $Fleet->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
@@ -290,7 +290,20 @@
                                                 <td>
                                                     <select id="squadLeader" class="form-control">
                                                         @foreach(\App\User::where('squad_id',\Auth::user()->squad_id)->get(['id','name']) as $User)
-                                                            <option value="{{ $User->id }}">{{ $User->name }}</option>
+                                                            <option {{ (\Auth::user()->squad->squad_leader_id == $User->id ? "selected" : "") }} value="{{ $User->id }}">{{ $User->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Status</td>
+                                                <td>
+                                                    <select id="squadStatus" class="form-control">
+                                                        @foreach(\App\Status::where('type','Squadron')->get(['id','name']) as $Status)
+                                                            <!--
+                                                            TODO add selected value
+                                                            -->
+                                                            <option value="{{ $Status->id }}">{{ $Status->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
