@@ -36,7 +36,6 @@ class CreateShipsTable extends Migration
             $table->integer('combatspeed')->nullable();
             $table->integer('combatrating')->nullable();
             $table->integer('waverank')->nullable()->default(0);
-            $table->timestamps();
         });
         //Artisan::call('db:seed', array('--class' => 'ShipsTableSeeder'));
     }
