@@ -31,6 +31,7 @@ class User extends Authenticatable
         'id' => 'integer',
         'name' => 'string',
         'email' => 'string',
+        'fleet_id' => 'integer',
         'organization_id' => 'integer',
         'squad_id' => 'integer',
         'active_user_ship' => 'integer',
