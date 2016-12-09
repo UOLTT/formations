@@ -18,6 +18,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        // TODO make sure this is up to date
         $parameters = [
             'name' => 'string',
             'email' => 'string',
