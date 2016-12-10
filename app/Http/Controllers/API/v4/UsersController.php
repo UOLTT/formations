@@ -18,6 +18,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        // TODO make sure this is up to date
         $parameters = [
             'name' => 'string',
             'email' => 'string',
@@ -51,6 +52,7 @@ class UsersController extends Controller
             'email' => 'email|required|unique',
             'password' => 'string|required',
             'organization_id' => 'integer',
+            'fleet_id' => 'integer',
             'squad_id' => 'integer'
         ];
         $validator = Validator::make($request->all(),$parameters);
