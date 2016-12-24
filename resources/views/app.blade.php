@@ -156,7 +156,7 @@
                                           value="{{ $Organization->id }}">{{ $Organization->name }}</label>
                         </div>
                     @endforeach
-                    <button class="btn btn-success" onclick="joinOrg()">Update</button>
+                    <button class="btn btn-{{ (is_null(\Auth::user()->organization_id) ? "success" : "warning") }}" onclick="joinOrg()">Update</button>
                 </div>
 
             </div>
