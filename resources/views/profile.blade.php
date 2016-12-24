@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="page-header">
-        <h1>Test Thing</h1>
+        <h1>{{ \Auth::user()->name . "'s profile" }}</h1>
     </div>
 
     <!-- Nav tabs -->
