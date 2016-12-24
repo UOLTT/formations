@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class WebAppController extends Controller
 {
+
+    public function index() {
+        return view('app');
+    }
+
     public function profile() {
         if (!\Auth::user()) {
             return redirect('/login');

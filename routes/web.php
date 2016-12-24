@@ -20,6 +20,8 @@ Route::get('/bootstrap',function() {
 });
 Auth::routes();
 
+Route::get('/app', 'WebAppController@index');
+
 Route::get('/home', 'HomeController@index');
 
 Route::resource('/organizations',OrganizationsController::class);
