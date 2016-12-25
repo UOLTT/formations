@@ -19,16 +19,45 @@
         <div class="row">
             <!-- TODO fix when implementing group permissions -->
             @if(\Auth::user()->organization->admin_user_id == \Auth::user()->id)
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{ \Auth::user()->organization->name }}</h3>
-                    </div>
-                    <div class="panel-body">
-                        Organization Status:<br>
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ \Auth::user()->organization->name }}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Organization Status:</b>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="orgStatus" class="form-control">
+                                        @foreach(\App\Status::where('type','Organization')->get(['name','id']) as $Org)
+                                            <option value="{{ $Org->id }}">{{ $Org->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endif
         </div>
+
+        <script>
+            var Token = "{{ $token }}";
+            $('#orgStatus').on('change', function() {
+                console.log({
+                    token: Token,
+                    _method: "patch",
+                    status_id: Number(this.value)
+                });
+                $.post( "/api/v4/organizations/{{ \Auth::user()->organization_id }}", {
+                    token: Token,
+                    _method: "patch",
+                    status_id: Number(this.value)
+                } );
+            })
+        </script>
 
     @endif
 
