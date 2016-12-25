@@ -24,8 +24,6 @@ Route::get('/app', 'WebAppController@index');
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource('/organizations',OrganizationsController::class);
-
 Route::get('/profile','WebAppController@profile');
 
 Route::group(['prefix'=>'{org}'],function() {
