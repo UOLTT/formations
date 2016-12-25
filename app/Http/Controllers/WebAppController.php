@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 class WebAppController extends Controller
 {
 
-    public function index() {
-        return view('app');
-    }
-
-    public function profile() {
+    public function fetch_token() {
         if (!\Auth::user()) {
             return redirect('/login');
         }
@@ -26,6 +22,14 @@ class WebAppController extends Controller
         }else {
             $token = Device::where('user_id',\Auth::user()->id)->where('used',true)->first()->token;
         }
-        return view('profile')->with('token',$token);
+        return $token;
+    }
+
+    public function index() {
+        return view('app')->with('token',$this->fetch_token());
+    }
+
+    public function profile() {
+        return view('profile')->with('token',$this->fetch_token());
     }
 }
