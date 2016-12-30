@@ -100,7 +100,7 @@
             <div class="col-md-12">
                 <div class="panel panel-primary" id="shipsPanel" style="display: none">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Your Ships</h3>
+                        <h3 class="panel-title">I am flying...</h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -146,11 +146,7 @@
                             $('#squadStatus').prop('disabled',true);
                         }
 
-                        var shipListHtml = "";
-                        $.each(UserData.ships, function(index, ShipData) {
-                            shipListHtml = shipListHtml + '<a href="#" class="list-group-item">' + ShipData.shipname + '</a>';
-                        });
-                        $('#shipList').html(shipListHtml);
+                        updateShipList(UserID);
 
                         $('#loadingPanel').hide();
                         $('#orgPanel').show();
@@ -205,6 +201,33 @@
                     status_id: Number(this.value)
                 });
             })
+
+            $('#whoseShip').on('change', function() {
+                updateShipList(this.value);
+            });
+
+            function updateShipList(PlayerID) {
+
+                var PlayerShips;
+                // already have data, no need for ajax
+                if (PlayerID == UserID) {
+                    update(UserData.ships);
+                }else {
+                    $('#shipList').html('<a href="#" class="list-group-item">Loading...</a>');
+                    $.getJSON("/api/v4/users/" + PlayerID, function(User) {
+                        update(User.ships);
+                    });
+                }
+
+                function update(shipsArray) {
+                    var shipListHtml = "";
+                    $.each(shipsArray, function(index, ShipData) {
+                        shipListHtml = shipListHtml + '<a href="#" class="list-group-item">' + ShipData.shipname + '</a>';
+                    });
+                    $('#shipList').html(shipListHtml);
+                }
+
+            }
         </script>
 
     @endif
