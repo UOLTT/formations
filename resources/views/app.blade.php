@@ -103,8 +103,23 @@
                         <h3 class="panel-title">Your Ships</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="list-group" id="shipList">
-                            <!-- this gets filled with ship data -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>
+                                    <input type="radio" name="myShip" class="myShip" value="0" checked> My Ship<br>
+                                    <input type="radio" name="myShip" class="myShip" value="1"> Squadmates Ship
+                                </p>
+                                <p>
+                                    <select class="form-control" id="whoseShip" style="display: none">
+                                        <option>Loading...</option>
+                                    </select>
+                                </p>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="list-group" id="shipList">
+                                    <!-- this gets filled with ship data -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,6 +158,28 @@
                         $('#squadPanel').show();
                         $('#shipsPanel').show();
                     });
+
+            $('.myShip').on('change',function() {
+                // if using squad mates ship
+                if (this.value) {
+                    // show the select box
+                    $('#whoseShip').show();
+                    var squadOptions = "";
+                    // get the users that belong to that squad
+                    $.getJSON("/api/v4/squads/" + UserData.squad_id, function(SquadData) {
+                        console.log(SquadData);
+                        $.each(SquadData.users, function(index, User) {
+                            squadOptions = squadOptions + "<option value='" + User.id + "'>" + User.name + "</option>";
+                        });
+                    })
+                            .done(function() { // update the select box with the new options
+                                $('#whoseShip').html(squadOptions);
+                            });
+                }else {
+                    $('#whoseShip').hide();
+                    $('#whoseShip').html("<option>Loading...</option>");
+                }
+            });
 
             $('#orgStatus').on('change', function () {
                 console.log({
