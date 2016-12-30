@@ -103,7 +103,9 @@
                         <h3 class="panel-title">Your Ships</h3>
                     </div>
                     <div class="panel-body">
-
+                        <div class="list-group" id="shipList">
+                            <!-- this gets filled with ship data -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -128,6 +130,13 @@
                         if (UserData.id != UserData.squad.squad_leader_id) {
                             $('#squadStatus').prop('disabled',true);
                         }
+
+                        var shipListHtml = "";
+                        $.each(UserData.ships, function(index, ShipData) {
+                            shipListHtml = shipListHtml + '<a href="#" class="list-group-item">' + ShipData.shipname + '</a>';
+                        });
+                        $('#shipList').html(shipListHtml);
+
                         $('#loadingPanel').hide();
                         $('#orgPanel').show();
                         $('#fleetPanel').show();
