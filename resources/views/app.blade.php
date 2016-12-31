@@ -260,6 +260,10 @@
                 updateShipList(this.value);
             });
 
+            function updateActiveShip(PlayerID, ShipID) {
+                console.log(PlayerID + " " + ShipID);
+            }
+
             function updateShipList(PlayerID) {
                 if (PlayerID == UserID) { // already have data, no need for ajax
                     update(UserData.ships);
