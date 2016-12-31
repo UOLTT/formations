@@ -48,6 +48,8 @@ class User extends Authenticatable
         ]);
     }
 
+    // TODO write the ActiveShip setter mutator
+
     public function devices() {
         return $this->hasMany(Device::class);
     }
