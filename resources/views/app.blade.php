@@ -183,7 +183,25 @@
                         }
 
                         // Make sure ship list is populated
-                        updateShipList(UserID);
+                        updateShipList(UserData.active_ship.user_id,UserData.active_ship.ship_id);
+
+                        if (UserData.active_ship.user_id == UserID) { // if user is running their own ship
+                            myShipChecked(true);
+                        }else { // if user is running someone elses ship
+                            myShipChecked(false);
+                            $('#whoseShip').show();
+                        }
+
+                        // Function to toggle between checked and unchecked for the myShip class radio thing
+                        function myShipChecked(checked) {
+                            $('.myShip').each(function(index) {
+                                if ($(this).value == 0) {
+                                    $(this).prop('checked',checked);
+                                }else {
+                                    $(this).prop('checked',!checked);
+                                }
+                            });
+                        }
 
                         // Hide loading panel and show everything else
                         $('#loadingPanel').hide();
@@ -260,11 +278,18 @@
                 updateShipList(this.value);
             });
 
-            function updateActiveShip(PlayerID, ShipID) {
-                console.log(PlayerID + " " + ShipID);
+            function updateActiveShip(ShipID) {
+                $('.shipListItems').each(function(index) {
+                    console.log($(this).text());
+                    if ($(this).hasClass("active") && $(this).attr('id') != "Ship" + ShipID) {
+                        $(this).removeClass("active");
+                    }else if ($(this).attr('id') == "Ship" + ShipID) {
+                        $(this).addClass("active");
+                    }
+                });
             }
 
-            function updateShipList(PlayerID) {
+            function updateShipList(PlayerID,ActiveShip) {
                 if (PlayerID == UserID) { // already have data, no need for ajax
                     update(UserData.ships);
                 }else { // we need to get that users ships
@@ -281,12 +306,15 @@
                     var shipListHtml = ""; // HTML to insert into the ships list
                     // For each ship object, append that HTML to shipListHtml
                     $.each(shipsArray, function(index, ShipData) {
-                        shipListHtml = shipListHtml + '<a href="#" class="list-group-item">' + ShipData.shipname + '</a>';
+                        shipListHtml = shipListHtml + '<a id="Ship' + ShipData.id + '" class="list-group-item shipListItems">' + ShipData.shipname + '</a>';
                     });
                     // Inject HTML
                     $('#shipList').html(shipListHtml);
+                    if (ActiveShip) {
+                        // Add active class to proper element
+                        updateActiveShip(ActiveShip);
+                    }
                 }
-
             }
         </script>
 
