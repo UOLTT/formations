@@ -137,6 +137,21 @@
         </div>
         <!-- /Ship Panel -->
 
+        <!-- Begin Station Panel -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary" id="stationsPanel" style="display: none">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">I am am stationed as:</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>hi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Station Panel -->
+
         <script>
             var Token = "{{ $token }}"; // Users application token
             var UserID = "{{ \Auth::user()->id }}"; // Users ID
@@ -171,6 +186,7 @@
                         $('#fleetPanel').show();
                         $('#squadPanel').show();
                         $('#shipsPanel').show();
+                        $('#stationsPanel').show();
                     });
 
             // When user changes if they are using their or a squadmates ship
