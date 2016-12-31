@@ -145,7 +145,12 @@
                         <h3 class="panel-title">I am am stationed as:</h3>
                     </div>
                     <div class="panel-body">
-                        <p>hi</p>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item">
+                                <h4 class="list-group-item-heading">List group item heading</h4>
+                                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
