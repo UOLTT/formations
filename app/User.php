@@ -34,26 +34,18 @@ class User extends Authenticatable
         'fleet_id' => 'integer',
         'organization_id' => 'integer',
         'squad_id' => 'integer',
-        'active_user_ship' => 'integer',
-        'active_ship_id' => 'integer',
         'active_ship_position' => 'integer',
-        'ship_user_id' => 'integer'
     ];
 
-    public function active_ship()
+    public function getActiveShipAttribute($value)
     {
         $MetaData = \DB::table('ship_user')
-            ->where('id',$this->ship_user_id)
+            ->where('id',$value)
             ->first(['user_id','ship_id']);
-        $StationID = $this->station_id;
-        return Ship::with([
-            'users' => function ($query) use ($MetaData) {
-                $query->find($MetaData->user_id);
-            },
-            'positions' => function ($query) use ($StationID) {
-                $query->find($StationID);
-            }
-        ])->find($MetaData->ship_id);
+        return collect([
+            'user_id' => (integer)$MetaData->user_id,
+            'ship_id' => (integer)$MetaData->ship_id
+        ]);
     }
 
     public function devices() {
