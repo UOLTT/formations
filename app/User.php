@@ -51,7 +51,13 @@ class User extends Authenticatable
         ]);
     }
 
-    // TODO write the ActiveShip setter mutator
+    public function setActiveShipAttribute($value) {
+        $this->attributes['active_ship'] = \DB::table('ship_user')
+            ->where('user_id',$value->user_id)
+            ->where('ship_id',$value->ship_id)
+            ->firstOrFail(['id'])
+            ->id;
+    }
 
     public function devices() {
         return $this->hasMany(Device::class);
