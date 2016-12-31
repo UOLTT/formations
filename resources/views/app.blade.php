@@ -157,23 +157,29 @@
 
             $('.myShip').on('change',function() {
                 // if using squad mates ship
-                if (this.value) {
+                if (this.value != 0) {
                     // show the select box
                     $('#whoseShip').show();
                     var squadOptions = "";
+                    var firstUserID;
                     // get the users that belong to that squad
                     $.getJSON("/api/v4/squads/" + UserData.squad_id, function(SquadData) {
-                        console.log(SquadData);
                         $.each(SquadData.users, function(index, User) {
+                            // get first users ID and load their ships
+                            if (!firstUserID) {
+                                firstUserID = User.id;
+                            }
                             squadOptions = squadOptions + "<option value='" + User.id + "'>" + User.name + "</option>";
                         });
                     })
                             .done(function() { // update the select box with the new options
+                                updateShipList(firstUserID);
                                 $('#whoseShip').html(squadOptions);
                             });
                 }else {
-                    $('#whoseShip').hide();
                     $('#whoseShip').html("<option>Loading...</option>");
+                    updateShipList(UserID);
+                    $('#whoseShip').hide();
                 }
             });
 
