@@ -116,16 +116,19 @@ class FleetsController extends Controller
             throw new UnauthorizedException("You do not have permission to edit this fleet");
         }
 
-        $validator = Validator::make($request->all(),[
+        $parameters = [
             'name' => 'string',
+            'admiral_id' => 'integer',
             'status_id' => 'integer',
             'manifesto' => 'string'
-        ]);
+        ];
+
+        $validator = Validator::make($request->all(),$parameters);
         if ($validator->fails()) {
             throw new \InvalidArgumentException('Form validation failed, see the documentation');
         }
 
-        foreach (['name','status_id','manifesto'] as $item) {
+        foreach ($parameters as $item => $validation) {
             if ($request->has($item)) {
                 $Fleet->$item = $request->get($item);
             }
