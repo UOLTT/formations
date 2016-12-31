@@ -16,7 +16,10 @@
 
     @else
 
+        <!-- Begin Overview -->
         <div class="row">
+
+            <!-- Begin Loading -->
             <div class="col-md-12" id="loadingPanel">
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped active" role="progressbar"
@@ -25,8 +28,9 @@
                     </div>
                 </div>
             </div>
+            <!-- /Loading -->
 
-
+            <!-- Begin Org -->
             <div class="col-md-4" id="orgPanel" style="display: none">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -48,8 +52,9 @@
                     </div>
                 </div>
             </div>
+            <!-- /Org -->
 
-
+            <!-- Begin Fleet -->
             <div class="col-md-4" id="fleetPanel" style="display: none">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -71,8 +76,9 @@
                     </div>
                 </div>
             </div>
+            <!-- /Fleet -->
 
-
+            <!-- Begin Squad -->
             <div class="col-md-4" id="squadPanel" style="display: none">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -94,8 +100,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- /Squad -->
 
+        </div>
+        <!-- /Overview -->
+
+        <!-- Begin Ship Panel -->
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-primary" id="shipsPanel" style="display: none">
@@ -125,29 +135,37 @@
                 </div>
             </div>
         </div>
+        <!-- /Ship Panel -->
 
         <script>
-            var Token = "{{ $token }}";
-            var UserID = "{{ \Auth::user()->id }}";
-            var UserData;
+            var Token = "{{ $token }}"; // Users application token
+            var UserID = "{{ \Auth::user()->id }}"; // Users ID
+            var UserData; // User Data
 
+            // async load the users data
+            // TODO convert to function and run periodically ?
             $.getJSON("/api/v4/users/" + UserID, function (response) {
                 UserData = response;
                 console.log(UserData);
             })
                     .done(function() {
+                        // Check if Org admin
                         if (UserData.id != UserData.organization.admin_user_id) {
                             $('#orgStatus').prop('disabled',true);
                         }
+                        // Check if Fleet admiral
                         if (UserData.id != UserData.fleet.admiral_id) {
                             $('#fleetStatus').prop('disabled',true);
                         }
+                        // Check if Squad leader
                         if (UserData.id != UserData.squad.squad_leader_id) {
                             $('#squadStatus').prop('disabled',true);
                         }
 
+                        // Make sure ship list is populated
                         updateShipList(UserID);
 
+                        // Hide loading panel and show everything else
                         $('#loadingPanel').hide();
                         $('#orgPanel').show();
                         $('#fleetPanel').show();
@@ -155,13 +173,16 @@
                         $('#shipsPanel').show();
                     });
 
+            // When user changes if they are using their or a squadmates ship
             $('.myShip').on('change',function() {
-                // if using squad mates ship
-                if (this.value != 0) {
+                if (this.value != 0) { // if using squad mates ship
                     // show the select box
                     $('#whoseShip').show();
-                    var squadOptions = "";
-                    var firstUserID;
+
+
+                    var squadOptions = ""; // HTML for squad options
+                    var firstUserID; // ID of first user
+
                     // get the users that belong to that squad
                     $.getJSON("/api/v4/squads/" + UserData.squad_id, function(SquadData) {
                         $.each(SquadData.users, function(index, User) {
@@ -169,20 +190,27 @@
                             if (!firstUserID) {
                                 firstUserID = User.id;
                             }
+                            // Add option to html variable
                             squadOptions = squadOptions + "<option value='" + User.id + "'>" + User.name + "</option>";
                         });
                     })
-                            .done(function() { // update the select box with the new options
+                            .done(function() {
+                                // update ship list with first users ships
                                 updateShipList(firstUserID);
+                                // update the select box with the new options
                                 $('#whoseShip').html(squadOptions);
                             });
-                }else {
+                }else { // if using own ships
+                    // reset users list drop-down to default value
                     $('#whoseShip').html("<option>Loading...</option>");
+                    // update ship list to correct users ships
                     updateShipList(UserID);
+                    // hide the squad mates select box
                     $('#whoseShip').hide();
                 }
             });
 
+            // When user changes the org status, send AJAX to update the org
             $('#orgStatus').on('change', function () {
                 console.log({
                     token: Token,
@@ -195,6 +223,7 @@
                     status_id: Number(this.value)
                 });
             });
+            // When user changes the fleet status, send AJAX to update the fleet
             $('#fleetStatus').on('change', function () {
                 console.log({
                     token: Token,
@@ -207,29 +236,33 @@
                     status_id: Number(this.value)
                 });
             })
+            // TODO implement above for squad status
 
+            // When user changes whose ship they are flying in, update ship list with that users ships
             $('#whoseShip').on('change', function() {
                 updateShipList(this.value);
             });
 
             function updateShipList(PlayerID) {
-
-                var PlayerShips;
-                // already have data, no need for ajax
-                if (PlayerID == UserID) {
+                if (PlayerID == UserID) { // already have data, no need for ajax
                     update(UserData.ships);
-                }else {
+                }else { // we need to get that users ships
+                    // Loading FTW
                     $('#shipList').html('<a href="#" class="list-group-item">Loading...</a>');
+                    // get that users ships
                     $.getJSON("/api/v4/users/" + PlayerID, function(User) {
                         update(User.ships);
                     });
                 }
 
+                // private function to update the ships list, provided an array of ship objects
                 function update(shipsArray) {
-                    var shipListHtml = "";
+                    var shipListHtml = ""; // HTML to insert into the ships list
+                    // For each ship object, append that HTML to shipListHtml
                     $.each(shipsArray, function(index, ShipData) {
                         shipListHtml = shipListHtml + '<a href="#" class="list-group-item">' + ShipData.shipname + '</a>';
                     });
+                    // Inject HTML
                     $('#shipList').html(shipListHtml);
                 }
 
