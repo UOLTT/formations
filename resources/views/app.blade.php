@@ -31,7 +31,7 @@
             <!-- /Loading -->
 
             <!-- Begin Org -->
-            <div class="col-md-4" id="orgPanel" style="display: none">
+            <div class="col-md-4 HideWhenLoading" id="orgPanel" style="display: none">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">ORG NAME</h3>
@@ -55,7 +55,7 @@
             <!-- /Org -->
 
             <!-- Begin Fleet -->
-            <div class="col-md-4" id="fleetPanel" style="display: none">
+            <div class="col-md-4 HideWhenLoading" id="fleetPanel" style="display: none">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">FLEET NAME</h3>
@@ -79,7 +79,7 @@
             <!-- /Fleet -->
 
             <!-- Begin Squad -->
-            <div class="col-md-4" id="squadPanel" style="display: none">
+            <div class="col-md-4 HideWhenLoading" id="squadPanel" style="display: none">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">SQUAD NAME</h3>
@@ -106,9 +106,9 @@
         <!-- /Overview -->
 
         <!-- Begin Ship Panel -->
-        <div class="row">
+        <div class="row HideWhenLoading" id="shipsPanel" style="display: none">
             <div class="col-md-12">
-                <div class="panel panel-primary" id="shipsPanel" style="display: none">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">I am flying...</h3>
                     </div>
@@ -138,9 +138,9 @@
         <!-- /Ship Panel -->
 
         <!-- Begin Station Panel -->
-        <div class="row">
+        <div class="row HideWhenLoading" id="stationsPanel" style="display: none">
             <div class="col-md-12">
-                <div class="panel panel-primary" id="stationsPanel" style="display: none">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">I am am stationed as:</h3>
                     </div>
@@ -182,11 +182,7 @@
 
                         // Hide loading panel and show everything else
                         $('#loadingPanel').hide();
-                        $('#orgPanel').show();
-                        $('#fleetPanel').show();
-                        $('#squadPanel').show();
-                        $('#shipsPanel').show();
-                        $('#stationsPanel').show();
+                        $('.HideWhenLoading').show();
                     });
 
             // When user changes if they are using their or a squadmates ship
