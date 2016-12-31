@@ -36,7 +36,8 @@ class User extends Authenticatable
         'squad_id' => 'integer',
         'active_user_ship' => 'integer',
         'active_ship_id' => 'integer',
-        'active_ship_position' => 'integer'
+        'active_ship_position' => 'integer',
+        'ship_user_id' => 'integer'
     ];
 
     public function active_ship()
