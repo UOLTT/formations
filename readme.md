@@ -6,6 +6,8 @@ Im a developer, I don't write documentation :P
 ## Installation Instructions
 1. Clone the repo
 1. Run "composer install" to get third party dependencies up to date
+1. Fill out relevant database information in the .env file
+    1. You may need to copy ".env.example" to ".env"
 1. Run the following commands:
     1. php artisan migrate
     1. php artisan db:seed (if in testing)
