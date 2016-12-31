@@ -42,6 +42,9 @@ class User extends Authenticatable
         $MetaData = \DB::table('ship_user')
             ->where('id',$value)
             ->first(['user_id','ship_id']);
+        if (is_null($MetaData)) {
+            return null;
+        }
         return collect([
             'user_id' => (integer)$MetaData->user_id,
             'ship_id' => (integer)$MetaData->ship_id
