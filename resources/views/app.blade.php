@@ -279,12 +279,12 @@
             });
 
             function updateActiveShip(ShipID) {
+                // for each shipListItem...
                 $('.shipListItems').each(function(index) {
-                    console.log($(this).text());
-                    if ($(this).hasClass("active") && $(this).attr('id') != "Ship" + ShipID) {
-                        $(this).removeClass("active");
-                    }else if ($(this).attr('id') == "Ship" + ShipID) {
-                        $(this).addClass("active");
+                    if ($(this).hasClass("active") && $(this).attr('id') != "Ship" + ShipID) { // if item is active and not desired ship
+                        $(this).removeClass("active"); // un-activate that element
+                    }else if ($(this).attr('id') == "Ship" + ShipID) { // if item is desired ship
+                        $(this).addClass("active"); // activate item
                     }
                 });
             }
