@@ -26,6 +26,6 @@ class ShipsController extends Controller
      */
     public function show($id)
     {
-        return Ship::with('users')->findOrFail($id);
+        return Ship::with('stations','users')->findOrFail($id);
     }
 }
