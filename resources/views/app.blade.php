@@ -145,10 +145,10 @@
                         <h3 class="panel-title">I am am stationed as:</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="list-group">
+                        <div class="list-group" id="stationsList">
                             <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">List group item heading</h4>
-                                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                <h4 class="list-group-item-heading">Loading...</h4>
+                                <p class="list-group-item-text">...</p>
                             </a>
                         </div>
                     </div>
@@ -200,6 +200,9 @@
                                 }
                             });
                         }
+
+                        // Update the stations available for that ship
+                        updateStationsList(UserData.active_ship.ship_id,UserData.station_id);
 
                         // delay hiding the loading panel so everything has time to render
                         setTimeout(function() {
@@ -295,6 +298,28 @@
                         updateActiveShip(ActiveShip);
                     }
                 }
+            }
+
+            function updateStationsList(ShipID,SelectedStationID) {
+                var ShipData;
+                var StationsListHTML = "";
+                $.getJSON("/api/v4/ships/" + ShipID,function(response) {
+                    ShipData = response;
+                })
+                        .done(function() {
+                            $.each(ShipData.stations,function(index,Station) {
+                                var Active = "";
+                                if (SelectedStationID == Station.id) {
+                                    Active = " active";
+                                }
+                                StationsListHTML = StationsListHTML + '' +
+                                        '<a class="list-group-item' + Active + '">' +
+                                            '<h4 class="list-group-item-heading">' + Station.name + '</h4>' +
+                                            '<p class="list-group-item-text">' + Station.description + '</p>' +
+                                        '</a>';
+                            });
+                            $('#stationsList').html(StationsListHTML);
+                        });
             }
 
             function updateWhoseShipList(SelectedUserID,ActiveShip) {
