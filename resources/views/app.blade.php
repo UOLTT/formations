@@ -277,7 +277,7 @@
                     update(UserData.ships);
                 }else { // we need to get that users ships
                     // Loading FTW
-                    $('#shipList').html('<a href="#" class="list-group-item">Loading...</a>');
+                    $('#shipList').html('<a class="list-group-item">Loading...</a>');
                     // get that users ships
                     $.getJSON("/api/v4/users/" + PlayerID, function(User) {
                         update(User.ships);
