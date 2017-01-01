@@ -261,6 +261,25 @@
                 updateShipList(this.value);
             });
 
+            function changeActiveShip(ShipID) {
+                updateActiveShip(ShipID);
+                updateStationsList(ShipID);
+                var activeUserID;
+                if ($('input[name=myShip]:checked').val() == 0) {
+                    activeUserID = UserID;
+                }else {
+                    activeUserID = $('#whoseShip').val();
+                }
+                $.post("/api/v4/users/" + UserID, {
+                    token: Token,
+                    _method: "patch",
+                    active_ship: {
+                        user_id: activeUserID,
+                        ship_id: ShipID
+                    }
+                });
+            }
+
             function updateActiveShip(ShipID) {
                 // for each shipListItem...
                 $('.shipListItems').each(function(index) {
@@ -289,7 +308,10 @@
                     var shipListHtml = ""; // HTML to insert into the ships list
                     // For each ship object, append that HTML to shipListHtml
                     $.each(shipsArray, function(index, ShipData) {
-                        shipListHtml = shipListHtml + '<a id="Ship' + ShipData.id + '" class="list-group-item shipListItems">' + ShipData.shipname + '</a>';
+                        shipListHtml = shipListHtml +
+                                '<a id="Ship' + ShipData.id + '" class="list-group-item shipListItems" onclick="changeActiveShip(' + ShipData.id + ')">' +
+                                ShipData.shipname +
+                                '</a>';
                     });
                     // Inject HTML
                     $('#shipList').html(shipListHtml);
@@ -303,6 +325,12 @@
             function updateStationsList(ShipID,SelectedStationID) {
                 var ShipData;
                 var StationsListHTML = "";
+                $('#stationsList').html(
+                    '<a class="list-group-item">' +
+                        '<h4 class="list-group-item-heading">Loading...</h4>' +
+                        '<p class="list-group-item-text">...</p>' +
+                    '</a>'
+                );
                 $.getJSON("/api/v4/ships/" + ShipID,function(response) {
                     ShipData = response;
                 })
@@ -312,7 +340,7 @@
                                 if (SelectedStationID == Station.id) {
                                     Active = " active";
                                 }
-                                StationsListHTML = StationsListHTML + '' +
+                                StationsListHTML = StationsListHTML +
                                         '<a class="list-group-item' + Active + '">' +
                                             '<h4 class="list-group-item-heading">' + Station.name + '</h4>' +
                                             '<p class="list-group-item-text">' + Station.description + '</p>' +
