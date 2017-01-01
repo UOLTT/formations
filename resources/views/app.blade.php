@@ -182,14 +182,12 @@
                             $('#squadStatus').prop('disabled',true);
                         }
 
-                        // Make sure ship list is populated
-                        updateShipList(UserData.active_ship.user_id,UserData.active_ship.ship_id);
-
                         if (UserData.active_ship.user_id == UserID) { // if user is running their own ship
                             myShipChecked(true);
                         }else { // if user is running someone elses ship
                             myShipChecked(false);
                             $('#whoseShip').show();
+                            updateWhoseShipList(UserData.active_ship.user_id,UserData.active_ship.ship_id);
                         }
 
                         // Function to toggle between checked and unchecked for the myShip class radio thing
@@ -203,9 +201,12 @@
                             });
                         }
 
-                        // Hide loading panel and show everything else
-                        $('#loadingPanel').hide();
-                        $('.HideWhenLoading').show();
+                        // delay hiding the loading panel so everything has time to render
+                        setTimeout(function() {
+                            // Hide loading panel and show everything else
+                            $('#loadingPanel').hide();
+                            $('.HideWhenLoading').show();
+                        }, 1000);
                     });
 
             // When user changes if they are using their or a squadmates ship
@@ -213,28 +214,7 @@
                 if (this.value != 0) { // if using squad mates ship
                     // show the select box
                     $('#whoseShip').show();
-
-
-                    var squadOptions = ""; // HTML for squad options
-                    var firstUserID; // ID of first user
-
-                    // get the users that belong to that squad
-                    $.getJSON("/api/v4/squads/" + UserData.squad_id, function(SquadData) {
-                        $.each(SquadData.users, function(index, User) {
-                            // get first users ID and load their ships
-                            if (!firstUserID) {
-                                firstUserID = User.id;
-                            }
-                            // Add option to html variable
-                            squadOptions = squadOptions + "<option value='" + User.id + "'>" + User.name + "</option>";
-                        });
-                    })
-                            .done(function() {
-                                // update ship list with first users ships
-                                updateShipList(firstUserID);
-                                // update the select box with the new options
-                                $('#whoseShip').html(squadOptions);
-                            });
+                    updateWhoseShipList();
                 }else { // if using own ships
                     // reset users list drop-down to default value
                     $('#whoseShip').html("<option>Loading...</option>");
@@ -315,6 +295,37 @@
                         updateActiveShip(ActiveShip);
                     }
                 }
+            }
+
+            function updateWhoseShipList(SelectedUserID,ActiveShip) {
+                var squadOptions = ""; // HTML for squad options
+                var firstUserID; // ID of first user
+
+                // get the users that belong to that squad
+                $.getJSON("/api/v4/squads/" + UserData.squad_id, function(SquadData) {
+                    $.each(SquadData.users, function(index, User) {
+                        var Selected = "";
+                        // if selected user not provided, get first users ID and load their ships
+                        if (!firstUserID && !SelectedUserID) {
+                            firstUserID = User.id;
+                        }else if (SelectedUserID == User.id) {
+                            Selected = "selected"
+                        }
+                        // Add option to html variable
+                        squadOptions = squadOptions + "<option " + Selected + " value='" + User.id + "'>" + User.name + "</option>";
+                    });
+                })
+                        .done(function() {
+                            if (!SelectedUserID) {
+                                // update ship list with first users ships
+                                updateShipList(firstUserID,ActiveShip);
+                            }else {
+                                // update ship list with selected users ships
+                                updateShipList(SelectedUserID,ActiveShip);
+                            }
+                            // update the select box with the new options
+                            $('#whoseShip').html(squadOptions);
+                        });
             }
         </script>
 
