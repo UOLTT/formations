@@ -201,6 +201,26 @@
         </div>
         <!-- /Ship Setup -->
 
+        <!-- Begin Formation Panel -->
+        <div class="panel-group HideWhenLoading" style="display: none">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Squad Formation</a>
+                    </h4>
+                </div>
+
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        // TODO Formation stuff
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Formation Panel -->
+
         <script>
             var Token = "{{ $token }}"; // Users application token
             var UserID = "{{ \Auth::user()->id }}"; // Users ID
