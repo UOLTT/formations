@@ -18,6 +18,7 @@ class CreateFormationsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('minimum_users');
+            $table->string('filename');
             $table->timestamps();
         });
     }
