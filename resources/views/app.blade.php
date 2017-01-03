@@ -221,6 +221,7 @@
         </div>
         <!-- /Formation Panel -->
 
+        @push('scripts')
         <script>
             var Token = "{{ $token }}"; // Users application token
             var UserID = "{{ \Auth::user()->id }}"; // Users ID
@@ -246,7 +247,7 @@
                             $('#squadStatus').prop('disabled',true);
                         }
 
-                        if (UserData.active_ship.user_id == UserID) { // if user is running their own ship
+                        if (UserData.active_ship == null || UserData.active_ship.user_id == UserID) { // if user is running their own ship
                             myShipChecked(true);
                         }else { // if user is running someone elses ship
                             myShipChecked(false);
@@ -266,7 +267,9 @@
                         }
 
                         // Update the stations available for that ship
-                        updateStationsList(UserData.active_ship.ship_id,UserData.station_id);
+                        if (UserData.active_ship != null) {
+                            updateStationsList(UserData.active_ship.ship_id,UserData.station_id);
+                        }
 
                         // delay hiding the loading panel so everything has time to render
                         setTimeout(function() {
@@ -445,6 +448,7 @@
                         });
             }
         </script>
+        @endpush
 
     @endif
 
