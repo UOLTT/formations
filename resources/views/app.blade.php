@@ -389,6 +389,20 @@
                 }
             }
 
+            function updateStation(StationID) {
+                $('.stationItem').each(function(index) {
+                    if ($(this).hasClass('active')) {
+                        $(this).removeClass('active');
+                    }
+                });
+                $('#station' + StationID).addClass('active');
+                $.post("/api/v4/users/" + UserID, {
+                    token: Token,
+                    _method: "patch",
+                    station_id: StationID
+                });
+            }
+
             function updateStationsList(ShipID,SelectedStationID) {
                 var ShipData;
                 var StationsListHTML = "";
@@ -408,7 +422,7 @@
                                     Active = " active";
                                 }
                                 StationsListHTML = StationsListHTML +
-                                        '<a class="list-group-item' + Active + '">' +
+                                        '<a id="station' + Station.id + '" onclick="updateStation(' + Station.id + ')" class="stationItem list-group-item' + Active + '">' +
                                             '<h4 class="list-group-item-heading">' + Station.name + '</h4>' +
                                             '<p class="list-group-item-text">' + Station.description + '</p>' +
                                         '</a>';

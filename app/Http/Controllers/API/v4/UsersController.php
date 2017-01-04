@@ -103,7 +103,8 @@ class UsersController extends Controller
             'squad_id' => 'integer',
             'ships' => 'array',
             'active_ship.user_id' => 'integer',
-            'active_ship.ship_id' => 'integer'
+            'active_ship.ship_id' => 'integer',
+            'station_id' => 'integer'
         ];
         $validator = Validator::make($request->all(),$parameters);
         if ($validator->fails()) {
