@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->integer('fleet_id')->nullable();
             $table->integer('squad_id')->nullable();
             $table->integer('station_id')->nullable();
-            $table->integer('ship_user_id')->nullable();
+            $table->integer('active_ship')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
