@@ -101,7 +101,10 @@ class UsersController extends Controller
             'organization_id' => 'integer',
             'fleet_id' => 'integer',
             'squad_id' => 'integer',
-            'ships' => 'array'
+            'ships' => 'array',
+            'active_ship.user_id' => 'integer',
+            'active_ship.ship_id' => 'integer',
+            'station_id' => 'integer'
         ];
         $validator = Validator::make($request->all(),$parameters);
         if ($validator->fails()) {
@@ -110,13 +113,18 @@ class UsersController extends Controller
 
         $User = User::findOrFail($id);
         foreach ($parameters as $name => $rule) {
-            if ($request->has($name)) {
+            if (strpos($name,'.') !== false) {
+                continue;
+            }elseif ($request->has($name)) {
                 if ($name == "ships") {
                     $User->ships()->sync($request->get($name));
                 }else {
                     $User->$name = $request->get($name);
                 }
             }
+        }
+        if ($request->has('active_ship')) {
+            $User->active_ship = (object)$request->get('active_ship');
         }
         $User->save();
         return $this->show($id);

@@ -119,9 +119,10 @@ class OrganizationsController extends Controller
 
         foreach ($parameters as $name => $type) {
             if ($request->has($name)) {
-                $Organization->$name = $request->get('name');
+                $Organization->$name = $request->get($name);
             }
         }
+        $Organization->save();
         return $this->show($id);
     }
 
