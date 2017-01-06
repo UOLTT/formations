@@ -37,7 +37,7 @@ class CreateShipsTable extends Migration
             $table->integer('combatrating')->nullable();
             $table->integer('waverank')->nullable()->default(0);
         });
-        //Artisan::call('db:seed', array('--class' => 'ShipsTableSeeder'));
+        Artisan::call('db:seed', array('--class' => 'ShipsTableSeeder'));
     }
 
     /**
