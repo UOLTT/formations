@@ -48,7 +48,9 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $parameters = [
-            'name' => 'string|required',
+            'name' => 'string',
+            'username' => 'string|required|unique',
+            'game_handle' => 'string|required',
             'email' => 'email|required|unique',
             'password' => 'string|required',
             'organization_id' => 'integer',
@@ -96,6 +98,8 @@ class UsersController extends Controller
         }
         $parameters = [
             'name' => 'string',
+            'username' => 'string',
+            'game_handle' => 'string',
             'email' => 'email|unique',
             'password' => 'string',
             'organization_id' => 'integer',
