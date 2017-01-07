@@ -49,17 +49,18 @@ class UsersController extends Controller
     {
         $parameters = [
             'name' => 'string',
-            'username' => 'string|required|unique',
+            'username' => 'string|required|unique:users,username',
             'game_handle' => 'string|required',
-            'email' => 'email|required|unique',
-            'password' => 'string|required',
+            'email' => 'email|required|unique:users,email',
+            'password' => 'string|present',
             'organization_id' => 'integer',
             'fleet_id' => 'integer',
             'squad_id' => 'integer'
         ];
         $validator = Validator::make($request->all(),$parameters);
         if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+            $errors = $validator->errors();
+            throw new \InvalidArgumentException('Form validation failed: '.$errors->first());
         }
 
         $User = new User();
@@ -68,7 +69,11 @@ class UsersController extends Controller
                 $User->$name = $request->get($name);
             }
         }
-        $User->password = \Hash::make($request->get('password'));
+        if (!empty($request->get('password'))) {
+            $User->password = \Hash::make($request->get('password'));
+        }else {
+            $User->password = '';
+        }
         $User->save();
         return $User;
     }
