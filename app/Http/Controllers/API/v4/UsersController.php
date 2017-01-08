@@ -55,7 +55,8 @@ class UsersController extends Controller
             'password' => 'string|present',
             'organization_id' => 'integer',
             'fleet_id' => 'integer',
-            'squad_id' => 'integer'
+            'squad_id' => 'integer',
+            'ships.*' => 'integer'
         ];
         $validator = Validator::make($request->all(),$parameters);
         if ($validator->fails()) {
@@ -65,7 +66,7 @@ class UsersController extends Controller
 
         $User = new User();
         foreach ($parameters as $name => $rule) {
-            if ($request->has($name) && $name != 'password') {
+            if ($request->has($name) && !in_array($name,['password','ships.*'])) {
                 $User->$name = $request->get($name);
             }
         }
@@ -73,6 +74,10 @@ class UsersController extends Controller
             $User->password = \Hash::make($request->get('password'));
         }else {
             $User->password = '';
+        }
+        if ($request->has('ships')) {
+            $User->save();
+            $User->ships()->attach($request->get('ships'));
         }
         $User->save();
         return $User;
