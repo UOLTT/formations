@@ -51,7 +51,7 @@ class UsersController extends Controller
             'name' => 'string',
             'username' => 'string|required|unique:users,username',
             'game_handle' => 'string|required',
-            'email' => 'email|required|unique:users,email',
+            'email' => 'email|required_unless:password,""|unique:users,email',
             'password' => 'string|present',
             'organization_id' => 'integer',
             'fleet_id' => 'integer',
@@ -80,7 +80,7 @@ class UsersController extends Controller
             $User->ships()->attach($request->get('ships'));
         }
         $User->save();
-        return $User;
+        return $this->show($User->id);
     }
 
     /**
