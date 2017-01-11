@@ -17,6 +17,8 @@ class User extends Authenticatable
     protected $fillable = [
         'id',
         'name',
+        'username',
+        'game_handle',
         'email',
         'password',
         'organization_id',

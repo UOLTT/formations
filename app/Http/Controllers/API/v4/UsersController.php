@@ -48,27 +48,39 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $parameters = [
-            'name' => 'string|required',
-            'email' => 'email|required|unique',
-            'password' => 'string|required',
+            'name' => 'string',
+            'username' => 'string|required|unique:users,username',
+            'game_handle' => 'string|required',
+            'email' => 'email|required_unless:password,""|unique:users,email',
+            'password' => 'string|present',
             'organization_id' => 'integer',
             'fleet_id' => 'integer',
-            'squad_id' => 'integer'
+            'squad_id' => 'integer',
+            'ships.*' => 'integer'
         ];
         $validator = Validator::make($request->all(),$parameters);
         if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
+            $errors = $validator->errors();
+            throw new \InvalidArgumentException('Form validation failed: '.$errors->first());
         }
 
         $User = new User();
         foreach ($parameters as $name => $rule) {
-            if ($request->has($name) && $name != 'password') {
+            if ($request->has($name) && !in_array($name,['password','ships.*'])) {
                 $User->$name = $request->get($name);
             }
         }
-        $User->password = \Hash::make($request->get('password'));
+        if (!empty($request->get('password'))) {
+            $User->password = \Hash::make($request->get('password'));
+        }else {
+            $User->password = '';
+        }
+        if ($request->has('ships')) {
+            $User->save();
+            $User->ships()->attach($request->get('ships'));
+        }
         $User->save();
-        return $User;
+        return $this->show($User->id);
     }
 
     /**
@@ -96,6 +108,8 @@ class UsersController extends Controller
         }
         $parameters = [
             'name' => 'string',
+            'username' => 'string',
+            'game_handle' => 'string',
             'email' => 'email|unique',
             'password' => 'string',
             'organization_id' => 'integer',
