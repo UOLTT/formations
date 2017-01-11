@@ -27,199 +27,221 @@
         </div>
         <!-- /Loading -->
 
-        <!-- Begin Administration -->
-        <div class="panel-group HideWhenLoading" style="display: none">
-            <div class="panel panel-default">
+        <div class="col-md-9">
 
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#administration">Administration</a>
-                    </h4>
-                </div>
+            <!-- Begin Administration -->
+            <div class="panel-group HideWhenLoading" style="display: none">
+                <div class="panel panel-default">
 
-                <div id="administration" class="panel-collapse collapse">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#administration">Administration</a>
+                        </h4>
+                    </div>
 
-                    <div class="panel-body">
+                    <div id="administration" class="panel-collapse collapse">
 
-                        <!-- Begin Admin Panels -->
-                        <div class="row">
+                        <div class="panel-body">
 
-                            <!-- Begin Org -->
-                            <div class="col-md-4" id="orgPanel">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">ORG NAME</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <b>Organization Status:</b>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <select id="orgStatus" class="form-control">
-                                                    @foreach(\App\Status::where('type','Organization')->get(['name','id']) as $Status)
-                                                        <option value="{{ $Status->id }}">{{ $Status->name }}</option>
-                                                    @endforeach
-                                                </select>
+                            <!-- Begin Admin Panels -->
+                            <div class="row">
+
+                                <!-- Begin Org -->
+                                <div class="col-md-4" id="orgPanel">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">ORG NAME</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b>Organization Status:</b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select id="orgStatus" class="form-control">
+                                                        @foreach(\App\Status::where('type','Organization')->get(['name','id']) as $Status)
+                                                            <option value="{{ $Status->id }}">{{ $Status->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /Org -->
+                                <!-- /Org -->
 
-                            <!-- Begin Fleet -->
-                            <div class="col-md-4" id="fleetPanel">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">FLEET NAME</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <b>Fleet Status:</b>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <select id="fleetStatus" class="form-control">
-                                                    @foreach(\App\Status::where('type','Fleet')->get(['name','id']) as $Status)
-                                                        <option value="{{ $Status->id }}">{{ $Status->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                <!-- Begin Fleet -->
+                                <div class="col-md-4" id="fleetPanel">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">FLEET NAME</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b>Fleet Status:</b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select id="fleetStatus" class="form-control">
+                                                        @foreach(\App\Status::where('type','Fleet')->get(['name','id']) as $Status)
+                                                            <option value="{{ $Status->id }}">{{ $Status->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /Fleet -->
+                                <!-- /Fleet -->
 
-                            <!-- Begin Squad -->
-                            <div class="col-md-4" id="squadPanel">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">SQUAD NAME</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <b>Squadron Status:</b>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <select id="squadStatus" class="form-control">
-                                                    @foreach(\App\Status::where('type','Squadron')->get(['name','id']) as $Status)
-                                                        <option value="{{ $Status->id }}">{{ $Status->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                <!-- Begin Squad -->
+                                <div class="col-md-4" id="squadPanel">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">SQUAD NAME</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <b>Squadron Status:</b>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select id="squadStatus" class="form-control">
+                                                        @foreach(\App\Status::where('type','Squadron')->get(['name','id']) as $Status)
+                                                            <option value="{{ $Status->id }}">{{ $Status->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /Squad -->
+
                             </div>
-                            <!-- /Squad -->
+                            <!-- /Admin Panels -->
 
                         </div>
-                        <!-- /Admin Panels -->
 
                     </div>
 
                 </div>
-
             </div>
-        </div>
-        <!-- /Administration -->
+            <!-- /Administration -->
 
-        <!-- Begin Ship Setup -->
-        <div class="panel-group HideWhenLoading" style="display: none">
-            <div class="panel panel-default">
+            <!-- Begin Ship Setup -->
+            <div class="panel-group HideWhenLoading" style="display: none">
+                <div class="panel panel-default">
 
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#shipSetup">Ship Setup</a>
-                    </h4>
-                </div>
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#shipSetup">Ship Setup</a>
+                        </h4>
+                    </div>
 
-                <div id="shipSetup" class="panel-collapse collapse">
-                    <div class="panel-body">
+                    <div id="shipSetup" class="panel-collapse collapse">
+                        <div class="panel-body">
 
-                        <!-- Begin Ship Panel -->
-                        <div class="row" id="shipsPanel">
-                            <div class="col-md-12">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">I am flying...</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <p>
-                                                    <input type="radio" name="myShip" class="myShip" value="0" checked> My Ship<br>
-                                                    <input type="radio" name="myShip" class="myShip" value="1"> Squadmates Ship
-                                                </p>
-                                                <p>
-                                                    <select class="form-control" id="whoseShip" style="display: none">
-                                                        <option>Loading...</option>
-                                                    </select>
-                                                </p>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="list-group" id="shipList">
-                                                    <!-- this gets filled with ship data -->
+                            <!-- Begin Ship Panel -->
+                            <div class="row" id="shipsPanel">
+                                <div class="col-md-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">I am flying...</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <p>
+                                                        <input type="radio" name="myShip" class="myShip" value="0" checked> My Ship<br>
+                                                        <input type="radio" name="myShip" class="myShip" value="1"> Squadmates Ship
+                                                    </p>
+                                                    <p>
+                                                        <select class="form-control" id="whoseShip" style="display: none">
+                                                            <option>Loading...</option>
+                                                        </select>
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="list-group" id="shipList">
+                                                        <!-- this gets filled with ship data -->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /Ship Panel -->
+                            <!-- /Ship Panel -->
 
-                        <br>
+                            <br>
 
-                        <!-- Begin Station Panel -->
-                        <div class="row" id="stationsPanel">
-                            <div class="col-md-12">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">I am am stationed as:</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="list-group" id="stationsList">
-                                            <a href="#" class="list-group-item">
-                                                <h4 class="list-group-item-heading">Loading...</h4>
-                                                <p class="list-group-item-text">...</p>
-                                            </a>
+                            <!-- Begin Station Panel -->
+                            <div class="row" id="stationsPanel">
+                                <div class="col-md-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">I am am stationed as:</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="list-group" id="stationsList">
+                                                <a href="#" class="list-group-item">
+                                                    <h4 class="list-group-item-heading">Loading...</h4>
+                                                    <p class="list-group-item-text">...</p>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- /Station Panel -->
+
                         </div>
-                        <!-- /Station Panel -->
-
                     </div>
+
                 </div>
-
             </div>
-        </div>
-        <!-- /Ship Setup -->
+            <!-- /Ship Setup -->
 
-        <!-- Begin Formation Panel -->
-        <div class="panel-group HideWhenLoading" style="display: none">
-            <div class="panel panel-default">
+            <!-- Begin Formation Panel -->
+            <div class="panel-group HideWhenLoading" style="display: none">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse1">Squad Formation</a>
+                        </h4>
+                    </div>
+
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            // TODO Formation stuff
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /Formation Panel -->
+
+        </div>
+
+        <div class="col-md-3">
+
+            <!-- Begin Log Panel -->
+            <div class="panel panel-default HideWhenLoading" style="display: none; height: 600px">
 
                 <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse1">Squad Formation</a>
-                    </h4>
+                    <h4 class="panel-title">Activity Log</h4>
                 </div>
 
-                <div id="collapse1" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        // TODO Formation stuff
-                    </div>
+                <div class="panel-body">
+                    // TODO log
                 </div>
 
             </div>
+            <!-- /Log -->
+
         </div>
-        <!-- /Formation Panel -->
 
         @push('scripts')
         <script>
