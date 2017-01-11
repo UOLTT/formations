@@ -153,11 +153,14 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <p>
-                                                        <input type="radio" name="myShip" class="myShip" value="0" checked> My Ship<br>
-                                                        <input type="radio" name="myShip" class="myShip" value="1"> Squadmates Ship
+                                                        <input type="radio" name="myShip" class="myShip" value="0"
+                                                               checked> My Ship<br>
+                                                        <input type="radio" name="myShip" class="myShip" value="1">
+                                                        Squadmates Ship
                                                     </p>
                                                     <p>
-                                                        <select class="form-control" id="whoseShip" style="display: none">
+                                                        <select class="form-control" id="whoseShip"
+                                                                style="display: none">
                                                             <option>Loading...</option>
                                                         </select>
                                                     </p>
@@ -235,9 +238,19 @@
                 </div>
 
                 <div class="panel-body">
-                    // TODO log
+                    <table class="table">
+                        <thead>
+                        </thead>
+                        <tbody id="ActivityLogBody">
+                        <tr>
+                            <td>
+                                <b>Page Loaded</b>
+                                <p>What do you think happened?</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-
             </div>
             <!-- /Log -->
 
@@ -255,46 +268,46 @@
                 UserData = response;
                 console.log(UserData);
             })
-                    .done(function() {
+                    .done(function () {
                         // Check if Org admin
                         if (UserData.id != UserData.organization.admin_user_id) {
-                            $('#orgStatus').prop('disabled',true);
+                            $('#orgStatus').prop('disabled', true);
                         }
                         // Check if Fleet admiral
                         if (UserData.id != UserData.fleet.admiral_id) {
-                            $('#fleetStatus').prop('disabled',true);
+                            $('#fleetStatus').prop('disabled', true);
                         }
                         // Check if Squad leader
                         if (UserData.id != UserData.squad.squad_leader_id) {
-                            $('#squadStatus').prop('disabled',true);
+                            $('#squadStatus').prop('disabled', true);
                         }
 
                         if (UserData.active_ship == null || UserData.active_ship.user_id == UserID) { // if user is running their own ship
                             myShipChecked(true);
-                        }else { // if user is running someone elses ship
+                        } else { // if user is running someone elses ship
                             myShipChecked(false);
                             $('#whoseShip').show();
-                            updateWhoseShipList(UserData.active_ship.user_id,UserData.active_ship.ship_id);
+                            updateWhoseShipList(UserData.active_ship.user_id, UserData.active_ship.ship_id);
                         }
 
                         // Function to toggle between checked and unchecked for the myShip class radio thing
                         function myShipChecked(checked) {
-                            $('.myShip').each(function(index) {
+                            $('.myShip').each(function (index) {
                                 if ($(this).value == 0) {
-                                    $(this).prop('checked',checked);
-                                }else {
-                                    $(this).prop('checked',!checked);
+                                    $(this).prop('checked', checked);
+                                } else {
+                                    $(this).prop('checked', !checked);
                                 }
                             });
                         }
 
                         // Update the stations available for that ship
                         if (UserData.active_ship != null) {
-                            updateStationsList(UserData.active_ship.ship_id,UserData.station_id);
+                            updateStationsList(UserData.active_ship.ship_id, UserData.station_id);
                         }
 
                         // delay hiding the loading panel so everything has time to render
-                        setTimeout(function() {
+                        setTimeout(function () {
                             // Hide loading panel and show everything else
                             $('#loadingPanel').hide();
                             $('.HideWhenLoading').show();
@@ -302,12 +315,12 @@
                     });
 
             // When user changes if they are using their or a squadmates ship
-            $('.myShip').on('change',function() {
+            $('.myShip').on('change', function () {
                 if (this.value != 0) { // if using squad mates ship
                     // show the select box
                     $('#whoseShip').show();
                     updateWhoseShipList();
-                }else { // if using own ships
+                } else { // if using own ships
                     // reset users list drop-down to default value
                     $('#whoseShip').html("<option>Loading...</option>");
                     // update ship list to correct users ships
@@ -346,9 +359,18 @@
             // TODO implement above for squad status
 
             // When user changes whose ship they are flying in, update ship list with that users ships
-            $('#whoseShip').on('change', function() {
+            $('#whoseShip').on('change', function () {
                 updateShipList(this.value);
             });
+
+            function activityLog(Title, Content) {
+                $('#ActivityLogBody').html(
+                        '<tr><td>' +
+                        '<b>' + Title + '</b>' +
+                        '<p>' + Content + '</p>' +
+                        '</td></tr>' + $('#ActivityLogBody').html()
+                );
+            }
 
             function changeActiveShip(ShipID) {
                 updateActiveShip(ShipID);
@@ -356,7 +378,7 @@
                 var activeUserID;
                 if ($('input[name=myShip]:checked').val() == 0) {
                     activeUserID = UserID;
-                }else {
+                } else {
                     activeUserID = $('#whoseShip').val();
                 }
                 $.post("/api/v4/users/" + UserID, {
@@ -371,23 +393,23 @@
 
             function updateActiveShip(ShipID) {
                 // for each shipListItem...
-                $('.shipListItems').each(function(index) {
+                $('.shipListItems').each(function (index) {
                     if ($(this).hasClass("active") && $(this).attr('id') != "Ship" + ShipID) { // if item is active and not desired ship
                         $(this).removeClass("active"); // un-activate that element
-                    }else if ($(this).attr('id') == "Ship" + ShipID) { // if item is desired ship
+                    } else if ($(this).attr('id') == "Ship" + ShipID) { // if item is desired ship
                         $(this).addClass("active"); // activate item
                     }
                 });
             }
 
-            function updateShipList(PlayerID,ActiveShip) {
+            function updateShipList(PlayerID, ActiveShip) {
                 if (PlayerID == UserID) { // already have data, no need for ajax
                     update(UserData.ships);
-                }else { // we need to get that users ships
+                } else { // we need to get that users ships
                     // Loading FTW
                     $('#shipList').html('<a class="list-group-item">Loading...</a>');
                     // get that users ships
-                    $.getJSON("/api/v4/users/" + PlayerID, function(User) {
+                    $.getJSON("/api/v4/users/" + PlayerID, function (User) {
                         update(User.ships);
                     });
                 }
@@ -396,7 +418,7 @@
                 function update(shipsArray) {
                     var shipListHtml = ""; // HTML to insert into the ships list
                     // For each ship object, append that HTML to shipListHtml
-                    $.each(shipsArray, function(index, ShipData) {
+                    $.each(shipsArray, function (index, ShipData) {
                         shipListHtml = shipListHtml +
                                 '<a id="Ship' + ShipData.id + '" class="list-group-item shipListItems" onclick="changeActiveShip(' + ShipData.id + ')">' +
                                 ShipData.shipname +
@@ -412,7 +434,7 @@
             }
 
             function updateStation(StationID) {
-                $('.stationItem').each(function(index) {
+                $('.stationItem').each(function (index) {
                     if ($(this).hasClass('active')) {
                         $(this).removeClass('active');
                     }
@@ -425,59 +447,59 @@
                 });
             }
 
-            function updateStationsList(ShipID,SelectedStationID) {
+            function updateStationsList(ShipID, SelectedStationID) {
                 var ShipData;
                 var StationsListHTML = "";
                 $('#stationsList').html(
-                    '<a class="list-group-item">' +
+                        '<a class="list-group-item">' +
                         '<h4 class="list-group-item-heading">Loading...</h4>' +
                         '<p class="list-group-item-text">...</p>' +
-                    '</a>'
+                        '</a>'
                 );
-                $.getJSON("/api/v4/ships/" + ShipID,function(response) {
+                $.getJSON("/api/v4/ships/" + ShipID, function (response) {
                     ShipData = response;
                 })
-                        .done(function() {
-                            $.each(ShipData.stations,function(index,Station) {
+                        .done(function () {
+                            $.each(ShipData.stations, function (index, Station) {
                                 var Active = "";
                                 if (SelectedStationID == Station.id) {
                                     Active = " active";
                                 }
                                 StationsListHTML = StationsListHTML +
                                         '<a id="station' + Station.id + '" onclick="updateStation(' + Station.id + ')" class="stationItem list-group-item' + Active + '">' +
-                                            '<h4 class="list-group-item-heading">' + Station.name + '</h4>' +
-                                            '<p class="list-group-item-text">' + Station.description + '</p>' +
+                                        '<h4 class="list-group-item-heading">' + Station.name + '</h4>' +
+                                        '<p class="list-group-item-text">' + Station.description + '</p>' +
                                         '</a>';
                             });
                             $('#stationsList').html(StationsListHTML);
                         });
             }
 
-            function updateWhoseShipList(SelectedUserID,ActiveShip) {
+            function updateWhoseShipList(SelectedUserID, ActiveShip) {
                 var squadOptions = ""; // HTML for squad options
                 var firstUserID; // ID of first user
 
                 // get the users that belong to that squad
-                $.getJSON("/api/v4/squads/" + UserData.squad_id, function(SquadData) {
-                    $.each(SquadData.users, function(index, User) {
+                $.getJSON("/api/v4/squads/" + UserData.squad_id, function (SquadData) {
+                    $.each(SquadData.users, function (index, User) {
                         var Selected = "";
                         // if selected user not provided, get first users ID and load their ships
                         if (!firstUserID && !SelectedUserID) {
                             firstUserID = User.id;
-                        }else if (SelectedUserID == User.id) {
+                        } else if (SelectedUserID == User.id) {
                             Selected = "selected"
                         }
                         // Add option to html variable
                         squadOptions = squadOptions + "<option " + Selected + " value='" + User.id + "'>" + User.name + "</option>";
                     });
                 })
-                        .done(function() {
+                        .done(function () {
                             if (!SelectedUserID) {
                                 // update ship list with first users ships
-                                updateShipList(firstUserID,ActiveShip);
-                            }else {
+                                updateShipList(firstUserID, ActiveShip);
+                            } else {
                                 // update ship list with selected users ships
-                                updateShipList(SelectedUserID,ActiveShip);
+                                updateShipList(SelectedUserID, ActiveShip);
                             }
                             // update the select box with the new options
                             $('#whoseShip').html(squadOptions);
