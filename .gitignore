@@ -11,3 +11,6 @@ Homestead.yaml
 !public/css/app.css
 !public/js/app.js
 .vagrant
+.settings
+.buildpath
+.project
