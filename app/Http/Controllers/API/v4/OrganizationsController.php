@@ -62,7 +62,7 @@ class OrganizationsController extends Controller
         $Organization = new Organization();
         foreach ($parameters as $name => $type) {
             if ($request->has($name) && $name != 'domain') {
-                $Organization->$name = $request->get('name');
+                $Organization->$name = $request->get($name);
             }
         }
         if ($request->has('domain')) {
