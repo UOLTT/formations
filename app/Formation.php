@@ -8,7 +8,7 @@ class Formation extends Model
 {
     public $timestamps = true;
     protected $table = 'formations';
-    protected $hidden = ['created_at','updated_at'];
+    protected $hidden = ['filename','created_at','updated_at'];
     protected $fillable = ['name','description','minimum_users','filename'];
     protected $casts = [
         'id' => 'integer',
@@ -20,4 +20,5 @@ class Formation extends Model
     public function positions() {
         return $this->hasMany(Position::class);
     }
+
 }
