@@ -9,7 +9,9 @@
         "laravel/framework": "5.3.*",
         "barryvdh/laravel-debugbar": "^2.3",
         "twbs/bootstrap": "^3.3",
-        "components/jquery": "^3.1"
+        "components/jquery": "^3.1",
+        "barryvdh/laravel-ide-helper": "^2.2",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -49,6 +51,8 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "cp -f vendor/components/jquery/jquery.min.js public/js/jquery.min.js",
             "cp -Rf vendor/twbs/bootstrap/dist/* public/",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:meta",
             "php artisan optimize"
         ]
     },
