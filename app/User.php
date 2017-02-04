@@ -44,7 +44,9 @@ class User extends Authenticatable
         'fleet_id' => 'integer',
         'organization_id' => 'integer',
         'squad_id' => 'integer',
-        'active_ship_position' => 'integer',
+        'active_user_ship' => 'integer',
+        'active_ship_id' => 'integer',
+        'active_ship_position' => 'integer'
     ];
 
     public function getActiveShipAttribute($value)
@@ -55,17 +57,17 @@ class User extends Authenticatable
         if (is_null($MetaData)) {
             return null;
         }
-        return (object)[
+        return collect([
             'user_id' => (integer)$MetaData->user_id,
             'ship_id' => (integer)$MetaData->ship_id
-        ];
+        ]);
     }
 
     public function setActiveShipAttribute($value) {
         $this->attributes['active_ship'] = \DB::table('ship_user')
             ->where('user_id',$value->user_id)
             ->where('ship_id',$value->ship_id)
-            ->first(['id'])
+            ->firstOrFail(['id'])
             ->id;
     }
 
