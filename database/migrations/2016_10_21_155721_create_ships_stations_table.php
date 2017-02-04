@@ -18,6 +18,7 @@ class CreateShipsStationsTable extends Migration
             $table->integer('ship_id');
             $table->integer('station_id');
         });
+        Artisan::call('db:seed',['--class'=>'ShipsTableSeeder']);
     }
 
     /**
