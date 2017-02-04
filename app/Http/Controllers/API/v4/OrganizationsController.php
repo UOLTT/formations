@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\API\v4;
 
 use App\Organization;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\ApiController;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Support\Facades\Validator;
 
-class OrganizationsController extends Controller
+class OrganizationsController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -48,29 +47,38 @@ class OrganizationsController extends Controller
      */
     public function store(Request $request)
     {
+
+        if (!\Auth::user()) {
+            throw new UnauthorizedException('You are not authorized to create a new Organization');
+        }
+
         $parameters = [
             'name' => 'string|required',
             'domain' => 'string',
             'status_id' => 'integer|required',
             'manifesto' => 'string'
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+
+        $this->validate($request,$parameters);
 
         $Organization = new Organization();
+
         foreach ($parameters as $name => $type) {
             if ($request->has($name) && $name != 'domain') {
                 $Organization->$name = $request->get($name);
             }
         }
+
         if ($request->has('domain')) {
             $Organization->domain = strtolower(str_replace(' ','',$request->get('domain')));
         }else {
             $Organization->domain = strtolower(str_replace(' ','',$request->get('name')));
         }
+
+        $Organization->admin_user_id = \Auth::user()->id;
+
         $Organization->save();
+
         return $Organization;
     }
 
