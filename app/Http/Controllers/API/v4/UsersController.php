@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\API\v4;
 
+use App\Http\Controllers\API\ApiController;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
-use Illuminate\Support\Facades\Validator;
 
-class UsersController extends Controller
+class UsersController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -25,10 +24,8 @@ class UsersController extends Controller
             'organization_id' => 'integer',
             'squad_id' => 'integer'
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+
+        $this->validate($request,$parameters);
 
         $User = new User();
         foreach ($parameters as $name => $rule) {
@@ -58,11 +55,8 @@ class UsersController extends Controller
             'squad_id' => 'integer',
             'ships.*' => 'integer'
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            throw new \InvalidArgumentException('Form validation failed: '.$errors->first());
-        }
+
+        $this->validate($request,$parameters);
 
         $User = new User();
         foreach ($parameters as $name => $rule) {
@@ -120,10 +114,8 @@ class UsersController extends Controller
             'active_ship.ship_id' => 'integer',
             'station_id' => 'integer'
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+
+        $this->validate($request,$parameters);
 
         $User = User::findOrFail($id);
         foreach ($parameters as $name => $rule) {

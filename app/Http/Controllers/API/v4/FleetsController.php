@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\API\v4;
 
 use App\Fleet;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\ApiController;
 use App\Organization;
-use App\User;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Support\Facades\Validator;
 
-class FleetsController extends Controller
+class FleetsController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -28,10 +26,7 @@ class FleetsController extends Controller
         ];
         // TODO maybe search by user count?
 
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+        $this->validate($request,$parameters);
 
         $Fleets = new Fleet();
         foreach ($parameters as $search => $type) {
@@ -62,11 +57,7 @@ class FleetsController extends Controller
             'admiral_id' => 'integer'
         ];
 
-        $validator = Validator::make($request->all(),$variables);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
-
+        $this->validate($request,$variables);
 
         $Fleet = new Fleet();
         if ($request->has('admiral_id')) {
@@ -123,10 +114,7 @@ class FleetsController extends Controller
             'manifesto' => 'string'
         ];
 
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+        $this->validate($request,$parameters);
 
         foreach ($parameters as $item => $validation) {
             if ($request->has($item)) {

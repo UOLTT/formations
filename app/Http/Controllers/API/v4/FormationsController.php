@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API\v4;
 
 use App\Formation;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\ApiController;
 use Illuminate\Http\Request;
 
-class FormationsController extends Controller
+class FormationsController extends ApiController
 {
 
     /**

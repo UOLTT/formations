@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API\v4;
 
 use App\Device;
+use App\Http\Controllers\API\ApiController;
 use App\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class DeviceController extends Controller
+class DeviceController extends ApiController
 {
     public function register($token) {
         $Device = Device::with('user')

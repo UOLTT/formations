@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\API\v4;
 
 use App\Fleet;
+use App\Http\Controllers\API\ApiController;
 use App\Squad;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
-use Illuminate\Support\Facades\Validator;
 
-class SquadsController extends Controller
+class SquadsController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -25,10 +24,8 @@ class SquadsController extends Controller
             'name' => 'string',
             'status_id' => 'integer'
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+
+        $this->validate($request,$parameters);
 
         $Squad = new Squad();
         foreach ($parameters as $name => $type) {
@@ -53,10 +50,8 @@ class SquadsController extends Controller
             'name' => 'string|required',
             'status_id' => 'integer|required',
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+
+        $this->validate($request,$parameters);
 
         $Fleet = Fleet::with('organization','admiral')->findOrFail($request->get('fleet_id'));
 
@@ -109,10 +104,8 @@ class SquadsController extends Controller
             'name' => 'string',
             'status_id' => 'integer'
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+
+        $this->validate($request,$parameters);
 
         $Squad = Squad::with('fleet')->findOrFail($id);
 

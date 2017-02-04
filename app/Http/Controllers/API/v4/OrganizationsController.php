@@ -7,7 +7,6 @@ use App\Http\Controllers\API\ApiController;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Validation\UnauthorizedException;
-use Illuminate\Support\Facades\Validator;
 
 class OrganizationsController extends ApiController
 {
@@ -25,10 +24,8 @@ class OrganizationsController extends ApiController
             'admin_user_id' => 'integer',
             'status_id' => 'integer',
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+
+        $this->validate($request,$parameters);
 
         $Organizations = Organization::withCount('fleets','users','squads');
         foreach ($parameters as $name => $type) {
@@ -120,10 +117,8 @@ class OrganizationsController extends ApiController
             'status_id' => 'integer',
             'manifesto' => 'string'
         ];
-        $validator = Validator::make($request->all(),$parameters);
-        if ($validator->fails()) {
-            throw new \InvalidArgumentException('Form validation failed, see the documentation');
-        }
+
+        $this->validate($request,$parameters);
 
         foreach ($parameters as $name => $type) {
             if ($request->has($name)) {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API\v4;
 
+use App\Http\Controllers\API\ApiController;
 use App\Ship;
-use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
-class ShipsController extends Controller
+class ShipsController extends ApiController
 {
     /**
      * Display a listing of the resource.
