@@ -16,3 +16,4 @@ Homestead.yaml
 .project
 _ide_*
 .phpstorm.meta.php
+Vagrantfile
