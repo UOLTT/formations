@@ -20,6 +20,7 @@ class UsersController extends ApiController
         // TODO make sure this is up to date
         $parameters = [
             'name' => 'string',
+            'username' => 'string',
             'email' => 'string',
             'organization_id' => 'integer',
             'squad_id' => 'integer'
@@ -30,7 +31,7 @@ class UsersController extends ApiController
         $User = new User();
         foreach ($parameters as $name => $rule) {
             if ($request->has($name)) {
-                $User = $User->where($name,$request->get($name));
+                $User = $User->where($name,'like','%'.$request->get($name).'%');
             }
         }
         return $User->get();
