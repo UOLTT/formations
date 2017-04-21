@@ -24,8 +24,6 @@ class DeviceController extends ApiController
 
     public function store(Request $request) {
 
-        $this->middleware('ApiAuthentication');
-
         $token = uniqid();
 
         \Auth::user()->devices()->create([

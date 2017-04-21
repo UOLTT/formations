@@ -65,13 +65,15 @@
                             <small>(Authentication codes used for external apps)</small>
                         </td>
                         <td>
-                            <ul class="list-group">
+                            <ul class="list-group" id="tokens_list">
                                 @foreach(\Auth::user()->devices as $Device)
                                     <li class="list-group-item">
                                         {{ $Device->token }} ({{ ($Device->used ? "used" : "unused") }})
                                     </li>
                                 @endforeach
                             </ul>
+                            <br>
+                            <button id="generate_token_button" type="button" class="btn btn-primary">Generate Token</button>
                         </td>
                     </tr>
                     <tr>
@@ -349,6 +351,18 @@
             } else {
                 $('#orgChangeText').html('<p>Select an Organization and click "update" to join a new Organization</p>');
             }
+        });
+
+        $('#generate_token_button').on('click',function() {
+            $.post('/api/v4/tokens',{
+                'token': Token
+            }).done(function (Response) {
+                $('#tokens_list').append(
+                    '<li class="list-group-item">' +
+                        Response['token'] + ' (unused)' +
+                    '</li>'
+                )
+            })
         });
 
         function joinFleet() {

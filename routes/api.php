@@ -21,7 +21,7 @@ Route::group(['namespace'=>'API'], function() {
 
     Route::group(['namespace'=>'v4','prefix'=>'v4'], function() {
 
-        Route::post('tokens','DeviceController@store');
+        Route::post('tokens','DeviceController@store')->middleware('auth.api');
         Route::get('/register/{token}','DeviceController@register');
 
         Route::resource('/fleets',FleetsController::class,['except'=>['create','edit']]);
