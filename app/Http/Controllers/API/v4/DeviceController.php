@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class DeviceController extends ApiController
 {
+
     public function register($token) {
         $Device = Device::with('user')
             ->where('token',$token)
@@ -20,4 +21,22 @@ class DeviceController extends ApiController
             ->with('organization','ships')
             ->find($Device->user_id);
     }
+
+    public function store(Request $request) {
+
+        $this->middleware('ApiAuthentication');
+
+        $token = uniqid();
+
+        \Auth::user()->devices()->create([
+            'used' => false,
+            'token' => $token
+        ]);
+
+        return response()->json([
+            'token' => $token
+        ]);
+
+    }
+
 }
