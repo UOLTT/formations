@@ -62,7 +62,7 @@
                     <tr>
                         <td>
                             Devices<br>
-                            <small>(Athentication codes used for external apps)</small>
+                            <small>(Authentication codes used for external apps)</small>
                         </td>
                         <td>
                             <ul class="list-group">
