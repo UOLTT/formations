@@ -17,8 +17,7 @@ class DeviceController extends ApiController
             ->firstOrFail();
         $Device->used = true;
         $Device->save();
-        return User::with('devices')
-            ->with('organization','ships')
+        return User::with('devices','organization','ships')
             ->find($Device->user_id);
     }
 
