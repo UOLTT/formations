@@ -102,8 +102,8 @@
                             <td>Administrator</td>
                             <td>
                                 <select id='orgAdmin' class="form-control">
-                                    @foreach(\App\User::where('organization_id',\Auth::user()->organization->id)->orderBy('name')->get(['id','name']) as $User)
-                                        <option value="{{ $User->id }}">{{ $User->name }}</option>
+                                    @foreach(\App\User::where('organization_id',\Auth::user()->organization->id)->orderBy('username')->get(['id','username']) as $User)
+                                        <option @if(\Auth::user()->organization->admin_user_id == $User->id) selected @endif value="{{ $User->id }}">{{ $User->username }}</option>
                                     @endforeach
                                 </select>
                             </td>
