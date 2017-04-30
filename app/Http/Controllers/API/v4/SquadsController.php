@@ -85,6 +85,7 @@ class SquadsController extends ApiController
             'fleet' => function($query) {
                 $query->with('status');
             },
+            'formation',
             'status',
             'users',
         ])->findOrFail($id);
